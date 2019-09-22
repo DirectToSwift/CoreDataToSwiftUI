@@ -294,9 +294,9 @@ extension FetchSpecification {
 internal let D2SFetchQueue = DispatchQueue(label: "de.zeezide.d2s.fetchqueue")
 
 
-fileprivate func buildInitialFetchSpec<Object: <NSManagedObject>>
+fileprivate func buildInitialFetchSpec<Object: NSManagedObject>
                    (for     dataSource : ActiveDataSource<Object>,
-                    auxiliaryQualifier : Qualifier?)
+                    auxiliaryQualifier : NSPredicate?)
                  -> ModelFetchSpecification
 {
   // all cases, kinda non-sense here

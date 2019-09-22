@@ -1,5 +1,7 @@
 # Transition TODOs
 
+- ModelFetchSpecification? FetchSpecification => FetchRequest?
+
 - managedobjects do not carry their entity? nah, they do
 
 - snapshot in managed objects, how? (and where?)
@@ -43,3 +45,4 @@
 
 - entity name is optional in CD
 
+- we might need to sort access to relationsships/attributesByName

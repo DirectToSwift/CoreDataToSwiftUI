@@ -42,28 +42,17 @@ public extension EntityD2S {
    * while also filterting the attributes for INT foreign keys.
    */
   var defaultAttributeAndRelationshipPropertyKeys : [ String ] {
-    let fkeys = intForeignKeys
-    
     // Note: It is a speciality of AR that we keep the IDs as class properties.
     //       That would not be the case for real, managed, EOs.
     // Here we want to keep the primary key for display, but drop all the
     // keys of the relationships.
-    if let names = entity.classPropertyNames?.filter({ !fkeys.contains($0) }) {
-      return names
-    }
-    
-    return entity.attributes   .map { $0.name }
-                               .filter { !fkeys.contains($0) }
-         + entity.relationships.map { $0.name }
+    return entity.properties.map { $0.name }
   }
   
   var defaultAttributeAndToOnePropertyKeys : [ String ] {
     var propertyKeys = entity.attributes.map { $0.name }
     
-    for rs in entity.relationships {
-      for fkey in rs.joins.compactMap({ $0.sourceName }) {
-        propertyKeys.removeAll(where: { $0 == fkey })
-      }
+    for rs in entity.relationshipsByName.values {
       if !rs.isToMany {
         propertyKeys.append(rs.name)
       }
@@ -72,41 +61,21 @@ public extension EntityD2S {
     return propertyKeys
   }
 
-  private func collectSpecialAttributeNames() -> Set<String> {
-    var excluded = Set<String>()
-    excluded.reserveCapacity(
-      entity.relationships.count + (entity.primaryKeyAttributeNames?.count ?? 0)
-    )
-    
-    // exclude all primary keys (TBD: restrict to Int?)
-    if let pkeys = entity.primaryKeyAttributeNames {
-      excluded.formUnion(pkeys)
-    }
-    excluded.formUnion(intForeignKeys)
-    return excluded
-  }
-  
   var defaultDisplayPropertyKeys : [ String ] {
     // Note: We do not sort but assume proper ordering
-    let excluded = collectSpecialAttributeNames()
-    
-    return entity.attributes.map { $0.name }.filter {
-      !excluded.contains($0)
-    }
+    return entity.attributes.map { $0.name }
   }
   
   var defaultSortPropertyKeys : [ String ] {
-    let fkeys = intForeignKeys
-    return entity.attributes.filter({ !fkeys.contains($0.name) })
-                            .map { $0.name }
+    return entity.attributes.map { $0.name }
   }
   
   private var intForeignKeys: Set<String> {
-    guard !entity.relationships.isEmpty else { return Set() }
+    guard !entity.relationshipsByName.isEmpty else { return Set() }
     var excluded = Set<String>()
     excluded.reserveCapacity(entity.relationships.count)
     
-    for relship in entity.relationships {
+    for relship in entity.relationshipsByName.values {
       for join in relship.joins {
         if let source = join.source {
           if source.valueType == Int.self {
