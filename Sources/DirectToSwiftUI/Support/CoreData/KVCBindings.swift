@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-public extension KeyValueCodingType where Self : MutableKeyValueCodingType {
+public extension KeyValueCodingType {
   
   func binding(_ key: String) -> Binding<Any?> {
     return KeyValueCoding.binding(key, for: self)
@@ -17,7 +17,9 @@ public extension KeyValueCodingType where Self : MutableKeyValueCodingType {
 
 public extension KeyValueCoding { // bindings for KVC keys
   
-  static func binding(_ key: String, for object: Any?) -> Binding<Any?> {
+  static func binding(_ key: String, for object: KeyValueCodingType?)
+              -> Binding<Any?>
+  {
     if let object = object {
       return Binding<Any?>(get: {
         KeyValueCoding.value(forKey: key, inObject: object)
