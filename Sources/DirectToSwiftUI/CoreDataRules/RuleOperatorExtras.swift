@@ -146,7 +146,7 @@ public func !==<Value>(lhs: Swift.KeyPath<RuleContext, Any?>, rhs: Value?)
 
 // e.g. \.user === nil (seems to be required to make it unambiguous)
 public func ===<Value>(lhs: Swift.KeyPath<RuleContext, Value?>, rhs: Value?)
-              -> some RulePredicate where Value : ActiveRecord
+              -> some RulePredicate where Value : NSManagedObject
 {
   RuleKeyPathPredicate<Value>() { ruleContext in
     guard let lhs = ruleContext[keyPath: lhs] else { return rhs == nil }
@@ -156,7 +156,7 @@ public func ===<Value>(lhs: Swift.KeyPath<RuleContext, Value?>, rhs: Value?)
 }
 // e.g. \.user !== nil (seems to be required to make it unambiguous)
 public func !==<Value>(lhs: Swift.KeyPath<RuleContext, Value?>, rhs: Value?)
-              -> some RulePredicate where Value : ActiveRecord
+              -> some RulePredicate where Value : NSManagedObject
 {
   RuleKeyPathPredicate<Value>() { ruleContext in
     guard let lhs = ruleContext[keyPath: lhs] else { return rhs != nil }

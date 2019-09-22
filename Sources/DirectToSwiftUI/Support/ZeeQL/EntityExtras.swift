@@ -114,9 +114,6 @@ extension NSEntityDescription {
 
 import struct Foundation.Decimal
 
-internal protocol AttributeValue {}
-// TODO: add stuff from ZeeQL?
-
 fileprivate extension AttributeValue {
   // FIXME: Move the 'type' to ZeeQL.AttributeValue itself.
   

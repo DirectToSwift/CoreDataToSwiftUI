@@ -46,7 +46,7 @@ public final class D2SDisplayGroup<Object: OActiveRecord>
       guard oldValue !== sortAttribute else { return }
       if let newValue = sortAttribute {
         self.fetchSpecification.sortOrderings = [
-          SortOrdering(key: newValue.name, selector: .CompareAscending)
+          NSSortDescriptor(key: newValue.name, selector: .CompareAscending)
         ]
       }
       else {

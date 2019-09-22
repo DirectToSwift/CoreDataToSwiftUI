@@ -21,15 +21,15 @@ public extension EntityD2S {
 
   var defaultTitle : String { return entity.name }
 
-  var defaultSortOrderings : [ SortOrdering ] {
+  var defaultSortOrderings : [ NSSortDescriptor ] {
     if let pkeys = entity.primaryKeyAttributeNames, !pkeys.isEmpty {
       return pkeys.map { pkey in
-        SortOrdering(key: pkey, selector: .CompareAscending)
+        NSSortDescriptor(key: pkey, selector: .CompareAscending)
       }
     }
     
     guard let firstAttribute = entity.attributes.first else { return [] }
-    return [SortOrdering(key: firstAttribute.name, selector: .CompareAscending)]
+    return [NSSortDescriptor(key: firstAttribute.name, selector: .CompareAscending)]
   }
   
   /**
