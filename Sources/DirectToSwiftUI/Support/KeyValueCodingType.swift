@@ -29,8 +29,8 @@ enum KeyValueCoding {
     guard let object = object else { return }
     object.setValue(value, forKeyPath: path)
   }
-  static func value(forKeyPath path: String, in object: KeyValueCodingType?)
-              -> Any?
+  static func value(forKeyPath path: String,
+                    inObject object: KeyValueCodingType?) -> Any?
   {
     guard let object = object else { return nil }
     return object.value(forKeyPath: path)

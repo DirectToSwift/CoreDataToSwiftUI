@@ -69,21 +69,4 @@ public extension EntityD2S {
   var defaultSortPropertyKeys : [ String ] {
     return entity.attributes.map { $0.name }
   }
-  
-  private var intForeignKeys: Set<String> {
-    guard !entity.relationshipsByName.isEmpty else { return Set() }
-    var excluded = Set<String>()
-    excluded.reserveCapacity(entity.relationships.count)
-    
-    for relship in entity.relationshipsByName.values {
-      for join in relship.joins {
-        if let source = join.source {
-          if source.valueType == Int.self {
-            excluded.insert(source.name)
-          }
-        }
-      }
-    }
-    return excluded
-  }
 }

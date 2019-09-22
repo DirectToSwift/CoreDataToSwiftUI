@@ -19,22 +19,6 @@ public extension NSEntityDescription {
 }
 
 public extension NSEntityDescription {
-
-  /**
-   * If name/extname differ, returns "Entity (Table)", if they are the same
-   * just "Entity".
-   */
-  var displayNameWithExternalName : String {
-    if let extName = self.externalName, !extName.isEmpty {
-      if extName != self.name {
-        return "\(self.name) (\(extName))"
-      }
-    }
-    return self.name
-  }
-}
-
-public extension NSEntityDescription {
   
   func lookupUserDatabaseProperties()
        -> ( login: NSAttributeDescription, password: NSAttributeDescription )?

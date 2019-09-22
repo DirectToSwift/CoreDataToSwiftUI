@@ -62,9 +62,9 @@
 		E8A2C80B23325698009F2E71 /* KVCBindings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C77523325698009F2E71 /* KVCBindings.swift */; };
 		E8A2C80C23325698009F2E71 /* KVCBindings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C77523325698009F2E71 /* KVCBindings.swift */; };
 		E8A2C80D23325698009F2E71 /* KVCBindings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C77523325698009F2E71 /* KVCBindings.swift */; };
-		E8A2C80E23325698009F2E71 /* ActiveRecordBindings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C77623325698009F2E71 /* ActiveRecordBindings.swift */; };
-		E8A2C80F23325698009F2E71 /* ActiveRecordBindings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C77623325698009F2E71 /* ActiveRecordBindings.swift */; };
-		E8A2C81023325698009F2E71 /* ActiveRecordBindings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C77623325698009F2E71 /* ActiveRecordBindings.swift */; };
+		E8A2C80E23325698009F2E71 /* ManagedObjectBindings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C77623325698009F2E71 /* ManagedObjectBindings.swift */; };
+		E8A2C80F23325698009F2E71 /* ManagedObjectBindings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C77623325698009F2E71 /* ManagedObjectBindings.swift */; };
+		E8A2C81023325698009F2E71 /* ManagedObjectBindings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C77623325698009F2E71 /* ManagedObjectBindings.swift */; };
 		E8A2C81123325698009F2E71 /* EntityExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C77723325698009F2E71 /* EntityExtras.swift */; };
 		E8A2C81223325698009F2E71 /* EntityExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C77723325698009F2E71 /* EntityExtras.swift */; };
 		E8A2C81323325698009F2E71 /* EntityExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C77723325698009F2E71 /* EntityExtras.swift */; };
@@ -338,6 +338,9 @@
 		E8D42FFF2337DAE500652366 /* EquatableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D42FFE2337DAE500652366 /* EquatableType.swift */; };
 		E8D430002337DAE500652366 /* EquatableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D42FFE2337DAE500652366 /* EquatableType.swift */; };
 		E8D430012337DAE500652366 /* EquatableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D42FFE2337DAE500652366 /* EquatableType.swift */; };
+		E8D43003233802B600652366 /* ComparisonOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D43002233802B600652366 /* ComparisonOperation.swift */; };
+		E8D43004233802B600652366 /* ComparisonOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D43002233802B600652366 /* ComparisonOperation.swift */; };
+		E8D43005233802B600652366 /* ComparisonOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D43002233802B600652366 /* ComparisonOperation.swift */; };
 		E8F4DF4A233255C40077B171 /* SwiftUIRules in Frameworks */ = {isa = PBXBuildFile; productRef = E8F4DF49233255C40077B171 /* SwiftUIRules */; };
 		E8F4DF5C233255F00077B171 /* SwiftUIRules in Frameworks */ = {isa = PBXBuildFile; productRef = E8F4DF52233255F00077B171 /* SwiftUIRules */; };
 		E8F4DF6D2332560E0077B171 /* SwiftUIRules in Frameworks */ = {isa = PBXBuildFile; productRef = E8F4DF632332560E0077B171 /* SwiftUIRules */; };
@@ -382,7 +385,7 @@
 		E8A2C77323325698009F2E71 /* DetailDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailDataSource.swift; sourceTree = "<group>"; };
 		E8A2C77423325698009F2E71 /* DummyImplementations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyImplementations.swift; sourceTree = "<group>"; };
 		E8A2C77523325698009F2E71 /* KVCBindings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVCBindings.swift; sourceTree = "<group>"; };
-		E8A2C77623325698009F2E71 /* ActiveRecordBindings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveRecordBindings.swift; sourceTree = "<group>"; };
+		E8A2C77623325698009F2E71 /* ManagedObjectBindings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedObjectBindings.swift; sourceTree = "<group>"; };
 		E8A2C77723325698009F2E71 /* EntityExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntityExtras.swift; sourceTree = "<group>"; };
 		E8A2C77823325698009F2E71 /* D2SEditValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = D2SEditValidation.swift; sourceTree = "<group>"; };
 		E8A2C77923325698009F2E71 /* Platform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
@@ -480,6 +483,7 @@
 		E8D42FF62337D4BE00652366 /* KeyValueCodingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueCodingType.swift; sourceTree = "<group>"; };
 		E8D42FFA2337DAB500652366 /* AttributeValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeValue.swift; sourceTree = "<group>"; };
 		E8D42FFE2337DAE500652366 /* EquatableType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquatableType.swift; sourceTree = "<group>"; };
+		E8D43002233802B600652366 /* ComparisonOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparisonOperation.swift; sourceTree = "<group>"; };
 		E8F4DF3B2332510C0077B171 /* libDirectToSwiftUI-Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libDirectToSwiftUI-Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8F4DF43233254CA0077B171 /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
 		E8F4DF44233254CA0077B171 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -558,10 +562,11 @@
 				E8D42FF62337D4BE00652366 /* KeyValueCodingType.swift */,
 				E8D42FFA2337DAB500652366 /* AttributeValue.swift */,
 				E8D42FFE2337DAE500652366 /* EquatableType.swift */,
+				E8D43002233802B600652366 /* ComparisonOperation.swift */,
+				E8D42FF22337C84500652366 /* Logger.swift */,
 				E8A2C77023325698009F2E71 /* CoreData */,
 				E8A2C77A23325698009F2E71 /* AppKit */,
 				E8A2C77F23325698009F2E71 /* SwiftUI */,
-				E8D42FF22337C84500652366 /* Logger.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -574,7 +579,7 @@
 				E8A2C77323325698009F2E71 /* DetailDataSource.swift */,
 				E8A2C77423325698009F2E71 /* DummyImplementations.swift */,
 				E8A2C77523325698009F2E71 /* KVCBindings.swift */,
-				E8A2C77623325698009F2E71 /* ActiveRecordBindings.swift */,
+				E8A2C77623325698009F2E71 /* ManagedObjectBindings.swift */,
 				E8A2C77723325698009F2E71 /* EntityExtras.swift */,
 				E8A2C77823325698009F2E71 /* D2SEditValidation.swift */,
 			);
@@ -993,6 +998,7 @@
 				E8A2C82623325698009F2E71 /* FormatterBinding.swift in Sources */,
 				E8A2C7F323325698009F2E71 /* D2SFault.swift in Sources */,
 				E8A2C8B923325699009F2E71 /* EntityList.swift in Sources */,
+				E8D43003233802B600652366 /* ComparisonOperation.swift in Sources */,
 				E8A2C7F923325698009F2E71 /* DefaultRules.swift in Sources */,
 				E8A2C90723325699009F2E71 /* D2SDebugLabel.swift in Sources */,
 				E8A2C84123325698009F2E71 /* ContextKVC.swift in Sources */,
@@ -1077,7 +1083,7 @@
 				E8A2C88023325699009F2E71 /* PropertyValue.swift in Sources */,
 				E8A2C81423325698009F2E71 /* D2SEditValidation.swift in Sources */,
 				E8A2C80823325698009F2E71 /* DummyImplementations.swift in Sources */,
-				E8A2C80E23325698009F2E71 /* ActiveRecordBindings.swift in Sources */,
+				E8A2C80E23325698009F2E71 /* ManagedObjectBindings.swift in Sources */,
 				E8A2C8AD23325699009F2E71 /* DisplayToOneTitle.swift in Sources */,
 				E8D42FF72337D4BE00652366 /* KeyValueCodingType.swift in Sources */,
 				E8A2C7F623325698009F2E71 /* D2SRuleEnvironment.swift in Sources */,
@@ -1105,6 +1111,7 @@
 				E8A2C82723325698009F2E71 /* FormatterBinding.swift in Sources */,
 				E8A2C7F423325698009F2E71 /* D2SFault.swift in Sources */,
 				E8A2C8BA23325699009F2E71 /* EntityList.swift in Sources */,
+				E8D43004233802B600652366 /* ComparisonOperation.swift in Sources */,
 				E8A2C7FA23325698009F2E71 /* DefaultRules.swift in Sources */,
 				E8A2C90823325699009F2E71 /* D2SDebugLabel.swift in Sources */,
 				E8A2C84223325698009F2E71 /* ContextKVC.swift in Sources */,
@@ -1189,7 +1196,7 @@
 				E8A2C88123325699009F2E71 /* PropertyValue.swift in Sources */,
 				E8A2C81523325698009F2E71 /* D2SEditValidation.swift in Sources */,
 				E8A2C80923325698009F2E71 /* DummyImplementations.swift in Sources */,
-				E8A2C80F23325698009F2E71 /* ActiveRecordBindings.swift in Sources */,
+				E8A2C80F23325698009F2E71 /* ManagedObjectBindings.swift in Sources */,
 				E8A2C8AE23325699009F2E71 /* DisplayToOneTitle.swift in Sources */,
 				E8D42FF82337D4BE00652366 /* KeyValueCodingType.swift in Sources */,
 				E8A2C7F723325698009F2E71 /* D2SRuleEnvironment.swift in Sources */,
@@ -1217,6 +1224,7 @@
 				E8A2C82823325698009F2E71 /* FormatterBinding.swift in Sources */,
 				E8A2C7F523325698009F2E71 /* D2SFault.swift in Sources */,
 				E8A2C8BB23325699009F2E71 /* EntityList.swift in Sources */,
+				E8D43005233802B600652366 /* ComparisonOperation.swift in Sources */,
 				E8A2C7FB23325698009F2E71 /* DefaultRules.swift in Sources */,
 				E8A2C90923325699009F2E71 /* D2SDebugLabel.swift in Sources */,
 				E8A2C84323325698009F2E71 /* ContextKVC.swift in Sources */,
@@ -1301,7 +1309,7 @@
 				E8A2C88223325699009F2E71 /* PropertyValue.swift in Sources */,
 				E8A2C81623325698009F2E71 /* D2SEditValidation.swift in Sources */,
 				E8A2C80A23325698009F2E71 /* DummyImplementations.swift in Sources */,
-				E8A2C81023325698009F2E71 /* ActiveRecordBindings.swift in Sources */,
+				E8A2C81023325698009F2E71 /* ManagedObjectBindings.swift in Sources */,
 				E8A2C8AF23325699009F2E71 /* DisplayToOneTitle.swift in Sources */,
 				E8D42FF92337D4BE00652366 /* KeyValueCodingType.swift in Sources */,
 				E8A2C7F823325698009F2E71 /* D2SRuleEnvironment.swift in Sources */,

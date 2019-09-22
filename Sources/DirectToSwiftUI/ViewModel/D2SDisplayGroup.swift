@@ -59,8 +59,8 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
   internal let dataSource         : ActiveDataSource<Object>
   private  let batchCount         : Int
   
-  private  var auxiliaryQualifier : Qualifier? = nil
-  private  var fetchSpecification : ModelFetchSpecification {
+  private  var auxiliaryQualifier : NSPredicate? = nil
+  private  var fetchSpecification : NSFetch {
     didSet { setNeedsRefetch() }
   }
   
@@ -69,7 +69,7 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
     // Not using @Published because we want a _didset_
   
   public init(dataSource: ActiveDataSource<Object>,
-              auxiliaryQualifier: Qualifier? = nil,
+              auxiliaryQualifier: NSPredicate? = nil,
               displayPropertyKeys: [ String ]? = nil,
               batchCount: Int = 20)
   {

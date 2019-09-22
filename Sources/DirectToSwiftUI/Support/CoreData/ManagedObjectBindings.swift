@@ -8,19 +8,17 @@
 import SwiftUI
 import CoreData
 
+public extension NSManagedObject {
+  
+  var isNew    : Bool { objectID.isTemporaryID } // TBD?
+  var globalID : NSManagedObjectID { objectID }
+}
+
 extension NSManagedObject: Identifiable {
   
   // TODO: use the pkey/GID instead. This uses the ObjectIdentifier.
   
-  public enum ID: Hashable {
-    case globalID(GlobalID)
-    case identity(ObjectIdentifier)
-  }
-
-  public var id: ID {
-    if let globalID = self.globalID { return .globalID(globalID) }
-    else { return .identity(ObjectIdentifier(self)) }
-  }
+  public var id: NSManagedObjectID { objectID }
 }
 
 public extension NSManagedObject {
