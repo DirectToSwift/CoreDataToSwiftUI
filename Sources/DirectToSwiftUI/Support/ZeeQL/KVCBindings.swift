@@ -23,14 +23,7 @@ public extension KeyValueCoding { // bindings for KVC keys
         KeyValueCoding.value(forKey: key, inObject: object)
       }) {
         newValue in
-        do {
-          try KeyValueCoding.takeValue(newValue, forKey: key, inObject: object)
-        }
-        catch {
-          globalD2SLogger.error("failed to take value for binding:",
-                                key, "\n", "  on:", object, "\n", error)
-          assertionFailure("failed to take value for binding: \(key)")
-        }
+        KeyValueCoding.setValue(newValue, forKey: key, inObject: object)
       }
     }
     else {
@@ -41,22 +34,10 @@ public extension KeyValueCoding { // bindings for KVC keys
     }
   }
   
-  static func binding(_ key: String,
-                for object: KeyValueCodingType & MutableKeyValueCodingType)
+  static func binding(_ key: String, for object: KeyValueCodingType)
               -> Binding<Any?>
   {
-    return Binding<Any?>(get: {
-      object.value(forKey: key)
-    }) {
-      newValue in
-      do {
-        try object.takeValue(newValue, forKey: key)
-      }
-      catch {
-        globalD2SLogger.error("failed to take value for binding:",
-                              key, "\n", "  on:", object, "\n", error)
-        assertionFailure("failed to take value for binding: \(key)")
-      }
-    }
+    return Binding<Any?>(get: { object.value(forKey: key) },
+                         set: { object.setValue($0, forKey: key) })
   }
 }

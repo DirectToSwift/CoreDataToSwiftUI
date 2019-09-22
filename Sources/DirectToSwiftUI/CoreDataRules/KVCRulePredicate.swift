@@ -11,9 +11,9 @@ import struct   SwiftUIRules.RuleContext
 
 extension NSPredicate : RulePredicate {
 
-  func evaluate(in ruleContext: RuleContext) -> Bool {
-    // FIXME
-    return evaluateWith(object: ruleContext)
+  public func evaluate(in ruleContext: RuleContext) -> Bool {
+    // FIXME: need to wrap ruleContext in KVC trampoline
+    evaluate(with: ruleContext)
   }
   
 }
@@ -23,7 +23,7 @@ extension NSPredicate : RulePredicate {
 
 extension NSCompoundPredicate {  
   public var rulePredicateComplexity : Int {
-    return qualifiers.reduce(0) {
+    return subpredicates.reduce(0) {
       let complexity = ($1 as? RulePredicate)?.rulePredicateComplexity ?? 1
       return $0 + complexity
     }
@@ -33,18 +33,16 @@ extension NSCompoundPredicate {
 public extension SwiftUIRules.RuleComparisonOperation {
   
   init?(_ op: NSComparisonPredicate.Operator) {
-    // FIX case in ZeeQL, which is quite hard as the cases can't be
-    // deprecated & aliased?
     switch op {
-      case .Unknown, .Contains, .Like, .CaseInsensitiveLike,
-           .SQLLike, .SQLCaseInsensitiveLike:
+      case .matches, .like, .beginsWith, .endsWith,
+           .`in`, .customSelector, .contains, .between:
         return nil
-      case .EqualTo:            self = .equal
-      case .NotEqualTo:         self = .notEqual
-      case .GreaterThan:        self = .greaterThan
-      case .GreaterThanOrEqual: self = .greaterThanOrEqual
-      case .LessThan:           self = .lessThan
-      case .LessThanOrEqual:    self = .lessThanOrEqual
+      case .equalTo:              self = .equal
+      case .notEqualTo:           self = .notEqual
+      case .greaterThan:          self = .greaterThan
+      case .greaterThanOrEqualTo: self = .greaterThanOrEqual
+      case .lessThan:             self = .lessThan
+      case .lessThanOrEqualTo:    self = .lessThanOrEqual
     }
   }
 }
@@ -53,13 +51,12 @@ public extension NSComparisonPredicate.Operator {
   
   init(_ op: SwiftUIRules.RuleComparisonOperation) {
     switch op {
-      case .equal:              self = .EqualTo
-      case .notEqual:           self = .NotEqualTo
-      case .lessThan:           self = .LessThan
-      case .greaterThan:        self = .GreaterThan
-      case .lessThanOrEqual:    self = .LessThanOrEqual
-      case .greaterThanOrEqual: self = .GreaterThanOrEqual
+      case .equal:              self = .equalTo
+      case .notEqual:           self = .notEqualTo
+      case .lessThan:           self = .lessThan
+      case .greaterThan:        self = .greaterThan
+      case .lessThanOrEqual:    self = .lessThanOrEqualTo
+      case .greaterThanOrEqual: self = .greaterThanOrEqualTo
     }
   }
-  
 }

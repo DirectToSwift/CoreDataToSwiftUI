@@ -28,7 +28,7 @@ public extension BasicLook.Property.Edit {
     @Environment(\.attribute)              public  var attribute
     @Environment(\.displayNameForProperty) private var label
 
-    private var isOptional : Bool { attribute.allowsNull ?? true }
+    private var isOptional : Bool { attribute.isOptional }
     
     private var isNull : Bool {
       !(propertyValue is Date)
@@ -37,10 +37,10 @@ public extension BasicLook.Property.Edit {
     private func setNull(_ wantsValue: Bool) {
       if wantsValue {
         let storedDate = object.snapshot?[propertyKey] as? Date
-        object.nonFailingTakeValue(storedDate ?? Date(), forKeyPath: propertyKey)
+        object.setValue(storedDate ?? Date(), forKeyPath: propertyKey)
       }
       else {
-        object.nonFailingTakeValue(nil, forKeyPath: propertyKey)
+        object.setValue(nil, forKeyPath: propertyKey)
       }
     }
     

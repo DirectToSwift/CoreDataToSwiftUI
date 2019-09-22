@@ -167,14 +167,14 @@ extension NSManagedObject {
   {
     do {
       guard let destination = destination else {
-        try takeValue(nil, forKey: relationship.name)
+        setValue(nil, forKey: relationship.name)
         for join in relationship.joins {
           guard let sourceName = join.source?.name ?? join.sourceName else {
             globalD2SLogger.error("unexpected join:", join, relationship)
             assertionFailure("unexpected join: \(join)")
             continue
           }
-          try takeValue(nil, forKey: sourceName)
+          setValue(nil, forKey: sourceName)
         }
         return
       }
@@ -189,10 +189,10 @@ extension NSManagedObject {
         }
         
         if let destName = join.destination?.name ?? join.destinationName {
-          try takeValue(destination.value(forKey: destName), forKey: sourceName)
+          setValue(destination.value(forKey: destName), forKey: sourceName)
         }
         else {
-          try takeValue(nil, forKey: sourceName)
+          setValue(nil, forKey: sourceName)
         }
       }
     }

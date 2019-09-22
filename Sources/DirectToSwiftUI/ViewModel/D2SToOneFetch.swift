@@ -45,7 +45,7 @@ public final class D2SToOneFetch: ObservableObject {
       }
       .sink { newValue in
         // Update the AR. This is a little meh, but avoids continuous fetches.
-        self.object.takeValue(newValue, forKeyPath: self.propertyKey)
+        self.object.setValue(newValue, forKeyPath: self.propertyKey)
         self.destination = newValue
       }
   }

@@ -19,18 +19,17 @@ public extension NSAttributeDescription {
   // TODO: Check width and such.
   // TODO: Belongs into ZeeQL (and should also be called by AR)
   
-  func validateForInsert(_ object: AnyObject?) -> Bool {
+  func validateForInsert(_ object: KeyValueCodingType?) -> Bool {
     guard let object = object else { return false }
-    let nullable = allowsNull ?? true
+    let nullable = isOptional ?? true
     if !nullable, KeyValueCoding.value(forKey: name, inObject: object) == nil {
-      let isAutoIncrement = self.isAutoIncrement ?? false
-      if !isAutoIncrement { return false }
+      return false
     }
     return true
   }
-  func validateForUpdate(_ object: AnyObject?) -> Bool {
+  func validateForUpdate(_ object: KeyValueCodingType?) -> Bool {
     guard let object = object else { return false }
-    let nullable = allowsNull ?? true
+    let nullable = isOptional ?? true
     if !nullable, KeyValueCoding.value(forKey: name, inObject: object) == nil {
       return false
     }
@@ -40,35 +39,16 @@ public extension NSAttributeDescription {
 
 public extension NSRelationshipDescription {
   
-  func validateForInsert(_ object: AnyObject?) -> Bool {
+  func validateForInsert(_ object: KeyValueCodingType?) -> Bool {
     return validateForUpdate(object)
   }
   
-  func validateForUpdate(_ object: AnyObject?) -> Bool {
+  func validateForUpdate(_ object: KeyValueCodingType?) -> Bool {
     guard let object = object else { return false }
-    if !isMandatory { return true }
+    if isOptional { return true }
     
     let target = KeyValueCoding.value(forKeyPath: name, inObject: object)
-    if target != nil { return true } // relationship is available
-    
-    // Note: The full object might not be fetched, but we could still have the
-    //       relevant foreign key set!
-
-    var hadValidJoin = false
-    for join in joins {
-      guard let name = join.sourceName ?? join.source?.name else {
-        assertionFailure("join w/o name")
-        return true // let DB deal w/ it
-      }
-      
-      // technically we would need to check whether the attribute is nullable
-      // or not for compound keys (/ and also validate the attribute)
-      if KeyValueCoding.value(forKeyPath: name, inObject: object) != nil {
-        hadValidJoin = true
-        break
-      }
-    }
-    return hadValidJoin
+    return target != nil
   }
 }
 

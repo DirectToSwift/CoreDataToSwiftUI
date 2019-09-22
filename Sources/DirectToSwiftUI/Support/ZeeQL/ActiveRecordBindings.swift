@@ -54,10 +54,10 @@ public extension ActiveRecord {
 
 }
 
-internal extension ActiveRecord {
+internal extension NSManagedObject {
   
   func takeStringValue(_ value: String?, forKeyPath key: String) {
-    nonFailingTakeValue(coerceString(value, forKey: key), forKeyPath: key)
+    setValue(coerceString(value, forKey: key), forKeyPath: key)
   }
   func stringValue(for key: String) -> String {
     guard let v = KeyValueCoding.value(forKeyPath: key, inObject: self) else {
@@ -67,7 +67,7 @@ internal extension ActiveRecord {
   }
   
   func takeDateValue(_ value: Date?, forKeyPath key: String) {
-    nonFailingTakeValue(coerceDate(value, forKey: key), forKeyPath: key)
+    setValue(coerceDate(value, forKey: key), forKeyPath: key)
   }
   func dateValue(for key: String) -> Date? {
     guard let v = KeyValueCoding.value(forKeyPath: key, inObject: self) else {
@@ -77,7 +77,7 @@ internal extension ActiveRecord {
   }
   
   func takeBoolValue(_ value: Bool?, forKeyPath key: String) {
-    nonFailingTakeValue(coerceBool(value, forKey: key), forKeyPath: key)
+    setValue(coerceBool(value, forKey: key), forKeyPath: key)
   }
   func boolValue(for key: String) -> Bool? {
     guard let v = KeyValueCoding.value(forKeyPath: key, inObject: self) else {
@@ -89,7 +89,7 @@ internal extension ActiveRecord {
 
 // TBD: This really belongs into KVC itself?! Coercion, value transfomers.
 
-internal extension ActiveRecord {
+internal extension NSManagedObject {
   
   func coerceValueToString(_ value: Any?, formatter: Formatter?,
                            forKey key: String) -> String
@@ -243,20 +243,5 @@ internal extension ActiveRecord {
     }
     
     return (try? logError()) ?? nil
-  }
-}
-
-internal extension ActiveRecord {
-  
-  func nonFailingTakeValue(_ newValue: Any?, forKeyPath kp: String) {
-    do {
-      try KeyValueCoding.takeValue(newValue, forKeyPath: kp, inObject: self)
-    }
-    catch {
-      globalD2SLogger.error("failed to take value for key:", kp, "\n",
-                            "  on:   ", self, "\n",
-                            "  error:", error)
-      assertionFailure("failed to take value for key: \(kp)")
-    }
   }
 }

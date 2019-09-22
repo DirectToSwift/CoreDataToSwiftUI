@@ -125,7 +125,7 @@ public extension BasicLook.Page.UIKit {
       private func makeNewRecord() -> NSManagedObject {
         let object = displayGroup.dataSource.createObject()
         for ( k, v ) in initialPropertyValues {
-          object.takeValue(v, forKeyPath: k)
+          object.setValue(v, forKeyPath: k)
         }
         return object
       }

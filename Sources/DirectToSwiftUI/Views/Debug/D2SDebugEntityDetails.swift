@@ -28,16 +28,6 @@ public struct D2SDebugEntityDetails: View {
           }
           attribute.externalType.map { Text(verbatim: $0) }
           attribute.valueType   .map { Text(verbatim: String(describing: $0)) }
-          /*
-          var allowsNull      : Bool?   { get }
-          var isAutoIncrement : Bool?   { get }
-          var width           : Int?    { get }
-          var precision       : Int?    { get }
-
-          // formatting (used by SQLExpression)
-          var readFormat      : String? { get }
-          var writeFormat     : String? { get }
-           */
         }
         .frame(maxWidth: .infinity)
         .padding(EdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 0))

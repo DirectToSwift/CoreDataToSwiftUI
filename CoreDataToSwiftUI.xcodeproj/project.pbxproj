@@ -329,6 +329,9 @@
 		E8D42FF32337C84500652366 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D42FF22337C84500652366 /* Logger.swift */; };
 		E8D42FF42337C84500652366 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D42FF22337C84500652366 /* Logger.swift */; };
 		E8D42FF52337C84500652366 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D42FF22337C84500652366 /* Logger.swift */; };
+		E8D42FF72337D4BE00652366 /* KeyValueCodingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D42FF62337D4BE00652366 /* KeyValueCodingType.swift */; };
+		E8D42FF82337D4BE00652366 /* KeyValueCodingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D42FF62337D4BE00652366 /* KeyValueCodingType.swift */; };
+		E8D42FF92337D4BE00652366 /* KeyValueCodingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D42FF62337D4BE00652366 /* KeyValueCodingType.swift */; };
 		E8F4DF4A233255C40077B171 /* SwiftUIRules in Frameworks */ = {isa = PBXBuildFile; productRef = E8F4DF49233255C40077B171 /* SwiftUIRules */; };
 		E8F4DF5C233255F00077B171 /* SwiftUIRules in Frameworks */ = {isa = PBXBuildFile; productRef = E8F4DF52233255F00077B171 /* SwiftUIRules */; };
 		E8F4DF6D2332560E0077B171 /* SwiftUIRules in Frameworks */ = {isa = PBXBuildFile; productRef = E8F4DF632332560E0077B171 /* SwiftUIRules */; };
@@ -468,6 +471,7 @@
 		E8D42FED2337C0E200652366 /* ZeeQLAliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeeQLAliases.swift; sourceTree = "<group>"; };
 		E8D42FF12337C2AA00652366 /* TRANSITION.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TRANSITION.md; sourceTree = "<group>"; };
 		E8D42FF22337C84500652366 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		E8D42FF62337D4BE00652366 /* KeyValueCodingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueCodingType.swift; sourceTree = "<group>"; };
 		E8F4DF3B2332510C0077B171 /* libDirectToSwiftUI-Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libDirectToSwiftUI-Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8F4DF43233254CA0077B171 /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
 		E8F4DF44233254CA0077B171 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -543,6 +547,7 @@
 				E8A2C77923325698009F2E71 /* Platform.swift */,
 				E8A2C77D23325698009F2E71 /* Hashes.swift */,
 				E8A2C77E23325698009F2E71 /* FoundationExtras.swift */,
+				E8D42FF62337D4BE00652366 /* KeyValueCodingType.swift */,
 				E8A2C77023325698009F2E71 /* ZeeQL */,
 				E8A2C77A23325698009F2E71 /* AppKit */,
 				E8A2C77F23325698009F2E71 /* SwiftUI */,
@@ -1062,6 +1067,7 @@
 				E8A2C80823325698009F2E71 /* DummyImplementations.swift in Sources */,
 				E8A2C80E23325698009F2E71 /* ActiveRecordBindings.swift in Sources */,
 				E8A2C8AD23325699009F2E71 /* DisplayToOneTitle.swift in Sources */,
+				E8D42FF72337D4BE00652366 /* KeyValueCodingType.swift in Sources */,
 				E8A2C7F623325698009F2E71 /* D2SRuleEnvironment.swift in Sources */,
 				E8A2C84D23325698009F2E71 /* RuleKeyPathPredicateExtras.swift in Sources */,
 				E8A2C85023325698009F2E71 /* ZeeQLRuleParser.swift in Sources */,
@@ -1171,6 +1177,7 @@
 				E8A2C80923325698009F2E71 /* DummyImplementations.swift in Sources */,
 				E8A2C80F23325698009F2E71 /* ActiveRecordBindings.swift in Sources */,
 				E8A2C8AE23325699009F2E71 /* DisplayToOneTitle.swift in Sources */,
+				E8D42FF82337D4BE00652366 /* KeyValueCodingType.swift in Sources */,
 				E8A2C7F723325698009F2E71 /* D2SRuleEnvironment.swift in Sources */,
 				E8A2C84E23325698009F2E71 /* RuleKeyPathPredicateExtras.swift in Sources */,
 				E8A2C85123325698009F2E71 /* ZeeQLRuleParser.swift in Sources */,
@@ -1280,6 +1287,7 @@
 				E8A2C80A23325698009F2E71 /* DummyImplementations.swift in Sources */,
 				E8A2C81023325698009F2E71 /* ActiveRecordBindings.swift in Sources */,
 				E8A2C8AF23325699009F2E71 /* DisplayToOneTitle.swift in Sources */,
+				E8D42FF92337D4BE00652366 /* KeyValueCodingType.swift in Sources */,
 				E8A2C7F823325698009F2E71 /* D2SRuleEnvironment.swift in Sources */,
 				E8A2C84F23325698009F2E71 /* RuleKeyPathPredicateExtras.swift in Sources */,
 				E8A2C85223325698009F2E71 /* ZeeQLRuleParser.swift in Sources */,
