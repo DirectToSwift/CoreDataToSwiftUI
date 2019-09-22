@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import class ZeeQLCombine.OActiveRecord
 
 /**
  * This asynchronously fetches the toOne relationship target of the
@@ -19,7 +18,7 @@ import class ZeeQLCombine.OActiveRecord
  */
 public struct D2SToOneContainer<Content: View, Placeholder: View>: View {
   
-  @EnvironmentObject private var object : OActiveRecord
+  @EnvironmentObject private var object : NSManagedObject
   @Environment(\.propertyKey) private var propertyKey
   
   private let content        : Content
@@ -58,7 +57,7 @@ public struct D2SToOneContainer<Content: View, Placeholder: View>: View {
     #if os(macOS)
       @Environment(\.ruleContext) private var ruleContext
     
-      private func handleDoubleClick(on object: OActiveRecord) {
+      private func handleDoubleClick(on object: NSManagedObject) {
         let view = D2SPageView()
           .ruleObject(object)
           .ruleContext(ruleContext)

@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import class ZeeQLCombine.OActiveRecord
-import class ZeeQLCombine.ActiveDataSource
 
 public extension BasicLook.Page.UIKit {
 
@@ -32,11 +30,11 @@ public extension BasicLook.Page.UIKit {
     @Environment(\.auxiliaryQualifier)  private var auxiliaryQualifier
     @Environment(\.displayPropertyKeys) private var displayPropertyKeys
     @Environment(\.relationship)        private var relationship
-    @EnvironmentObject                  private var sourceObject : OActiveRecord
+    @EnvironmentObject private var sourceObject : NSManagedObject
 
     public init() {}
 
-    private func makeDisplayGroup() -> D2SDisplayGroup<OActiveRecord> {
+    private func makeDisplayGroup() -> D2SDisplayGroup<NSManagedObject> {
       return D2SDisplayGroup(
         dataSource          : ActiveDataSource(database: db, entity: entity),
         auxiliaryQualifier  : auxiliaryQualifier,
@@ -60,12 +58,12 @@ public extension BasicLook.Page.UIKit {
       }
     }
 
-    struct SingleSelect<Object: OActiveRecord>: View {
+    struct SingleSelect<Object: NSManagedObject>: View {
 
       typealias Fault = D2SFault<Object, D2SDisplayGroup<Object>>
 
       @ObservedObject var displayGroup : D2SDisplayGroup<Object>
-      @ObservedObject var sourceObject : OActiveRecord
+      @ObservedObject var sourceObject : NSManagedObject
       
       @Environment(\.relationship)     private var relationship
 
@@ -78,12 +76,13 @@ public extension BasicLook.Page.UIKit {
       @State var isShowingError = false
       
       init(displayGroup : D2SDisplayGroup<Object>,
-           sourceObject : OActiveRecord,
+           sourceObject : NSManagedObject,
            initialID    : JoinTargetID?)
       {
         self.displayGroup = displayGroup
         self.sourceObject = sourceObject
-        self._selectedID  = State(initialValue: initialID.flatMap({.object($0)}))
+        self._selectedID  =
+          State(initialValue: initialID.flatMap({.object($0)}))
       }
       
       private func id(for object: Object) -> FaultJoinIDWrap.ID {

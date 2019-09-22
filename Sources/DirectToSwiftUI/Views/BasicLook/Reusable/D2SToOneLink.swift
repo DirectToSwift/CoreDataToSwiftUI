@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import class ZeeQLCombine.OActiveRecord
 
 /**
  * This asynchronously fetches the toOne relationship target of the
@@ -27,7 +26,7 @@ public struct D2SToOneLink<Content: View, Placeholder: View>: View {
   // TBD: can this reuse D2SToOneContainer?
   //      Probably doable.
   
-  @EnvironmentObject private var object : OActiveRecord
+  @EnvironmentObject private var object : NSManagedObject
   @Environment(\.propertyKey) private var propertyKey
   
   private let content        : Content
@@ -57,7 +56,7 @@ public struct D2SToOneLink<Content: View, Placeholder: View>: View {
     private let placeholder    : AnyView
     private let navigationTask : String
 
-    init(object: OActiveRecord, propertyKey: String,
+    init(object: NSManagedObject, propertyKey: String,
          navigationTask: String, placeholder: Placeholder, content: Content)
     {
       self.content        = AnyView(content)
@@ -66,14 +65,14 @@ public struct D2SToOneLink<Content: View, Placeholder: View>: View {
       self.fetch = D2SToOneFetch(object: object, propertyKey: propertyKey)
     }
     
-    private var targetObject: OActiveRecord? {
+    private var targetObject: NSManagedObject? {
       fetch.destination
     }
 
     #if os(macOS)
       @Environment(\.ruleContext) private var ruleContext
     
-      private func handleDoubleClick(on object: OActiveRecord) {
+      private func handleDoubleClick(on object: NSManagedObject) {
         let view = D2SPageView()
           .task(navigationTask)
           .ruleObject(object)

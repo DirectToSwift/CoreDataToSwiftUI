@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import class ZeeQLCombine.OActiveRecord
-import class ZeeQLCombine.ActiveDataSource
 
 public extension BasicLook.Page.UIKit {
 
@@ -32,7 +30,7 @@ public extension BasicLook.Page.UIKit {
 
     public init() {}
 
-    private func makeDisplayGroup() -> D2SDisplayGroup<OActiveRecord> {
+    private func makeDisplayGroup() -> D2SDisplayGroup<NSManagedObject> {
       return D2SDisplayGroup(
         dataSource          : ActiveDataSource(database: db, entity: entity),
         auxiliaryQualifier  : auxiliaryQualifier,
@@ -68,7 +66,7 @@ public extension BasicLook.Page.UIKit {
              + [ .cancel { self.displayGroup.sortAttribute = nil } ]
       }
       
-      struct RowFaultView<Object: OActiveRecord>: View {
+      struct RowFaultView<Object: NSManagedObject>: View {
       
         final class ActionModel: ObservableObject {
           @Published var action = D2SObjectAction.nextTask {
@@ -124,10 +122,10 @@ public extension BasicLook.Page.UIKit {
         }
       }
       
-      private func makeNewRecord() -> OActiveRecord {
+      private func makeNewRecord() -> NSManagedObject {
         let object = displayGroup.dataSource.createObject()
         for ( k, v ) in initialPropertyValues {
-          try? KeyValueCoding.takeValue(v, forKeyPath: k, inObject: object)
+          object.takeValue(v, forKeyPath: k)
         }
         return object
       }

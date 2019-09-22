@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import class ZeeQLCombine.OActiveRecord
-import class ZeeQLCombine.ActiveDataSource
 
 public extension BasicLook.Page {
   /**
@@ -25,21 +23,24 @@ public extension BasicLook.Page {
     
     public init() {}
 
-    private func makeDataSource() -> ActiveDataSource<OActiveRecord> {
+    private func makeDataSource() -> ActiveDataSource<NSManagedObject> {
       return ActiveDataSource(database: database, entity: entity)
     }
     
     public var body: some View {
-      Bound(dataSource: makeDataSource(), auxiliaryQualifier: auxiliaryQualifier)
+      Bound(dataSource: makeDataSource(),
+            auxiliaryQualifier: auxiliaryQualifier)
         .environment(\.auxiliaryQualifier, nil) // reset!
     }
 
-    struct Bound<Object: OActiveRecord>: View {
+    struct Bound<Object: NSManagedObject>: View {
 
       // This seems to crash on macOS b7
       @ObservedObject private var displayGroup : D2SDisplayGroup<Object>
       
-      init(dataSource: ActiveDataSource<Object>, auxiliaryQualifier: Qualifier?) {
+      init(dataSource: ActiveDataSource<Object>,
+           auxiliaryQualifier: NSPredicate?)
+      {
         self.displayGroup = D2SDisplayGroup(
           dataSource: dataSource,
           auxiliaryQualifier: auxiliaryQualifier

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import class ZeeQLCombine.OActiveRecord
 
 public extension BasicLook.Page {
   
@@ -21,7 +20,7 @@ public extension BasicLook.Page {
     struct Content: View {
       
       @Environment(\.debugComponent) private var debugComponent
-      @EnvironmentObject private var object : ZeeQLCombine.OActiveRecord
+      @EnvironmentObject private var object : NSManagedObject
       
       #if os(iOS) // do not use Form on iOS
         public var body: some View {
@@ -47,7 +46,7 @@ public extension BasicLook.Page {
     #if os(iOS)
       struct ContentWithNavigationBar: View {
         
-        @EnvironmentObject private var object : OActiveRecord
+        @EnvironmentObject private var object : NSManagedObject
 
         @Environment(\.presentationMode) private var presentationMode
         
@@ -92,7 +91,8 @@ public extension BasicLook.Page {
           if object.isNew {
             return Alert(title: Text("Create Failed"),
                          message: Text(errorMessage),
-                         dismissButton: .default(Text("Retry"), action: self.save)
+                         dismissButton: .default(Text("Retry"),
+                                                 action: self.save)
             )
           }
           else {

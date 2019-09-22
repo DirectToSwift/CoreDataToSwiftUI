@@ -92,15 +92,15 @@
 		E8A2C82923325698009F2E71 /* D2STransformingFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C78123325698009F2E71 /* D2STransformingFormatter.swift */; };
 		E8A2C82A23325698009F2E71 /* D2STransformingFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C78123325698009F2E71 /* D2STransformingFormatter.swift */; };
 		E8A2C82B23325698009F2E71 /* D2STransformingFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C78123325698009F2E71 /* D2STransformingFormatter.swift */; };
-		E8A2C82C23325698009F2E71 /* ActiveRecordDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C78423325698009F2E71 /* ActiveRecordDefaults.swift */; };
-		E8A2C82D23325698009F2E71 /* ActiveRecordDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C78423325698009F2E71 /* ActiveRecordDefaults.swift */; };
-		E8A2C82E23325698009F2E71 /* ActiveRecordDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C78423325698009F2E71 /* ActiveRecordDefaults.swift */; };
+		E8A2C82C23325698009F2E71 /* ManagedObjectDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C78423325698009F2E71 /* ManagedObjectDefaults.swift */; };
+		E8A2C82D23325698009F2E71 /* ManagedObjectDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C78423325698009F2E71 /* ManagedObjectDefaults.swift */; };
+		E8A2C82E23325698009F2E71 /* ManagedObjectDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C78423325698009F2E71 /* ManagedObjectDefaults.swift */; };
 		E8A2C82F23325698009F2E71 /* EntityDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C78523325698009F2E71 /* EntityDefaults.swift */; };
 		E8A2C83023325698009F2E71 /* EntityDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C78523325698009F2E71 /* EntityDefaults.swift */; };
 		E8A2C83123325698009F2E71 /* EntityDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C78523325698009F2E71 /* EntityDefaults.swift */; };
-		E8A2C83223325698009F2E71 /* DatabaseDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C78723325698009F2E71 /* DatabaseDefaults.swift */; };
-		E8A2C83323325698009F2E71 /* DatabaseDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C78723325698009F2E71 /* DatabaseDefaults.swift */; };
-		E8A2C83423325698009F2E71 /* DatabaseDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C78723325698009F2E71 /* DatabaseDefaults.swift */; };
+		E8A2C83223325698009F2E71 /* ManagedContextDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C78723325698009F2E71 /* ManagedContextDefaults.swift */; };
+		E8A2C83323325698009F2E71 /* ManagedContextDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C78723325698009F2E71 /* ManagedContextDefaults.swift */; };
+		E8A2C83423325698009F2E71 /* ManagedContextDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C78723325698009F2E71 /* ManagedContextDefaults.swift */; };
 		E8A2C83523325698009F2E71 /* ModelDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C78823325698009F2E71 /* ModelDefaults.swift */; };
 		E8A2C83623325698009F2E71 /* ModelDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C78823325698009F2E71 /* ModelDefaults.swift */; };
 		E8A2C83723325698009F2E71 /* ModelDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C78823325698009F2E71 /* ModelDefaults.swift */; };
@@ -383,10 +383,10 @@
 		E8A2C77E23325698009F2E71 /* FoundationExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationExtras.swift; sourceTree = "<group>"; };
 		E8A2C78023325698009F2E71 /* FormatterBinding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatterBinding.swift; sourceTree = "<group>"; };
 		E8A2C78123325698009F2E71 /* D2STransformingFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = D2STransformingFormatter.swift; sourceTree = "<group>"; };
-		E8A2C78423325698009F2E71 /* ActiveRecordDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveRecordDefaults.swift; sourceTree = "<group>"; };
+		E8A2C78423325698009F2E71 /* ManagedObjectDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedObjectDefaults.swift; sourceTree = "<group>"; };
 		E8A2C78523325698009F2E71 /* EntityDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntityDefaults.swift; sourceTree = "<group>"; };
 		E8A2C78623325698009F2E71 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		E8A2C78723325698009F2E71 /* DatabaseDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseDefaults.swift; sourceTree = "<group>"; };
+		E8A2C78723325698009F2E71 /* ManagedContextDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedContextDefaults.swift; sourceTree = "<group>"; };
 		E8A2C78823325698009F2E71 /* ModelDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelDefaults.swift; sourceTree = "<group>"; };
 		E8A2C78923325698009F2E71 /* DefaultAssignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultAssignment.swift; sourceTree = "<group>"; };
 		E8A2C78A23325698009F2E71 /* EnvironmentKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentKeys.swift; sourceTree = "<group>"; };
@@ -603,9 +603,9 @@
 				E8A2C78623325698009F2E71 /* README.md */,
 				E8A2C78923325698009F2E71 /* DefaultAssignment.swift */,
 				E8A2C78523325698009F2E71 /* EntityDefaults.swift */,
-				E8A2C78723325698009F2E71 /* DatabaseDefaults.swift */,
+				E8A2C78723325698009F2E71 /* ManagedContextDefaults.swift */,
 				E8A2C78823325698009F2E71 /* ModelDefaults.swift */,
-				E8A2C78423325698009F2E71 /* ActiveRecordDefaults.swift */,
+				E8A2C78423325698009F2E71 /* ManagedObjectDefaults.swift */,
 			);
 			path = DefaultAssignment;
 			sourceTree = "<group>";
@@ -1000,7 +1000,7 @@
 				E8D42FF32337C84500652366 /* Logger.swift in Sources */,
 				E8A2C91023325699009F2E71 /* D2SDebugEntityDetails.swift in Sources */,
 				E8A2C86B23325699009F2E71 /* EntitySidebar.swift in Sources */,
-				E8A2C82C23325698009F2E71 /* ActiveRecordDefaults.swift in Sources */,
+				E8A2C82C23325698009F2E71 /* ManagedObjectDefaults.swift in Sources */,
 				E8A2C84423325698009F2E71 /* EnvironmentPathes.swift in Sources */,
 				E8A2C87123325699009F2E71 /* MasterDetail.swift in Sources */,
 				E8A2C8D723325699009F2E71 /* D2SToOneContainer.swift in Sources */,
@@ -1023,7 +1023,7 @@
 				E8A2C88C23325699009F2E71 /* EditString.swift in Sources */,
 				E8A2C8A123325699009F2E71 /* DisplayEmail.swift in Sources */,
 				E8A2C87D23325699009F2E71 /* PropertyNameAsTitle.swift in Sources */,
-				E8A2C83223325698009F2E71 /* DatabaseDefaults.swift in Sources */,
+				E8A2C83223325698009F2E71 /* ManagedContextDefaults.swift in Sources */,
 				E8A2C88623325699009F2E71 /* PropertyNameValue.swift in Sources */,
 				E8A2C83E23325698009F2E71 /* ViewModifiers.swift in Sources */,
 				E8A2C8B023325699009F2E71 /* Login.swift in Sources */,
@@ -1109,7 +1109,7 @@
 				E8D42FF42337C84500652366 /* Logger.swift in Sources */,
 				E8A2C91123325699009F2E71 /* D2SDebugEntityDetails.swift in Sources */,
 				E8A2C86C23325699009F2E71 /* EntitySidebar.swift in Sources */,
-				E8A2C82D23325698009F2E71 /* ActiveRecordDefaults.swift in Sources */,
+				E8A2C82D23325698009F2E71 /* ManagedObjectDefaults.swift in Sources */,
 				E8A2C84523325698009F2E71 /* EnvironmentPathes.swift in Sources */,
 				E8A2C87223325699009F2E71 /* MasterDetail.swift in Sources */,
 				E8A2C8D823325699009F2E71 /* D2SToOneContainer.swift in Sources */,
@@ -1132,7 +1132,7 @@
 				E8A2C88D23325699009F2E71 /* EditString.swift in Sources */,
 				E8A2C8A223325699009F2E71 /* DisplayEmail.swift in Sources */,
 				E8A2C87E23325699009F2E71 /* PropertyNameAsTitle.swift in Sources */,
-				E8A2C83323325698009F2E71 /* DatabaseDefaults.swift in Sources */,
+				E8A2C83323325698009F2E71 /* ManagedContextDefaults.swift in Sources */,
 				E8A2C88723325699009F2E71 /* PropertyNameValue.swift in Sources */,
 				E8A2C83F23325698009F2E71 /* ViewModifiers.swift in Sources */,
 				E8A2C8B123325699009F2E71 /* Login.swift in Sources */,
@@ -1218,7 +1218,7 @@
 				E8D42FF52337C84500652366 /* Logger.swift in Sources */,
 				E8A2C91223325699009F2E71 /* D2SDebugEntityDetails.swift in Sources */,
 				E8A2C86D23325699009F2E71 /* EntitySidebar.swift in Sources */,
-				E8A2C82E23325698009F2E71 /* ActiveRecordDefaults.swift in Sources */,
+				E8A2C82E23325698009F2E71 /* ManagedObjectDefaults.swift in Sources */,
 				E8A2C84623325698009F2E71 /* EnvironmentPathes.swift in Sources */,
 				E8A2C87323325699009F2E71 /* MasterDetail.swift in Sources */,
 				E8A2C8D923325699009F2E71 /* D2SToOneContainer.swift in Sources */,
@@ -1241,7 +1241,7 @@
 				E8A2C88E23325699009F2E71 /* EditString.swift in Sources */,
 				E8A2C8A323325699009F2E71 /* DisplayEmail.swift in Sources */,
 				E8A2C87F23325699009F2E71 /* PropertyNameAsTitle.swift in Sources */,
-				E8A2C83423325698009F2E71 /* DatabaseDefaults.swift in Sources */,
+				E8A2C83423325698009F2E71 /* ManagedContextDefaults.swift in Sources */,
 				E8A2C88823325699009F2E71 /* PropertyNameValue.swift in Sources */,
 				E8A2C84023325698009F2E71 /* ViewModifiers.swift in Sources */,
 				E8A2C8B223325699009F2E71 /* Login.swift in Sources */,
