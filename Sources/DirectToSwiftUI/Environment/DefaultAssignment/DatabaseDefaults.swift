@@ -5,14 +5,14 @@
 //  Copyright © 2019 ZeeZide GmbH. All rights reserved.
 //
 
-import class ZeeQL.Database
+import CoreData
 
-public extension Database {
+public extension NSManagedObjectContext {
   
   var d2s : D2S { return D2S(database: self) }
   
   struct D2S {
-    let database: Database
+    let database: NSManagedObjectContext
 
     public var isDefault : Bool { database === D2SKeys.database.defaultValue }
     

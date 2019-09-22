@@ -23,7 +23,7 @@ public extension RuleKeyPathPredicate {
               operation: SwiftUIRules.RuleComparisonOperation,
               value: Value)
   {
-    let op = ZeeQL.ComparisonOperation(operation)
+    let op = NSComparisonPredicate.Operator(operation)
     self.init() { ruleContext in
       op.compare(ruleContext[keyPath: keyPath], value)
     }
@@ -32,7 +32,7 @@ public extension RuleKeyPathPredicate {
               operation: SwiftUIRules.RuleComparisonOperation,
               value: Value?)
   {
-    let op = ZeeQL.ComparisonOperation(operation)
+    let op = NSComparisonPredicate.Operator(operation)
     self.init() { ruleContext in
       op.compare(ruleContext[keyPath: keyPath], value)
     }

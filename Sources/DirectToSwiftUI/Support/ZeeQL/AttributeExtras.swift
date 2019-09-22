@@ -6,16 +6,16 @@
 //
 
 import Foundation
-import protocol ZeeQL.Attribute
+import CoreData
 
-public extension Attribute {
+public extension NSAttributeDescription {
   var isPassword : Bool {
     let lc = name.lowercased()
     return lc.contains("password") || lc.contains("passwd")
   }
 }
 
-public extension Attribute {
+public extension NSAttributeDescription {
   // TODO: Check width and such.
   // TODO: Belongs into ZeeQL (and should also be called by AR)
   
@@ -38,7 +38,7 @@ public extension Attribute {
   }
 }
 
-public extension Relationship {
+public extension NSRelationshipDescription {
   
   func validateForInsert(_ object: AnyObject?) -> Bool {
     return validateForUpdate(object)
@@ -94,7 +94,7 @@ internal let dateTimeFormatter : DateFormatter = {
   return df
 }()
 
-public extension Attribute {
+public extension NSAttributeDescription {
   
   func dateFormatter() -> DateFormatter {
     guard let externalType = externalType?.uppercased() else {
@@ -115,7 +115,7 @@ enum D2SAttributeCoercionError: Swift.Error {
   case failedToCoerceFromString(String?, Attribute)
 }
 
-public extension Attribute {
+public extension NSAttributeDescription {
   
   func coerceFromString(_ string: String?) throws -> Any? {
     func logError() throws -> Any? {

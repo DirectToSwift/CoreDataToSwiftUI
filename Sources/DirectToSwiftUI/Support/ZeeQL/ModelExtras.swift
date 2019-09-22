@@ -5,17 +5,16 @@
 //  Copyright © 2019 ZeeZide GmbH. All rights reserved.
 //
 
-import class    ZeeQL.Model
-import protocol ZeeQL.Entity
+import CoreData
 
-public extension Model {
+public extension NSManagedObjectModel {
   
   /**
    * Try to find an entity which might form a user database (one which can be
    * queried using login/password)
    */
-  func lookupUserDatabaseEntity() -> Entity? {
-    var lcNameToUserEntity = [ String : Entity ]()
+  func lookupUserDatabaseEntity() -> NSEntityDescription? {
+    var lcNameToUserEntity = [ String : NSEntityDescription ]()
     for entity in entities {
       guard let _ = entity.lookupUserDatabaseProperties() else { continue }
       lcNameToUserEntity[entity.name.lowercased()] = entity

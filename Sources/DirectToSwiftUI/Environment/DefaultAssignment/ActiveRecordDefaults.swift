@@ -5,16 +5,15 @@
 //  Copyright © 2019 ZeeZide GmbH. All rights reserved.
 //
 
-import protocol ZeeQL.ActiveRecordType
-import protocol ZeeQL.DatabaseObject
+import CoreData
 
-public extension ActiveRecord {
+public extension NSManagedObject {
   
-  var d2s : D2S<ActiveRecord> { return D2S(object: self) }
+  var d2s : D2S<NSManagedObject> { return D2S(object: self) }
   
-  struct D2S<T: ActiveRecordType> {
+  struct D2S {
     
-    let object : T
+    let object : NSManagedObject
     
     public var isDefault : Bool {
       return object === D2SKeys.object.defaultValue

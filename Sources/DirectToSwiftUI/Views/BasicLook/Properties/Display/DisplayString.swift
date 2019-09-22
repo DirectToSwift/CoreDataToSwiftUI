@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import struct ZeeQL.KeyValueCoding
 
 public extension BasicLook.Property.Display {
 
@@ -16,7 +15,7 @@ public extension BasicLook.Property.Display {
 
     public init() {}
 
-    @EnvironmentObject private var object : OActiveRecord
+    @EnvironmentObject private var object : NSManagedObject
     
     @Environment(\.propertyKey)         private var propertyKey
     @Environment(\.propertyValue)       private var propertyValue

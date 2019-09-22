@@ -9,7 +9,6 @@ import protocol SwiftUIRules.DynamicEnvironmentKey
 import protocol SwiftUIRules.RuleAction
 import protocol SwiftUIRules.RuleCandidate
 import struct   SwiftUIRules.RuleContext
-import struct   ZeeQL.KeyValueCoding
 
 /*
 * KVCRuleSelfAssignment
@@ -24,7 +23,7 @@ import struct   ZeeQL.KeyValueCoding
 * operation.
 */
 open class KVCRuleSelfAssignment<K: DynamicEnvironmentKey>
-           : RuleCandidate, RuleAction
+           : NSObject, RuleCandidate, RuleAction
 {
   let key     : K.Type
   let keyPath : String
@@ -44,6 +43,6 @@ open class KVCRuleSelfAssignment<K: DynamicEnvironmentKey>
   }
   
   public func fireInContext(_ context: RuleContext) -> Any? {
-    return KeyValueCoding.value(forKeyPath: keyPath, inObject: self)
+    self.value(forKeyPath: keyPath)
   }
 }

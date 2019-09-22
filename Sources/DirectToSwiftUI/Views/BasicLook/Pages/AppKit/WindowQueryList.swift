@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import class ZeeQLCombine.OActiveRecord
-import class ZeeQLCombine.ActiveDataSource
 
 public extension BasicLook.Page.AppKit {
   
@@ -37,7 +35,8 @@ public extension BasicLook.Page.AppKit {
     }
     
     public var body: some View {
-      Bound(dataSource: makeDataSource(), auxiliaryQualifier: auxiliaryQualifier)
+      Bound(dataSource: makeDataSource(),
+            auxiliaryQualifier: auxiliaryQualifier)
         .environment(\.auxiliaryQualifier, nil) // reset!
     }
 

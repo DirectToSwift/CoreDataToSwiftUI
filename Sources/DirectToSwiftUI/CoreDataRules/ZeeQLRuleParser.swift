@@ -7,11 +7,9 @@
 
 #if canImport(ZeeQL)
 
+import class    Foundation.NSPredicate
 import struct   Foundation.CharacterSet
 import class    Foundation.PropertyListSerialization
-import func     ZeeQL.qualifierWith
-import protocol ZeeQL.Qualifier
-import protocol ZeeQL.QualifierEvaluation
 import class    SwiftUIRules.RuleModel
 import class    SwiftUIRules.Rule
 import protocol SwiftUIRules.RuleCandidate
@@ -48,7 +46,7 @@ extension Rule {
     let lhsRhsSplitter = string.range(of: "=>", skippingQuotes: quotes,
                                       escapeUsing: escape)
     
-    let qualifier: Qualifier? = {
+    let qualifier: NSPredicate? = {
       guard let idx = lhsRhsSplitter?.lowerBound else { return nil }
       return qualifierWith(format: String(string[..<idx]))
     }()
@@ -61,7 +59,7 @@ extension Rule {
       }
       qualifierEvaluation = qe
     }
-    else { qualifierEvaluation = BooleanQualifier.trueQualifier }
+    else { qualifierEvaluation = NSPredicate.predicateWithValue(true) }
 
     let remainder : String = {
       guard let split = lhsRhsSplitter else { return string }

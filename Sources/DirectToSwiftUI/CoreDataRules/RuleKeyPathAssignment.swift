@@ -6,7 +6,6 @@
 //
 
 import SwiftUIRules
-import struct ZeeQL.KeyValueCoding
 
 /**
  * RuleKeyPathAssignment
@@ -55,6 +54,7 @@ public struct RuleKeyPathAssignment<K: DynamicEnvironmentKey>
   }
 
   public func fireInContext(_ context: RuleContext) -> Any? {
+    // Hmmmm, RuleContext is not KVC compliant, right?
     return KeyValueCoding.value(forKeyPath: keyPath, inObject: context)
   }
 }

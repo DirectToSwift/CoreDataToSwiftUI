@@ -5,7 +5,7 @@
 //  Copyright © 2019 ZeeZide GmbH. All rights reserved.
 //
 
-import protocol ZeeQL.Entity
+import CoreData
 
 public extension Entity {
   var d2s : EntityD2S { return EntityD2S(entity: self) }

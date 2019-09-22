@@ -33,8 +33,10 @@ public extension D2SKeys {
     #endif
   }
 
+  // TODO: rename
   struct database: DynamicEnvironmentKey {
-    public static var defaultValue : Database = D2SDummyDatabase()
+    public static var defaultValue : NSManagedObjectContext
+                                   = D2SDummyObjectContext()
   }
   
   struct firstTask: DynamicEnvironmentKey {
@@ -51,7 +53,7 @@ public extension D2SKeys {
   struct object: DynamicEnvironmentKey {
     // TBD: This one should really be an EnvironmentObject, but how
     //      would we do this? More in the keypath \.object.
-    public static var defaultValue : OActiveRecord = .init()
+    public static var defaultValue : NSManagedObject = .init()
   }
 
   struct propertyKey: DynamicEnvironmentKey {
@@ -65,11 +67,12 @@ public extension D2SKeys {
   // MARK: - Model
   
   struct model: DynamicEnvironmentKey {
-    public static var defaultValue : Model = D2SDefaultModel()
+    public static var defaultValue : NSManagedObjectModel = D2SDefaultModel()
   }
 
   struct entity: DynamicEnvironmentKey {
-    public static var defaultValue : Entity = D2SDefaultEntity.shared
+    public static var defaultValue : NSEntityDescription
+                                   = D2SDefaultEntity.shared
   }
   
   /**
@@ -80,7 +83,8 @@ public extension D2SKeys {
    * If that also fails, the default dummy attribute is returned.
    */
   struct attribute: DynamicEnvironmentKey {
-    public static var  defaultValue : Attribute = D2SDefaultAttribute()
+    public static var  defaultValue : NSAttributeDescription
+                                    = D2SDefaultAttribute()
   }
   
   /**
@@ -91,7 +95,8 @@ public extension D2SKeys {
    * If that also fails, the default dummy relationship is returned.
    */
   struct relationship: DynamicEnvironmentKey {
-    public static var  defaultValue : Relationship = D2SDefaultRelationship()
+    public static var  defaultValue : NSRelationshipDescription
+                                    = D2SDefaultRelationship()
   }
 
   // MARK: - Derived
@@ -178,7 +183,7 @@ public extension D2SKeys {
   // MARK: - Permissions
   
   struct user: DynamicEnvironmentKey {
-    public static let defaultValue: OActiveRecord? = nil
+    public static let defaultValue: NSManagedObject? = nil
   }
   
   struct isObjectEditable: DynamicEnvironmentKey {

@@ -8,27 +8,7 @@
 // Those are here to workaround the issue that we don't want any
 // optionals in Views. Which may or may not be a good decision.
 
-import class    ZeeQL.SQLExpressionFactory
-import class    ZeeQL.Database
-import protocol ZeeQL.Adaptor
-import protocol ZeeQL.AdaptorChannel
-
-internal final class D2SDummyDatabase: Database {
-  init() { super.init(adaptor: DummyAdaptor()) }
-  
-  private final class DummyAdaptor: Adaptor {
-    struct DummyModelTag: ModelTag {
-      func isEqual(to object: Any?) -> Bool { return false }
-    }
-    func openChannel() throws -> AdaptorChannel {
-      fatalError("can't open channel on dummy adaptor")
-    }
-    let expressionFactory = SQLExpressionFactory()
-    var model             : Model?
-    
-    func fetchModel()    throws -> Model    { Model(entities: []) }
-    func fetchModelTag() throws -> ModelTag { DummyModelTag() }
-  }
+internal final class D2SDummyObjectContext: NSManagedObjectContext {
 }
 
 internal final class D2SDefaultModel: Model {
@@ -37,7 +17,7 @@ internal final class D2SDefaultModel: Model {
   }
 }
 
-internal final class D2SDefaultEntity: Entity {
+internal final class D2SDefaultEntity: NSEntityDescription {
   static let shared = D2SDefaultEntity()
   var name          : String           { ""    }
   var isPattern     : Bool             { false }
@@ -45,11 +25,11 @@ internal final class D2SDefaultEntity: Entity {
   var relationships : [ Relationship ] { []    }
 }
 
-internal final class D2SDefaultAttribute: Attribute {
+internal final class D2SDefaultAttribute: NSAttributeDescription {
   var name: String { "" }
 }
 
-internal final class D2SDefaultRelationship: Relationship {
+internal final class D2SDefaultRelationship: NSRelationshipDescription {
   var name              : String   { ""    }
   var entity            : Entity   { D2SDefaultEntity.shared }
   var destinationEntity : Entity?  { nil   }

@@ -13,10 +13,12 @@ public struct D2SMainView: View {
     
   @ObservedObject private var viewModel : D2SRuleEnvironment
   
-  public init(adaptor: Adaptor, ruleModel: RuleModel) {
+  public init(managedObjectContext : NSManagedObjectContext,
+              ruleModel            : RuleModel)
+  {
     viewModel = D2SRuleEnvironment(
-      adaptor   : adaptor,
-      ruleModel : ruleModel.fallback(D2SDefaultRules)
+      managedObjectContext : managedObjectContext,
+      ruleModel            : ruleModel.fallback(D2SDefaultRules)
     )
     
     viewModel.resume()

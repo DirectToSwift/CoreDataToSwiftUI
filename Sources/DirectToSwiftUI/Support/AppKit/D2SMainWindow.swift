@@ -7,14 +7,14 @@
 
 #if os(macOS)
 
-import protocol ZeeQL.Adaptor
 import class    SwiftUI.NSHostingView
 import Cocoa
 
 /**
  * Function to create a main window.
  */
-public func D2SMakeWindow(adaptor: Adaptor, ruleModel : RuleModel)
+public func D2SMakeWindow(managedObjectContext : NSManagedObjectContext,
+                          ruleModel            : RuleModel)
             -> NSWindow
 {
   let window = NSWindow(
@@ -33,7 +33,8 @@ public func D2SMakeWindow(adaptor: Adaptor, ruleModel : RuleModel)
   window.titlebarAppearsTransparent  = true
   window.isMovableByWindowBackground = true
 
-  let view = D2SMainView(adaptor: adaptor, ruleModel: ruleModel)
+  let view = D2SMainView(managedObjectContext : managedObjectContext,
+                         ruleModel            : ruleModel)
               .frame(maxWidth: .infinity, maxHeight: .infinity)
   window.contentView = NSHostingView(rootView: view)
   return window

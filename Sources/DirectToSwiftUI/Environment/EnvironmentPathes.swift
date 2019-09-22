@@ -6,12 +6,6 @@
 //
 
 import class    Foundation.Formatter
-import class    ZeeQL.Database
-import class    ZeeQL.Model
-import protocol ZeeQL.Entity
-import protocol ZeeQL.Attribute
-import protocol ZeeQL.Relationship
-import class    ZeeQLCombine.OActiveRecord
 import struct   SwiftUI.AnyView
 import protocol SwiftUIRules.DynamicEnvironmentPathes
 
@@ -36,7 +30,7 @@ public extension DynamicEnvironmentPathes {
    * A ZeeQL object representing the database we are connected to. This
    * wraps the lower level `Adaptor` object.
    */
-  var database : Database {
+  var database : NSManagedObjectContext {
     set { self[dynamic: D2SKeys.database.self] = newValue }
     get { self[dynamic: D2SKeys.database.self] }
   }
@@ -106,7 +100,7 @@ public extension DynamicEnvironmentPathes {
    * whether and how it changed.
    * The `O` makes the `ActiveRecord` a Combine `ObservableObject`.
    */
-  var object : OActiveRecord {
+  var object : NSManagedObject {
     // TBD: This one should really be an EnvironmentObject, but how
     //      would we do this?
     //      I suspect EnvObj's are just keyed on the class type (instead of
@@ -195,7 +189,7 @@ public extension DynamicEnvironmentPathes {
    *
    * A ZeeQL model is just a collection of ZeeQL entities.
    */
-  var model : Model {
+  var model : NSManagedObjectModel {
     set { self[dynamic: D2SKeys.model.self] = newValue }
     get { self[dynamic: D2SKeys.model.self] }
   }
@@ -212,7 +206,7 @@ public extension DynamicEnvironmentPathes {
    * columns). Or you can add additional relationships the schema fetch might
    * not have detected.
    */
-  var entity : Entity {
+  var entity : NSEntityDescription {
     set { self[dynamic: D2SKeys.entity.self] = newValue }
     get { self[dynamic: D2SKeys.entity.self] }
   }
@@ -223,7 +217,7 @@ public extension DynamicEnvironmentPathes {
    * the name in the SQL database, the Swift type used to represent the
    * attribute, and the external SQL type. Whether it is nullable or not, etc.
    */
-  var attribute : Attribute {
+  var attribute : NSAttributeDescription {
     set { self[dynamic: D2SKeys.attribute.self] = newValue }
     get { self[dynamic: D2SKeys.attribute.self] }
   }
@@ -235,7 +229,7 @@ public extension DynamicEnvironmentPathes {
    * For example a `toManager` relationship might connect an employee record
    * with the record representing the manager.
    */
-  var relationship : Relationship {
+  var relationship : NSRelationshipDescription {
     set { self[dynamic: D2SKeys.relationship.self] = newValue }
     get { self[dynamic: D2SKeys.relationship.self] }
   }
@@ -420,7 +414,7 @@ public extension DynamicEnvironmentPathes {
    * environment. And then adjust other environments based on that,
    * e.g. `isEntityReadOnly` or even `auxiliaryQualifier`.
    */
-  var user : OActiveRecord? {
+  var user : NSManagedObject? {
     set { self[dynamic: D2SKeys.user.self] = newValue }
     get { self[dynamic: D2SKeys.user.self] }
   }

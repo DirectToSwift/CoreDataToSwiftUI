@@ -6,13 +6,12 @@
 //
 
 import SwiftUI
-import class ZeeQL.ActiveRecord
 
 /**
  * This takes a `D2SFault`. If it still is a fault, it shows some wildcard
  * view. If not, it shows the content.
  */
-public struct D2SFaultContainer<Object: OActiveRecord, Content: View>: View {
+public struct D2SFaultContainer<Object: NSManagedObject, Content: View>: View {
   
   public typealias Fault = D2SFault<Object, D2SDisplayGroup<Object>>
   

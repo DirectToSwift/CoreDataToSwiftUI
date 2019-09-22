@@ -5,9 +5,9 @@
 //  Copyright © 2017-2019 ZeeZide GmbH. All rights reserved.
 //
 
-import protocol ZeeQL.Entity
+import CoreData
 
-public extension Entity {
+public extension NSEntityDescription {
 
   /**
    * If name/extname differ, returns "Entity (Table)", if they are the same
@@ -23,10 +23,10 @@ public extension Entity {
   }
 }
 
-public extension Entity {
+public extension NSEntityDescription {
   
   func lookupUserDatabaseProperties()
-       -> ( login: Attribute, password: Attribute )?
+       -> ( login: NSAttributeDescription, password: NSAttributeDescription )?
   {
     let op = self[attribute: "password"]
           ?? self[attribute: "passwd"]
@@ -46,9 +46,11 @@ public extension Entity {
   
 }
 
-extension Entity {
+extension NSEntityDescription {
   
-  var singleIntegerPrimaryKeyAttribute : Attribute? {
+  // FIXME: CD doesn't have that
+  
+  var singleIntegerPrimaryKeyAttribute : NSAttributeDescription? {
     guard let pkeys = primaryKeyAttributeNames, pkeys.count == 1
      else { return nil }
 
@@ -57,7 +59,7 @@ extension Entity {
   }
 }
 
-extension Entity {
+extension NSEntityDescription {
   
   /// Returns all attributes which have String or String? as the value type.
   var stringAttributeNames : [ String ] {
@@ -69,7 +71,7 @@ extension Entity {
     return attributes.compactMap { $0.isIntegerAttribute ? $0.name : nil }
   }
   
-  func qualifierForQueryString(_ qs: String) -> Qualifier? {
+  func qualifierForQueryString(_ qs: String) -> NSPredicate? {
     // Also (kinda replaced by): QueryStringParser
     //
     // TODO: detect numbers? booleans? what else makes sense? :-)
@@ -112,6 +114,9 @@ extension Entity {
 
 import struct Foundation.Decimal
 
+internal protocol AttributeValue {}
+// TODO: add stuff from ZeeQL?
+
 fileprivate extension AttributeValue {
   // FIXME: Move the 'type' to ZeeQL.AttributeValue itself.
   
@@ -153,7 +158,7 @@ fileprivate extension Optional where Wrapped : FixedWidthInteger {
 }
 
 
-extension Attribute {
+extension NSAttributeDescription {
   // TBD: check externalType if no valueType is present
   
   var isStringAttribute : Bool {
@@ -177,7 +182,7 @@ extension Attribute {
 }
 
 
-extension Entity {
+extension NSEntityDescription {
   
   /**
    * Extract prefetch pathes from keypath property names. For example:

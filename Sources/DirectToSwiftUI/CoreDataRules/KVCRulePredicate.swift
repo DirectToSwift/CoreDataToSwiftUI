@@ -5,17 +5,14 @@
 //  Copyright © 2019 ZeeZide GmbH. All rights reserved.
 //
 
+import Foundation
 import protocol SwiftUIRules.RulePredicate
 import struct   SwiftUIRules.RuleContext
-import protocol ZeeQL.QualifierEvaluation
-import struct   ZeeQL.KeyValueQualifier
-import struct   ZeeQL.KeyComparisonQualifier
-import struct   ZeeQL.CompoundQualifier
-import struct   ZeeQL.BooleanQualifier
 
-public extension QualifierEvaluation {
+extension NSPredicate : RulePredicate {
 
   func evaluate(in ruleContext: RuleContext) -> Bool {
+    // FIXME
     return evaluateWith(object: ruleContext)
   }
   
@@ -24,12 +21,7 @@ public extension QualifierEvaluation {
 // TBD: I think conformance has to be declared manually and can't be attached
 //      to the protocol?
 
-extension KeyValueQualifier      : RulePredicate {}
-extension KeyComparisonQualifier : RulePredicate {}
-extension BooleanQualifier       : RulePredicate {}
-
-extension CompoundQualifier      : RulePredicate {
-  
+extension NSCompoundPredicate {  
   public var rulePredicateComplexity : Int {
     return qualifiers.reduce(0) {
       let complexity = ($1 as? RulePredicate)?.rulePredicateComplexity ?? 1
@@ -40,7 +32,7 @@ extension CompoundQualifier      : RulePredicate {
 
 public extension SwiftUIRules.RuleComparisonOperation {
   
-  init?(_ op: ZeeQL.ComparisonOperation) {
+  init?(_ op: NSComparisonPredicate.Operator) {
     // FIX case in ZeeQL, which is quite hard as the cases can't be
     // deprecated & aliased?
     switch op {
@@ -57,7 +49,7 @@ public extension SwiftUIRules.RuleComparisonOperation {
   }
 }
 
-public extension ZeeQL.ComparisonOperation {
+public extension NSComparisonPredicate.Operator {
   
   init(_ op: SwiftUIRules.RuleComparisonOperation) {
     switch op {

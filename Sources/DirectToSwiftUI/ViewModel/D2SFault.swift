@@ -6,7 +6,6 @@
 //
 
 import protocol Swift.Identifiable
-import class ZeeQL.GlobalID
 
 public protocol D2SFaultResolver: AnyObject {
   

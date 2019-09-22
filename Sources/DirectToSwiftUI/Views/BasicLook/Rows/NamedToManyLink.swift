@@ -24,12 +24,12 @@ public extension BasicLook.Row {
       relationship.destinationEntity?.name ?? ""
     }
     
-    private var relationshipQualifier : ZeeQL.Qualifier? {
+    private var relationshipQualifier : NSPredicate? {
       // Note: We could also attempt to lookup the inverse relationship and use
       //       that, but we don't really know whether the `Model` has that
       //       defined.
       // TBD: why is it ambiguous w/o the `as DatabaseObject`? (Xcode 11GM2)
-      relationship.qualifierInDestinationForSource(object as DatabaseObject)
+      relationship.qualifierInDestinationForSource(object as NSManagedObject)
     }
     
     public var body: some View {

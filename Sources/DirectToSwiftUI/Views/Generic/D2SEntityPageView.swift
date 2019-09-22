@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import protocol ZeeQL.Entity
-import class    ZeeQL.Model
 
 /**
  * Show the View which the `page` key yields, but inject the `entity` for the

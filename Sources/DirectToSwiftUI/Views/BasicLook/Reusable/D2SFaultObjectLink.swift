@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import class ZeeQL.ActiveRecord
 
 /**
  * This takes a `D2SFault`. If it still is a fault, it shows some wildcard
@@ -14,7 +13,7 @@ import class ZeeQL.ActiveRecord
  * If it is an object, it embeds the object in a `NavigationLink` which shows
  * the `nextTask` with the object bound.
  */
-public struct D2SFaultObjectLink<Object: OActiveRecord, Destination: View,
+public struct D2SFaultObjectLink<Object: NSManagedObject, Destination: View,
                                  Content: View>: View
 {
   public typealias Fault = D2SFault<Object, D2SDisplayGroup<Object>>

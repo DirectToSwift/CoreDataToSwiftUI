@@ -10,5 +10,3 @@
 @_exported import SwiftUIRules
 
 infix operator => : AssignmentPrecedence
-
-public let globalD2SLogger = ZeeQL.globalZeeQLLogger

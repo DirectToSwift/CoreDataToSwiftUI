@@ -5,17 +5,16 @@
 //  Copyright © 2019 ZeeZide GmbH. All rights reserved.
 //
 
-import protocol ZeeQL.Attribute
-import class    ZeeQLCombine.OActiveRecord
+import CoreData
 
 public protocol D2SAttributeValidator {
   
-  associatedtype Object : OActiveRecord
+  associatedtype Object : NSManagedObject
   
-  var attribute : Attribute { get }
-  var object    : Object    { get }
+  var attribute : NSAttributeDescription { get }
+  var object    : Object                 { get }
  
-  var isValid   : Bool      { get }
+  var isValid   : Bool                   { get }
 }
 
 public extension D2SAttributeValidator {
@@ -30,12 +29,12 @@ public extension D2SAttributeValidator {
 
 public protocol D2SRelationshipValidator {
   
-  associatedtype Object : OActiveRecord
+  associatedtype Object : NSManagedObject
   
-  var relationship : Relationship { get }
-  var object       : Object       { get }
+  var relationship : NSRelationshipDescription { get }
+  var object       : Object                    { get }
  
-  var isValid      : Bool         { get }
+  var isValid      : Bool                      { get }
 }
 
 public extension D2SRelationshipValidator {

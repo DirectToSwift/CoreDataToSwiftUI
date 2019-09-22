@@ -45,9 +45,11 @@ extension ActiveRecord {
   
 }
 
-extension Relationship {
+extension NSRelationshipDescription {
   
-  func qualifierInDestinationForSource(_ source: DatabaseObject) -> Qualifier? {
+  func qualifierInDestinationForSource(_ source: NSManagedObject)
+       -> NSPredicate?
+  {
     // FIXME: Still has issues for some setups (FilmActors N:M)
     guard !joins.isEmpty else { return nil }
     
@@ -80,11 +82,11 @@ extension Relationship {
 }
 
 
-extension ActiveRecord {
+extension NSManagedObject {
   
   func primaryFetchToOneRelationship(_ name: String, force: Bool = false)
          throws
-       -> OActiveRecord?
+       -> NSManagedObject?
   {
     if !force,
        let target = KeyValueCoding.value(forKeyPath: name,
@@ -128,11 +130,11 @@ import class Dispatch.DispatchQueue
 import Combine
 
 @available(iOS 13, tvOS 13, OSX 10.15, watchOS 6, *)
-public extension OActiveRecord {
+public extension NSManagedObject {
   
   func fetchToOneRelationship(_ propertyKey: String,
                               on queue: DispatchQueue = .global())
-       -> AnyPublisher<OActiveRecord?, Error>
+       -> AnyPublisher<NSManagedObject?, Error>
   {
     
     Future { promise in
@@ -153,14 +155,16 @@ public extension OActiveRecord {
   
 }
 
-extension ActiveRecord {
+extension NSManagedObject {
   
   /**
    * Like `addObject(_:toPropertyWithKey:)`, but also push the foreign keys.
    *
    * This is to support AR which stores those in the record itself.
    */
-  func wire(destination: ActiveRecord?, to relationship: Relationship) {
+  func wire(destination: NSManagedObject?,
+            to relationship: NSRelationshipDescription)
+  {
     do {
       guard let destination = destination else {
         try takeValue(nil, forKey: relationship.name)
@@ -208,7 +212,7 @@ struct JoinTargetID: Hashable {
 
   let values : [ Any? ]
 
-  init?(source: OActiveRecord, relationship: Relationship) {
+  init?(source: NSManagedObject, relationship: NSRelationshipDescription) {
     // TBD: if the source has the relationship _object_ assigned,
     //      rather grab the values of the dest object? (and maybe
     //      match them up and report inconsistencies).
@@ -229,7 +233,7 @@ struct JoinTargetID: Hashable {
     if !hadNonNil { return nil }
     self.values = values
   }
-  init(destination: OActiveRecord, relationship: Relationship) {
+  init(destination: NSManagedObject, relationship: NSRelationshipDescription) {
     values = relationship.joins.map { join in
       (join.destination?.name ?? join.destinationName)
         .flatMap { name in destination.value(forKey: name) }

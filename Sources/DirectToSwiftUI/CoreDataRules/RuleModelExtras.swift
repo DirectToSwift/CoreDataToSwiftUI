@@ -6,14 +6,12 @@
 //
 
 import SwiftUIRules
-
-import struct   ZeeQL.BooleanQualifier
-import protocol ZeeQL.QualifierEvaluation
+import Foundation
 
 public extension RuleModel {
 
   @discardableResult
-  func when<K>(_ qualifier: Qualifier,
+  func when<K>(_ qualifier: NSPredicate,
                set key: K.Type, to value: K.Value) -> Self
          where K: DynamicEnvironmentKey
   {

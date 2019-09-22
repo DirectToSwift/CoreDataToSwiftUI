@@ -6,8 +6,7 @@
 //
 
 import SwiftUIRules
-import protocol ZeeQL.KeyValueCodingType
-import struct   SwiftUI.EnvironmentValues
+import struct SwiftUI.EnvironmentValues
 
 extension EnvironmentValues: KeyValueCodingType {
   
