@@ -7,7 +7,7 @@
 
 import Combine
 import SwiftUI
-import ZeeQL
+import CoreData
 
 /**
  * Simple notification delegate.

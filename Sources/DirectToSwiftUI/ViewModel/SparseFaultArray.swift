@@ -5,7 +5,7 @@
 //  Copyright © 2019 ZeeZide GmbH. All rights reserved.
 //
 
-import ZeeQL
+import CoreData
 
 /**
  * A helper structure to represent an array of faults, w/o allocating slots

@@ -4,7 +4,7 @@ import PackageDescription
 
 let package = Package(
   
-  name: "DirectToSwiftUI",
+  name: "CoreDataToSwiftUI",
   
   platforms: [
     .macOS(.v10_15), .iOS(.v13), .watchOS(.v6)
@@ -16,15 +16,11 @@ let package = Package(
   
   dependencies: [
     .package(url: "https://github.com/DirectToSwift/SwiftUIRules.git",
-             from: "0.1.3"),
-    .package(url: "https://github.com/ZeeQL/ZeeQL3.git",
-             from: "0.9.0"),
-    .package(url: "https://github.com/ZeeQL/ZeeQL3Combine.git",
-             from: "0.1.5")
+             from: "0.1.3")
   ],
   
   targets: [
     .target(name: "DirectToSwiftUI", 
-            dependencies: [ "SwiftUIRules", "ZeeQL", "ZeeQLCombine" ])
+            dependencies: [ "SwiftUIRules" ])
   ]
 )

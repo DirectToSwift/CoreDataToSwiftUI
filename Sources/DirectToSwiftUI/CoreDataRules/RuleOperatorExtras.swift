@@ -5,7 +5,7 @@
 //  Copyright © 2019 ZeeZide GmbH. All rights reserved.
 //
 
-import ZeeQL
+import CoreData
 
 // e.g. \.attribute.valueType == Date.self
 public func ==<VT>(lhs: Swift.KeyPath<RuleContext, AttributeValue.Type?>,

@@ -9,7 +9,7 @@ import class  SwiftUIRules.RuleModel
 import struct SwiftUIRules.RuleContext
 import SwiftUI
 import Combine
-import ZeeQL
+import CoreData
 
 /**
  * Used to fetch the model from the database, if necessary.

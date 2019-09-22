@@ -6,8 +6,7 @@
 //
 
 @_exported import SwiftUI
-@_exported import ZeeQL
-@_exported import ZeeQLCombine
+@_exported import CoreData
 @_exported import SwiftUIRules
 
 infix operator => : AssignmentPrecedence

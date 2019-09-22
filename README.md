@@ -1,4 +1,4 @@
-<h2>Direct to SwiftUI
+<h2>CoreData to SwiftUI
   <img src="http://zeezide.com/img/d2s/D2SIcon.svg"
        align="right" width="128" height="128" />
 </h2>
@@ -11,9 +11,25 @@
 
 _Going fully declarative_: Direct to SwiftUI.
 
+WORK IN PROGRESS:
+Supposedly this will eventually be a 
+[Direct to SwiftUI](https://github.com/DirectToSwift/DirectToSwiftUI),
+just using 
+[CoreData](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CoreData/index.html#//apple_ref/doc/uid/TP40001075-CH2-SW1) 
+instead of [ZeeQL](http://zeeql.io).
+
+
+## Notes
+
+The library name is intentionally kept as DirectToSwiftUI. Only the package
+is a different one.
+Which implies that you can't use CoreData to SwiftUI and Direct to SwiftUI
+together!
+
+
 ## Requirements
 
-Direct to SwiftUI requires an environment capable to run SwiftUI.
+CoreData to SwiftUI requires an environment capable to run SwiftUI.
 That is: macOS Catalina, iOS 13 or watchOS 6.
 In combination w/ Xcode 11.
 
@@ -27,8 +43,8 @@ project,
 or you can use Swift Package Manager.
 
 The package URL is:
-[https://github.com/DirectToSwift/DirectToSwiftUI.git
-](https://github.com/DirectToSwift/DirectToSwiftUI.git).
+[https://github.com/DirectToSwift/CoreDataToSwiftUI.git
+](https://github.com/DirectToSwift/CoreDataToSwiftUI.git).
 
 
 ## Misc

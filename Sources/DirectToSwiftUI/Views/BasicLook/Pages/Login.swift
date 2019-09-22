@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import ZeeQL
+import CoreData
 
 public extension BasicLook.Page {
   

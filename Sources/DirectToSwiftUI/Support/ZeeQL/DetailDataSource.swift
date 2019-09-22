@@ -5,7 +5,7 @@
 //  Copyright © 2019 ZeeZide GmbH. All rights reserved.
 //
 
-import ZeeQL
+import CoreData
 
 extension ActiveRecord {
   
