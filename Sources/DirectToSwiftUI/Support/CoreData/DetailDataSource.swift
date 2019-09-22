@@ -7,12 +7,12 @@
 
 import CoreData
 
-extension ActiveRecord {
+extension NSManagedObject {
   
   // TODO: Move to ZeeQL
   
   func dataSourceQualifiedByKey(_ key: String)
-       -> ActiveDataSource<OActiveRecord>?
+       -> ActiveDataSource<NSManagedObject>?
   {
     // We could try to extract the proper static type using
     //   CodeRelationshipBase<Target: SwiftObject>
@@ -34,7 +34,7 @@ extension ActiveRecord {
                           "  datasource:  ", self)
       return nil
     }
-    let ds = ActiveDataSource<OActiveRecord>(database: database, entity: entity)
+    let ds = ActiveDataSource<NSManagedObject>(database: database, entity: entity)
     ds.fetchSpecification = ModelFetchSpecification(
       entity    : entity, // TODO
       qualifier : relship.qualifierInDestinationForSource(self)
@@ -90,7 +90,7 @@ extension NSManagedObject {
   {
     if !force,
        let target = KeyValueCoding.value(forKeyPath: name,
-                                         inObject: self) as? OActiveRecord {
+                                         inObject: self) as? NSManagedObject {
       return target // cached, prefetched
     }
     

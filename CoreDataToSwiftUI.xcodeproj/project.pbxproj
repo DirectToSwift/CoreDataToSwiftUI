@@ -558,7 +558,7 @@
 				E8D42FF62337D4BE00652366 /* KeyValueCodingType.swift */,
 				E8D42FFA2337DAB500652366 /* AttributeValue.swift */,
 				E8D42FFE2337DAE500652366 /* EquatableType.swift */,
-				E8A2C77023325698009F2E71 /* ZeeQL */,
+				E8A2C77023325698009F2E71 /* CoreData */,
 				E8A2C77A23325698009F2E71 /* AppKit */,
 				E8A2C77F23325698009F2E71 /* SwiftUI */,
 				E8D42FF22337C84500652366 /* Logger.swift */,
@@ -566,7 +566,7 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
-		E8A2C77023325698009F2E71 /* ZeeQL */ = {
+		E8A2C77023325698009F2E71 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
 				E8A2C77123325698009F2E71 /* ModelExtras.swift */,
@@ -578,7 +578,7 @@
 				E8A2C77723325698009F2E71 /* EntityExtras.swift */,
 				E8A2C77823325698009F2E71 /* D2SEditValidation.swift */,
 			);
-			path = ZeeQL;
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		E8A2C77A23325698009F2E71 /* AppKit */ = {

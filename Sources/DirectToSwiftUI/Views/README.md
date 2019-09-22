@@ -218,7 +218,7 @@ property:
 ```swift
 struct EditRating: View {
   
-  @EnvironmentObject private var object : OActiveRecord
+  @EnvironmentObject private var object : NSManagedObject
   @Environment(\.displayNameForProperty) private var label
   @Environment(\.propertyKey)            private var propertyKey
 

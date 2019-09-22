@@ -40,3 +40,6 @@
 
 - CD doesn't have (or need) primary/foreign keys!
   - the whole JoinTargetID story is superfluous
+
+- entity name is optional in CD
+

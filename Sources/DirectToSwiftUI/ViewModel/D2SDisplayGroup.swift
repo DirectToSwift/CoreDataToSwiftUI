@@ -25,7 +25,7 @@ public protocol D2SObjectContainer {
  * - queryString (search for a string, via `qualifierForQueryString`)
  * - sortAttribute
  */
-public final class D2SDisplayGroup<Object: OActiveRecord>
+public final class D2SDisplayGroup<Object: NSManagedObject>
                    : ObservableObject, D2SFaultResolver, D2SObjectContainer
 {
   
@@ -294,7 +294,7 @@ extension FetchSpecification {
 internal let D2SFetchQueue = DispatchQueue(label: "de.zeezide.d2s.fetchqueue")
 
 
-fileprivate func buildInitialFetchSpec<Object: ActiveRecordType>
+fileprivate func buildInitialFetchSpec<Object: <NSManagedObject>>
                    (for     dataSource : ActiveDataSource<Object>,
                     auxiliaryQualifier : Qualifier?)
                  -> ModelFetchSpecification

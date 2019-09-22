@@ -17,7 +17,7 @@ public extension BasicLook.Property.Display {
 
     public init() {}
 
-    @EnvironmentObject var object : OActiveRecord
+    @EnvironmentObject var object : NSManagedObject
     
     @Environment(\.attribute)           private var attribute
     @Environment(\.propertyValue)       private var propertyValue

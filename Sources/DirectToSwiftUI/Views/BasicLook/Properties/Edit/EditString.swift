@@ -25,7 +25,7 @@ public extension BasicLook.Property.Edit {
 
     private struct Labeled<V: View>: View, D2SAttributeValidator {
       
-      @ObservedObject var object : OActiveRecord
+      @ObservedObject var object : NSManagedObject
       
       @Environment(\.displayNameForProperty) private var label
       @Environment(\.attribute)              var attribute

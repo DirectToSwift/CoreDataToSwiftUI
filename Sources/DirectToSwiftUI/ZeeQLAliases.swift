@@ -17,5 +17,4 @@ public typealias Attribute     = NSAttributeDescription
 public typealias Relationship  = NSRelationshipDescription
 
 // FIX THIS, those should really get replaced
-public typealias OActiveRecord = NSManagedObject
 public typealias GlobalID      = NSManagedObjectID

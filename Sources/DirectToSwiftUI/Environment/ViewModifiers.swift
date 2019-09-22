@@ -16,7 +16,7 @@ public extension View {
    * *AND* as an environmentObject!
    */
   //@inlinable
-  func ruleObject(_ object: OActiveRecord) -> some View {
+  func ruleObject(_ object: NSManagedObject) -> some View {
     self
       .environment(\.object, object)
       .environmentObject(object) // TBD: is this using the dynamic type?

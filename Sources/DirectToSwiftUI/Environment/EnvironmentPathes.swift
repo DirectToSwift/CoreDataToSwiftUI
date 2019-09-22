@@ -93,25 +93,20 @@ public extension DynamicEnvironmentPathes {
   /**
    * The currently active database object.
    *
-   * Right now this is tied to `OActiveRecord`, which is a rather stupid
-   * RoR like ORM object representing a single record in the database.
-   *
-   * A ZeeQL `ActiveRecord` tracks the database snapshot itself, i.e. it knows
-   * whether and how it changed.
-   * The `O` makes the `ActiveRecord` a Combine `ObservableObject`.
+   * Right now this is tied to `NSManagedObject`
    */
   var object : NSManagedObject {
     // TBD: This one should really be an EnvironmentObject, but how
     //      would we do this?
     //      I suspect EnvObj's are just keyed on the class type (instead of
     //      an environment key), like so:
-    //        self[OActiveRecord.self] = object
+    //        self[NSManagedObject.self] = object
     //      but this is probably not enough to get it subscribed, I suspect
     //      the subscription is stored in the property wrapper itself.
-    //      Also: to allow `self[OActiveRecord.self]`,
-    //            `self[OActiveRecord.self]` has to be an EnvKey (which would
+    //      Also: to allow `self[NSManagedObject.self]`,
+    //            `self[NSManagedObject.self]` has to be an EnvKey (which would
     //            be OK I guess?)
-    //      Right now it can't be an EnvironmentKey, because ActiveRecord
+    //      Right now it can't be an EnvironmentKey, because NSManagedObject
     //      already has a nested `Value` type (which is a little hard to
     //      replace) :-/
     set { self[dynamic: D2SKeys.object.self] = newValue }

@@ -6,7 +6,7 @@
 //
 
 public extension RuleKeyPathPredicate {
-  // Any Predicates to support ActiveRecord dynamic properties.
+  // Any Predicates to support NSManagedObject dynamic properties.
   
   init<Value>(keyPath: Swift.KeyPath<RuleContext, Any?>, value: Value) {
     self.init { ruleContext in

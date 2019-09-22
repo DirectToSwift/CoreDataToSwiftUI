@@ -30,7 +30,7 @@ public extension BasicLook.Page.AppKit {
     
     public init() {}
 
-    private func makeDataSource() -> ActiveDataSource<OActiveRecord> {
+    private func makeDataSource() -> ActiveDataSource<NSManagedObject> {
       return ActiveDataSource(database: database, entity: entity)
     }
     
@@ -40,7 +40,7 @@ public extension BasicLook.Page.AppKit {
         .environment(\.auxiliaryQualifier, nil) // reset!
     }
 
-    struct Bound<Object: OActiveRecord>: View {
+    struct Bound<Object: NSManagedObject>: View {
       
       @Environment(\.ruleContext)      private var context
       @State                           private var showSortSelector = false
@@ -60,7 +60,7 @@ public extension BasicLook.Page.AppKit {
         )
       }
       
-      func handleDoubleTap(on object: OActiveRecord?) {
+      func handleDoubleTap(on object: NSManagedObject?) {
         guard let object = object else { return } // still a fault
         
         let view = D2SPageView()

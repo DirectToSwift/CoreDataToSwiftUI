@@ -15,7 +15,7 @@ fileprivate let changeCount = 0
  */
 public struct D2SDebugObjectEditInfo: View {
   
-  @EnvironmentObject private var object : OActiveRecord
+  @EnvironmentObject private var object : NSManagedObject
 
   public var body: some View {
     D2SDebugBox {
@@ -44,7 +44,7 @@ public struct D2SDebugObjectEditInfo: View {
   
   struct Changes: View {
     
-    @ObservedObject var object : OActiveRecord
+    @ObservedObject var object : NSManagedObject
     
     private var changes : [ ( key: String, value: Any? ) ] {
       if object.isNew {

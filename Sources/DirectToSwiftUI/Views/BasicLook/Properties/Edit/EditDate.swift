@@ -35,20 +35,15 @@ public extension BasicLook.Property.Edit {
     }
     
     private func setNull(_ wantsValue: Bool) {
-      if wantsValue {
-        let storedDate = object.snapshot?[propertyKey] as? Date
-        object.setValue(storedDate ?? Date(), forKeyPath: propertyKey)
-      }
-      else {
-        object.setValue(nil, forKeyPath: propertyKey)
-      }
+      object.setValue(wantsValue ? Date() : nil, forKeyPath: propertyKey)
     }
     
     #if os(iOS) // use non-Form DatePicker on iOS
       public var body: some View {
         D2SDebugLabel("[ED\(isOptional ? "?" : "")]") {
           if isOptional {
-            ListEnabledDatePicker(label, selection: object.dateBinding(propertyKey))
+            ListEnabledDatePicker(label,
+                                  selection: object.dateBinding(propertyKey))
             Toggle(isOn: Binding(get: { self.isNull }, set: self.setNull)) {
               Text("") // TBD
             }

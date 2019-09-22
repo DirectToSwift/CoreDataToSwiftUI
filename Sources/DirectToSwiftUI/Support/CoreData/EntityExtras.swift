@@ -8,6 +8,17 @@
 import CoreData
 
 public extension NSEntityDescription {
+  
+  subscript(attribute name: String) -> NSAttributeDescription? {
+    return attributesByName[name]
+  }
+  subscript(relationship name: String) -> NSRelationshipDescription? {
+    return relationshipsByName[name]
+  }
+
+}
+
+public extension NSEntityDescription {
 
   /**
    * If name/extname differ, returns "Entity (Table)", if they are the same

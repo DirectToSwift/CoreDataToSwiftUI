@@ -16,15 +16,15 @@ import SwiftUI
  */
 public struct D2SSummaryView: View {
   
-  @EnvironmentObject private var object : OActiveRecord
+  @EnvironmentObject private var object : NSManagedObject
   
   @Environment(\.displayPropertyKeys) private var displayPropertyKeys
   @Environment(\.ruleContext)         private var ruleContext
 
-  private func summary(for object: ActiveRecordType) -> String {
+  private func summary(for object: NSManagedObject) -> String {
     return summary(for: object, entity: object.entity)
   }
-  private func summary(for object: DatabaseObject, entity: Entity,
+  private func summary(for object: NSManagedObject, entity: Entity,
                        fieldSeparator : String = ": ",
                        itemSeparator  : String = ", ") -> String
   {

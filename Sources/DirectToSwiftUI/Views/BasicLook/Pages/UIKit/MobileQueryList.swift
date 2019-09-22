@@ -43,7 +43,7 @@ public extension BasicLook.Page.UIKit {
         .environment(\.auxiliaryQualifier, nil) // reset!
     }
 
-    struct Bound<Object: OActiveRecord>: View {
+    struct Bound<Object: NSManagedObject>: View {
       
       @ObservedObject var displayGroup : D2SDisplayGroup<Object>
       

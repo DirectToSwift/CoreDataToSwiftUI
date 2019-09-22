@@ -7,29 +7,31 @@
 
 import CoreData
 
-public extension Entity {
+public extension NSEntityDescription {
+  
+  var attributes : Dictionary<String, NSAttributeDescription>.Values {
+    attributesByName.values
+  }
+  
+}
+
+public extension NSEntityDescription {
   var d2s : EntityD2S { return EntityD2S(entity: self) }
 }
 
 public struct EntityD2S {
-  let entity : Entity
+  let entity : NSEntityDescription
 }
 
 public extension EntityD2S {
   
   var isDefault    : Bool { entity is D2SDefaultEntity }
 
-  var defaultTitle : String { return entity.name }
+  var defaultTitle : String { return entity.name ?? "" }
 
   var defaultSortOrderings : [ NSSortDescriptor ] {
-    if let pkeys = entity.primaryKeyAttributeNames, !pkeys.isEmpty {
-      return pkeys.map { pkey in
-        NSSortDescriptor(key: pkey, selector: .CompareAscending)
-      }
-    }
-    
     guard let firstAttribute = entity.attributes.first else { return [] }
-    return [NSSortDescriptor(key: firstAttribute.name, selector: .CompareAscending)]
+    return [ NSSortDescriptor(key: firstAttribute.name, ascending: true) ]
   }
   
   /**

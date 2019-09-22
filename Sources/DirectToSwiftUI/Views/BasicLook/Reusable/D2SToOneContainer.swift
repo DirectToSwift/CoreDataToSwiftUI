@@ -42,7 +42,7 @@ public struct D2SToOneContainer<Content: View, Placeholder: View>: View {
     private let content        : AnyView
     private let placeholder    : AnyView
 
-    init(object: OActiveRecord, propertyKey: String,
+    init(object: NSManagedObject, propertyKey: String,
          placeholder: Placeholder, content: Content)
     {
       self.content     = AnyView(content)
@@ -50,7 +50,7 @@ public struct D2SToOneContainer<Content: View, Placeholder: View>: View {
       self.fetch = D2SToOneFetch(object: object, propertyKey: propertyKey)
     }
     
-    private var targetObject: OActiveRecord? {
+    private var targetObject: NSManagedObject? {
       fetch.destination
     }
 

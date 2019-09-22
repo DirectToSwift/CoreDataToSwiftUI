@@ -13,7 +13,7 @@ import SwiftUI
  */
 public struct D2STitleText: View {
   
-  @EnvironmentObject private var object : OActiveRecord // to get refreshes
+  @EnvironmentObject private var object : NSManagedObject // to get refreshes
   @Environment(\.title) private var title
   
   public init() {}

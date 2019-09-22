@@ -39,9 +39,9 @@ public extension BasicLook.Page {
     @Environment(\.attribute) private var attribute
     @Environment(\.nextTask)  private var nextTask
 
-    @State var username  : String = ""
-    @State var password  : String = ""
-    @State var loginUser : OActiveRecord? = nil
+    @State var username  : String           = ""
+    @State var password  : String           = ""
+    @State var loginUser : NSManagedObject? = nil
     
     private var hasValidInput: Bool {
       return !username.isEmpty
@@ -81,7 +81,7 @@ public extension BasicLook.Page {
       // also check for plain. More options might make sense.
       let pwdQualifier = pa.eq(password.md5()).or(pa.eq(password.sha1()))
 
-      let ds = ActiveDataSource<OActiveRecord>(
+      let ds = ActiveDataSource<NSManagedObject>(
                  database: database, entity: entity)
       ds.fetchSpecification = ModelFetchSpecification(entity: entity)
         .where(userNameQualifier.and(pwdQualifier))

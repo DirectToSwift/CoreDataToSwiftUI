@@ -1,5 +1,5 @@
 //
-//  ActiveRecordBindings.swift
+//  NSManagedObjectBindings.swift
 //  Direct to SwiftUI
 //
 //  Copyright © 2019 ZeeZide GmbH. All rights reserved.
@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-extension ActiveRecord: Identifiable {
+extension NSManagedObject: Identifiable {
   
   // TODO: use the pkey/GID instead. This uses the ObjectIdentifier.
   
@@ -23,7 +23,7 @@ extension ActiveRecord: Identifiable {
   }
 }
 
-public extension ActiveRecord {
+public extension NSManagedObject {
   // Bindings why try to do type coercion
   // TODO: maybe even do this for any bindings!
   

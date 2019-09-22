@@ -1,5 +1,5 @@
 //
-//  ActiveRecordExtras.swift
+//  ManagedObjectExtras.swift
 //  Direct to SwiftUI (Mobile)
 //
 //  Copyright © 2019 ZeeZide GmbH. All rights reserved.
@@ -9,7 +9,7 @@ import CoreData
 
 public extension NSManagedObject {
   
-  var d2s : D2S<NSManagedObject> { return D2S(object: self) }
+  var d2s : D2S { return D2S(object: self) }
   
   struct D2S {
     
@@ -26,11 +26,11 @@ public extension NSManagedObject {
     
     // MARK: - Title
     
-    static func title(for object: ActiveRecordType) -> String {
+    static func title(for object: NSManagedObject) -> String {
       return title(for: object, entity: object.entity)
     }
     
-    static func title(for object: DatabaseObject, entity: Entity) -> String {
+    static func title(for object: NSManagedObject, entity: Entity) -> String {
       // Look for string attributes, prefer 'title' exact match
       var firstString   : Attribute?
       var containsTitle : Attribute?

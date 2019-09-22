@@ -18,7 +18,7 @@ public func ==<VT>(lhs: Swift.KeyPath<RuleContext, AttributeValue.Type?>,
   }
 }
 
-// MARK: - Any Predicates to support ActiveRecord dynamic properties
+// MARK: - Any Predicates to support NSManagedObject dynamic properties
 
 // e.g. \.object.name == "Hello"
 public func ==<V>(lhs: Swift.KeyPath<RuleContext, Any?>, rhs: V)

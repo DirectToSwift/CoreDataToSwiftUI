@@ -15,7 +15,7 @@ public final class D2SToOneFetch: ObservableObject {
   
   @Published var destination : NSManagedObject?
   
-  let object      : OActiveRecord
+  let object      : NSManagedObject
   let propertyKey : String
   
   var isReady : Bool { destination != nil }
@@ -26,7 +26,7 @@ public final class D2SToOneFetch: ObservableObject {
     
     func lookup(_ kp: String, in object: NSManagedObject) -> NSManagedObject? {
       KeyValueCoding.value(forKeyPath: kp, inObject: object)
-        as? OActiveRecord
+        as? NSManagedObject
     }
     
     self.destination = lookup(propertyKey, in: object)
