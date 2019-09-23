@@ -15,6 +15,10 @@ public extension NSEntityDescription {
   subscript(relationship name: String) -> NSRelationshipDescription? {
     return relationshipsByName[name]
   }
+  
+  var displayName: String {
+    return name ?? ""
+  }
 
 }
 

@@ -43,7 +43,7 @@ public protocol KeyValueCodingType {
   func value(forKey key: String) -> Any?
 
   func setValue(_ value: Any?, forKeyPath path: String)
-  func value(forKeyPath key: String) -> Any?
+  func value(forKeyPath path: String) -> Any?
 }
 
 extension NSObject: KeyValueCodingType {}

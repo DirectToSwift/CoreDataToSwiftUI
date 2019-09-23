@@ -168,7 +168,7 @@ public let D2SDefaultRules : RuleModel = [
                     <= \.entity.d2s.defaultDisplayPropertyKeys,
   
   \.displayNameForProperty <= \.propertyKey.capitalizedWithPreUpperSpace,
-  \.displayNameForEntity   <= \.entity.name,
+  \.displayNameForEntity   <= \.entity.displayName,
   
   \.task == "edit" => \.hideEmptyProperty <= false,
                       \.hideEmptyProperty <= true,

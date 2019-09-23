@@ -8,14 +8,23 @@
 import SwiftUIRules
 import struct SwiftUI.EnvironmentValues
 
+/**
+ * SwiftUI.EnvironmentValues dispatches KVC calls to its attached
+ * `ruleContext`.
+ */
 extension EnvironmentValues: KeyValueCodingType {
   
-  /**
-   * SwiftUI.EnvironmentValues dispatches KVC calls to its attached
-   * `ruleContext`.
-   */
-  public func value(forKey k: String) -> Any? {
-    return ruleContext.value(forKey: k)
+  public func setValue(_ value: Any?, forKey key: String) {
+    ruleContext.setValue(value, forKey: key)
+  }
+  public func value(forKey key: String) -> Any? {
+    ruleContext.value(forKey: key)
+  }
+  public func setValue(_ value: Any?, forKeyPath path: String) {
+    ruleContext.setValue(value, forKeyPath: path)
+  }
+  public func value(forKeyPath path: String) -> Any? {
+    ruleContext.value(forKeyPath: path)
   }
 }
 
@@ -33,6 +42,14 @@ extension RuleContext: KeyValueCodingType {
     return entry.value(self)
   }
   
+  /// Not possible yet
+  public func setValue(_ value: Any?, forKey key: String) {
+    // FIXME: Should be possible?
+    globalD2SLogger.error("cannot set rulecontext values via KVC yet:", key)
+    assertionFailure("cannot set rulecontext values via KVC yet: \(key)")
+    return
+  }
+
 }
 
 public enum D2SContextKVC {
