@@ -29,6 +29,9 @@
 		E8907D9E2338EFE000CE0FBD /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8907D9D2338EFE000CE0FBD /* DataSource.swift */; };
 		E8907D9F2338EFE000CE0FBD /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8907D9D2338EFE000CE0FBD /* DataSource.swift */; };
 		E8907DA02338EFE000CE0FBD /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8907D9D2338EFE000CE0FBD /* DataSource.swift */; };
+		E8907DA22338F9D500CE0FBD /* FetchRequestExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8907DA12338F9D500CE0FBD /* FetchRequestExtras.swift */; };
+		E8907DA32338F9D500CE0FBD /* FetchRequestExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8907DA12338F9D500CE0FBD /* FetchRequestExtras.swift */; };
+		E8907DA42338F9D500CE0FBD /* FetchRequestExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8907DA12338F9D500CE0FBD /* FetchRequestExtras.swift */; };
 		E8A2C7E723325698009F2E71 /* SparseFaultArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C76523325698009F2E71 /* SparseFaultArray.swift */; };
 		E8A2C7E823325698009F2E71 /* SparseFaultArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C76523325698009F2E71 /* SparseFaultArray.swift */; };
 		E8A2C7E923325698009F2E71 /* SparseFaultArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C76523325698009F2E71 /* SparseFaultArray.swift */; };
@@ -379,6 +382,7 @@
 /* Begin PBXFileReference section */
 		E8907D992338DC6400CE0FBD /* PredicateExtras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredicateExtras.swift; sourceTree = "<group>"; };
 		E8907D9D2338EFE000CE0FBD /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		E8907DA12338F9D500CE0FBD /* FetchRequestExtras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchRequestExtras.swift; sourceTree = "<group>"; };
 		E8A2C76523325698009F2E71 /* SparseFaultArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SparseFaultArray.swift; sourceTree = "<group>"; };
 		E8A2C76623325698009F2E71 /* D2SToOneFetch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = D2SToOneFetch.swift; sourceTree = "<group>"; };
 		E8A2C76723325698009F2E71 /* D2SDisplayGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = D2SDisplayGroup.swift; sourceTree = "<group>"; };
@@ -592,6 +596,7 @@
 				E8A2C77823325698009F2E71 /* D2SEditValidation.swift */,
 				E8907D992338DC6400CE0FBD /* PredicateExtras.swift */,
 				E8907D9D2338EFE000CE0FBD /* DataSource.swift */,
+				E8907DA12338F9D500CE0FBD /* FetchRequestExtras.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -1044,6 +1049,7 @@
 				E8A2C89E23325699009F2E71 /* DisplayString.swift in Sources */,
 				E8A2C8AA23325699009F2E71 /* DisplayToOneSummary.swift in Sources */,
 				E8A2C8E923325699009F2E71 /* D2SToOneLink.swift in Sources */,
+				E8907DA22338F9D500CE0FBD /* FetchRequestExtras.swift in Sources */,
 				E8A2C7EA23325698009F2E71 /* D2SToOneFetch.swift in Sources */,
 				E8A2C88923325699009F2E71 /* EditBool.swift in Sources */,
 				E8A2C8B323325699009F2E71 /* MobileSelect.swift in Sources */,
@@ -1159,6 +1165,7 @@
 				E8A2C89F23325699009F2E71 /* DisplayString.swift in Sources */,
 				E8A2C8AB23325699009F2E71 /* DisplayToOneSummary.swift in Sources */,
 				E8A2C8EA23325699009F2E71 /* D2SToOneLink.swift in Sources */,
+				E8907DA32338F9D500CE0FBD /* FetchRequestExtras.swift in Sources */,
 				E8A2C7EB23325698009F2E71 /* D2SToOneFetch.swift in Sources */,
 				E8A2C88A23325699009F2E71 /* EditBool.swift in Sources */,
 				E8A2C8B423325699009F2E71 /* MobileSelect.swift in Sources */,
@@ -1274,6 +1281,7 @@
 				E8A2C8A023325699009F2E71 /* DisplayString.swift in Sources */,
 				E8A2C8AC23325699009F2E71 /* DisplayToOneSummary.swift in Sources */,
 				E8A2C8EB23325699009F2E71 /* D2SToOneLink.swift in Sources */,
+				E8907DA42338F9D500CE0FBD /* FetchRequestExtras.swift in Sources */,
 				E8A2C7EC23325698009F2E71 /* D2SToOneFetch.swift in Sources */,
 				E8A2C88B23325699009F2E71 /* EditBool.swift in Sources */,
 				E8A2C8B523325699009F2E71 /* MobileSelect.swift in Sources */,

@@ -38,10 +38,8 @@ public class ManagedObjectDataSource<Object: NSManagedObject>: DataSource {
   }
 
   public func fetchRequestForFetch() throws -> NSFetchRequest<Object> {
-    guard let fr = fetchRequest else {
-      return NSFetchRequest<Object>(entityName: entity.name ?? "")
-    }
-    return fr.copy() as! NSFetchRequest<Object>
+    fetchRequest?.typedCopy()
+      ?? NSFetchRequest<Object>(entityName: entity.name ?? "")
   }
 }
 

@@ -113,7 +113,7 @@ extension NSManagedObject {
         globalD2SLogger.warn("more than one record match toOne relship:",
                              name, "\n",
                              "  ds:", ds, "\n",
-                             "  Q: ", ds.fetchSpecification?.qualifier)
+                             "  Q: ", ds.fetchRequest?.predicate)
         assertionFailure("two-one fetch yielded more than one object!")
       }
       return results.first

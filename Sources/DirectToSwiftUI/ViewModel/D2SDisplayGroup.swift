@@ -305,9 +305,7 @@ fileprivate func buildInitialFetchSpec<Object: NSManagedObject>
 {
   // all cases, kinda non-sense here
   var fs : NSFetchRequest<Object> = {
-    if let fs = dataSource.fetchRequest?.copy() as? NSFetchRequest<Object> {
-      return fs
-    }
+    if let fs = dataSource.fetchRequest?.typedCopy() { return fs }
     return NSFetchRequest<Object>(entityName: dataSource.entity.name ?? "")
   }()
   
