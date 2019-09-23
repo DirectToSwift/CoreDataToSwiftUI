@@ -13,21 +13,13 @@ public struct D2SDebugEntityDetails: View {
   
   struct AttributeInfo: View {
     
-    let attribute: Attribute
+    let attribute: NSAttributeDescription
     
     var body: some View {
       VStack(alignment: .leading) {
         Text(verbatim: attribute.name)
-        
         VStack(alignment: .leading) {
-          if attribute.isPattern { Text(verbatim: "*Pattern!") }
-          if attribute.columnName != nil &&
-             attribute.columnName != attribute.name
-          {
-            Text(verbatim: attribute.columnName!)
-          }
-          attribute.externalType .map { Text(verbatim: $0) }
-          attribute.attributeType.map { Text(verbatim: String(describing: $0)) }
+          Text(verbatim: String(describing: attribute.attributeType))
         }
         .frame(maxWidth: .infinity)
         .padding(EdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 0))
@@ -79,14 +71,14 @@ public struct D2SDebugEntityDetails: View {
         Text("No Entity set")
       }
       else {
-        Text(verbatim: entity.displayNameWithExternalName)
+        Text(verbatim: entity.displayName)
           .font(.title)
         
-        ForEach(entity.attributes, id: \.name) { attribute in
+        ForEach(Array(entity.attributes), id: \.name) { attribute in
           AttributeInfo(attribute: attribute)
         }
         
-        ForEach(entity.relationships, id: \.name) { relationship in
+        ForEach(Array(entity.relationships), id: \.name) { relationship in
           RelationshipInfo(relationship: relationship)
         }
       }

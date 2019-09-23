@@ -29,9 +29,8 @@ public struct D2SDisplayPropertiesList: View {
     return displayPropertyKeys.filter { propertyKey in
       if propertyType(propertyKey).isRelationship { return true }
       
-      guard let value =
-        KeyValueCoding.value(forKeyPath: propertyKey, inObject: object) else {
-          return false
+      guard let value = object.value(forKeyPath: propertyKey) else {
+        return false
       }
       if let s = value as? String, s.isEmpty { return false }
       return true
