@@ -117,7 +117,7 @@ Define a struct representing the key (D2S ones are in the `D2S` namespacing
 enum):
 ```swift
 struct object: DynamicEnvironmentKey {
-  public static var defaultValue : NSManagedObject = NSManagedObject()
+  public static let defaultValue : NSManagedObject = NSManagedObject()
 }
 ```
 A requirement of `EnvironmentKey` is that all keys have a default value which is 

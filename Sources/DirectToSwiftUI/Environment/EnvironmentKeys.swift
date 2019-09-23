@@ -26,16 +26,16 @@ public extension D2SKeys {
 
   struct debug: DynamicEnvironmentKey {
     #if DEBUG
-      public static var defaultValue = true
+      public static let defaultValue = true
     #else
-      public static var defaultValue = false
+      public static let defaultValue = false
     #endif
   }
 
   // TODO: rename for CoreData
   struct database: DynamicEnvironmentKey {
-    public static var defaultValue : NSManagedObjectContext
-      = D2SDummyObjectContext(concurrencyType: .mainQueueConcurrencyType)
+    public static let defaultValue : NSManagedObjectContext
+                                   = D2SDummyObjectContext.shared
   }
   
   struct firstTask: DynamicEnvironmentKey {
@@ -52,7 +52,7 @@ public extension D2SKeys {
   struct object: DynamicEnvironmentKey {
     // TBD: This one should really be an EnvironmentObject, but how
     //      would we do this? More in the keypath \.object.
-    public static var defaultValue : NSManagedObject = .init()
+    public static let defaultValue : NSManagedObject = D2SDefaultObject()
   }
 
   struct propertyKey: DynamicEnvironmentKey {
@@ -66,11 +66,12 @@ public extension D2SKeys {
   // MARK: - Model
   
   struct model: DynamicEnvironmentKey {
-    public static var defaultValue : NSManagedObjectModel = D2SDefaultModel()
+    public static let defaultValue : NSManagedObjectModel
+                                   = D2SDefaultModel.shared
   }
 
   struct entity: DynamicEnvironmentKey {
-    public static var defaultValue : NSEntityDescription
+    public static let defaultValue : NSEntityDescription
                                    = D2SDefaultEntity.shared
   }
   
