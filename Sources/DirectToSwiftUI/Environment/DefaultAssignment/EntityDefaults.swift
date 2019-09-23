@@ -29,7 +29,7 @@ public extension EntityD2S {
 
   var defaultTitle : String { return entity.name ?? "" }
 
-  var defaultSortOrderings : [ NSSortDescriptor ] {
+  var defaultSortDescriptors : [ NSSortDescriptor ] {
     guard let firstAttribute = entity.attributes.first else { return [] }
     return [ NSSortDescriptor(key: firstAttribute.name, ascending: true) ]
   }

@@ -8,9 +8,7 @@
 import CoreData
 
 extension NSManagedObject {
-  
-  // TODO: Move to ZeeQL
-  
+    
   func dataSourceQualifiedByKey(_ key: String)
        -> ActiveDataSource<NSManagedObject>?
   {

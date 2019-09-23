@@ -83,7 +83,7 @@ public extension BasicLook.Page {
 
       let ds = ActiveDataSource<NSManagedObject>(
                  database: database, entity: entity)
-      ds.fetchSpecification = ModelFetchSpecification(entity: entity)
+      ds.fetchSpecification = NSFetchRequest(entity: entity)
         .where(userNameQualifier.and(pwdQualifier))
       
       if let user = try? ds.find() {

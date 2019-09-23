@@ -45,13 +45,13 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
     didSet {
       guard oldValue !== sortAttribute else { return }
       if let newValue = sortAttribute {
-        self.fetchSpecification.sortOrderings = [
-          NSSortDescriptor(key: newValue.name, selector: .CompareAscending)
+        self.fetchSpecification.sortDescriptors = [
+          NSSortDescriptor(key: newValue.name, ascending: true)
         ]
       }
       else {
-        self.fetchSpecification.sortOrderings =
-          dataSource.entity?.d2s.defaultSortOrderings ?? []
+        self.fetchSpecification.sortDescriptors =
+          dataSource.entity?.d2s.defaultSortDescriptors ?? []
       }
     }
   }
@@ -60,12 +60,12 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
   private  let batchCount         : Int
   
   private  var auxiliaryQualifier : NSPredicate? = nil
-  private  var fetchSpecification : NSFetch {
+  private  var fetchSpecification : NSFetchRequest<Object> {
     didSet { setNeedsRefetch() }
   }
   
   private func setNeedsRefetch() { needsRefetch.send(fetchSpecification) }
-  private var needsRefetch = PassthroughSubject<FetchSpecification, Never>()
+  private var needsRefetch = PassthroughSubject<NSFetchRequest<Object>, Never>()
     // Not using @Published because we want a _didset_
   
   public init(dataSource: ActiveDataSource<Object>,
@@ -138,7 +138,7 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
     results.clearOrderAndApplyNewCount(count)
   }
   
-  private func fetchCount(_ fetchSpecification: FetchSpecification) {
+  private func fetchCount(_ fetchSpecification: NSFetchRequest<Object>) {
     let fs = fetchSpecification // has to be done, can't use inside fetchCount?
     _ = dataSource.fetchCount(fs, on: D2SFetchQueue)
       .receive(on: RunLoop.main)
@@ -237,7 +237,7 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
     // TODO: add .range operator! (with closed, open, all!)
     let entity = fetchSpecification.entity ?? dataSource.entity
     let fs     = fetchSpecification.range(fetchRange)
-    assert(fs.sortOrderings != nil && !(fs.sortOrderings?.isEmpty ?? true))
+    assert(fs.sortDescriptors != nil && !(fs.sortDescriptors?.isEmpty ?? true))
     
     let query = Query(range: fetchRange)
     activeQueries.append(query) // keep it alive
@@ -285,8 +285,8 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
 
 }
 
-extension FetchSpecification {
-  func range(_ range: Range<Int>) -> FetchSpecification {
+extension NSFetchRequest {
+  func range(_ range: Range<Int>) -> Self {
     self.offset(range.lowerBound).limit(range.count)
   }
 }
@@ -297,36 +297,36 @@ internal let D2SFetchQueue = DispatchQueue(label: "de.zeezide.d2s.fetchqueue")
 fileprivate func buildInitialFetchSpec<Object: NSManagedObject>
                    (for     dataSource : ActiveDataSource<Object>,
                     auxiliaryQualifier : NSPredicate?)
-                 -> ModelFetchSpecification
+                 -> NSFetchRequest<Object>
 {
   // all cases, kinda non-sense here
-  var fs : ModelFetchSpecification = {
+  var fs : NSFetchRequest<Object> = {
     if let fs = dataSource.fetchSpecification {
-      return ModelFetchSpecification(fetchSpecification: fs)
+      return NSFetchRequest<Object>(fetchSpecification: fs)
     }
     if let entity = dataSource.entity {
-      return ModelFetchSpecification(entity: entity)
+      return NSFetchRequest<Object>(entity: entity)
     }
     if let entityName = dataSource.entityName {
-      return ModelFetchSpecification(entityName: entityName)
+      return NSFetchRequest<Object>(entityName: entityName)
     }
-    return ModelFetchSpecification()
+    return NSFetchRequest<Object>()
   }()
   
   // We NEED a sort ordering (unless we prefetch all IDs)
-  if (fs.sortOrderings?.count ?? 0) == 0 {
-    fs.sortOrderings = dataSource.entity?.d2s.defaultSortOrderings ?? []
+  if (fs.sortDescriptors?.count ?? 0) == 0 {
+    fs.sortDescriptors = dataSource.entity?.d2s.defaultSortDescriptors ?? []
   }
   #if os(macOS)
-    if !(fs.sortOrderings != nil && !(fs.sortOrderings?.isEmpty ?? true)) {
+    if !(fs.sortDescriptors != nil && !(fs.sortDescriptors?.isEmpty ?? true)) {
       globalD2SLogger.error("got no sort orderings for fetchspec:", fs)
     }
   #else
-    assert(fs.sortOrderings != nil && !(fs.sortOrderings?.isEmpty ?? true))
+    assert(fs.sortDescriptors != nil && !(fs.sortDescriptors?.isEmpty ?? true))
   #endif
   
   if let aux = auxiliaryQualifier {
-    fs.qualifier = aux.and(fs.qualifier)
+    fs.predicate = aux.and(fs.predicate)
   }
   
   return fs

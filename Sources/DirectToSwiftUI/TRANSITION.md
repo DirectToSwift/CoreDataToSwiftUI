@@ -1,6 +1,6 @@
 # Transition TODOs
 
-- ModelFetchSpecification? FetchSpecification => FetchRequest?
+- ModelFetchSpecification? FetchSpecification => NSFetchRequest?
 
 - managedobjects do not carry their entity? nah, they do
 
