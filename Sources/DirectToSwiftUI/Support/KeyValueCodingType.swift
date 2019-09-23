@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum KeyValueCoding {
+public enum KeyValueCoding {
 
   static func setValue(_ value: Any?, forKey key: String,
                        inObject object: KeyValueCodingType?)
@@ -46,7 +46,8 @@ public protocol KeyValueCodingType {
   func value(forKeyPath path: String) -> Any?
 }
 
-extension NSObject: KeyValueCodingType {}
+extension NSObject        : KeyValueCodingType {}
+extension NSManagedObject : KeyValueCodingType {}
 
 public extension KeyValueCodingType {
 

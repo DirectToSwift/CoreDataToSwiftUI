@@ -34,7 +34,7 @@ public extension BasicLook.Page {
   struct Login: View {
     // TODO: Add keychain etc etc
     
-    @Environment(\.database)  private var database
+    @Environment(\.database)  private var moc
     @Environment(\.entity)    private var entity
     @Environment(\.attribute) private var attribute
     @Environment(\.nextTask)  private var nextTask
@@ -81,8 +81,8 @@ public extension BasicLook.Page {
       // also check for plain. More options might make sense.
       let pwdQualifier = pa.eq(password.md5()).or(pa.eq(password.sha1()))
 
-      let ds = ActiveDataSource<NSManagedObject>(
-                 database: database, entity: entity)
+      let ds = ManagedObjectDataSource<NSManagedObject>(
+                 managedObjectContext: moc, entity: entity)
       ds.fetchSpecification = NSFetchRequest(entity: entity)
         .where(userNameQualifier.and(pwdQualifier))
       

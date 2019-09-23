@@ -33,15 +33,15 @@ public struct RuleKeyPathAssignment<K: DynamicEnvironmentKey>
               : RuleCandidate, RuleAction
 {
   public let key     : K.Type
-  public let keyPath : [ String ]
+  public let keyPath : String
   
   public init(_ key: K.Type, _ keyPath: [ String ]) {
     self.key     = key
-    self.keyPath = keyPath
+    self.keyPath = keyPath.joined(separator: ".")
   }
   public init(_ key: K.Type, _ keyPath: String) {
     self.key     = key
-    self.keyPath = keyPath.components(separatedBy: ".")
+    self.keyPath = keyPath
   }
 
   public var candidateKeyType: ObjectIdentifier {
@@ -54,6 +54,6 @@ public struct RuleKeyPathAssignment<K: DynamicEnvironmentKey>
   }
 
   public func fireInContext(_ context: RuleContext) -> Any? {
-    return KeyValueCoding.value(forKeyPath: keyPath, inObject: context)
+    KeyValueCoding.value(forKeyPath: keyPath, inObject: context)
   }
 }

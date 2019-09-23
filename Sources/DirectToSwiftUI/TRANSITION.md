@@ -1,6 +1,8 @@
 # Transition TODOs
 
 - ModelFetchSpecification? FetchSpecification => NSFetchRequest?
+  - [ ] rename fetchSpecification => fetchRequest everywhere
+  - [ ] rename sortOrderings => sortDescriptors everywhere
 
 - managedobjects do not carry their entity? nah, they do
 

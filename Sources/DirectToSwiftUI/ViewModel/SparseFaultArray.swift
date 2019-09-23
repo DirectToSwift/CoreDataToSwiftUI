@@ -129,7 +129,7 @@ extension SparseFaultArray {
   }
 }
 
-internal final class IndexGlobalID : GlobalID {
+internal final class IndexGlobalID : NSManagedObjectID {
   
   private static let sharedIndexGIDs : [ IndexGlobalID ] = { // prealloc some
     (0...50).map(IndexGlobalID.init)
@@ -154,8 +154,8 @@ internal final class IndexGlobalID : GlobalID {
     return gid == self
   }
   
-  override func hash(into hasher: inout Hasher) {
-    index.hash(into: &hasher)
+  override var hash: Int {
+    index.hashValue
   }
   
   public static func ==(lhs: IndexGlobalID, rhs: IndexGlobalID) -> Bool {

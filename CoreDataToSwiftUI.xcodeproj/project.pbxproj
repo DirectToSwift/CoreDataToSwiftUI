@@ -26,6 +26,9 @@
 		E8907D9A2338DC6400CE0FBD /* PredicateExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8907D992338DC6400CE0FBD /* PredicateExtras.swift */; };
 		E8907D9B2338DC6400CE0FBD /* PredicateExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8907D992338DC6400CE0FBD /* PredicateExtras.swift */; };
 		E8907D9C2338DC6400CE0FBD /* PredicateExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8907D992338DC6400CE0FBD /* PredicateExtras.swift */; };
+		E8907D9E2338EFE000CE0FBD /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8907D9D2338EFE000CE0FBD /* DataSource.swift */; };
+		E8907D9F2338EFE000CE0FBD /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8907D9D2338EFE000CE0FBD /* DataSource.swift */; };
+		E8907DA02338EFE000CE0FBD /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8907D9D2338EFE000CE0FBD /* DataSource.swift */; };
 		E8A2C7E723325698009F2E71 /* SparseFaultArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C76523325698009F2E71 /* SparseFaultArray.swift */; };
 		E8A2C7E823325698009F2E71 /* SparseFaultArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C76523325698009F2E71 /* SparseFaultArray.swift */; };
 		E8A2C7E923325698009F2E71 /* SparseFaultArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C76523325698009F2E71 /* SparseFaultArray.swift */; };
@@ -375,6 +378,7 @@
 
 /* Begin PBXFileReference section */
 		E8907D992338DC6400CE0FBD /* PredicateExtras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredicateExtras.swift; sourceTree = "<group>"; };
+		E8907D9D2338EFE000CE0FBD /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		E8A2C76523325698009F2E71 /* SparseFaultArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SparseFaultArray.swift; sourceTree = "<group>"; };
 		E8A2C76623325698009F2E71 /* D2SToOneFetch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = D2SToOneFetch.swift; sourceTree = "<group>"; };
 		E8A2C76723325698009F2E71 /* D2SDisplayGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = D2SDisplayGroup.swift; sourceTree = "<group>"; };
@@ -587,6 +591,7 @@
 				E8A2C77723325698009F2E71 /* EntityExtras.swift */,
 				E8A2C77823325698009F2E71 /* D2SEditValidation.swift */,
 				E8907D992338DC6400CE0FBD /* PredicateExtras.swift */,
+				E8907D9D2338EFE000CE0FBD /* DataSource.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -1027,6 +1032,7 @@
 				E8A2C87A23325699009F2E71 /* BasicLook.swift in Sources */,
 				E8D42FF32337C84500652366 /* Logger.swift in Sources */,
 				E8A2C91023325699009F2E71 /* D2SDebugEntityDetails.swift in Sources */,
+				E8907D9E2338EFE000CE0FBD /* DataSource.swift in Sources */,
 				E8A2C86B23325699009F2E71 /* EntitySidebar.swift in Sources */,
 				E8A2C82C23325698009F2E71 /* ManagedObjectDefaults.swift in Sources */,
 				E8A2C84423325698009F2E71 /* EnvironmentPathes.swift in Sources */,
@@ -1141,6 +1147,7 @@
 				E8A2C87B23325699009F2E71 /* BasicLook.swift in Sources */,
 				E8D42FF42337C84500652366 /* Logger.swift in Sources */,
 				E8A2C91123325699009F2E71 /* D2SDebugEntityDetails.swift in Sources */,
+				E8907D9F2338EFE000CE0FBD /* DataSource.swift in Sources */,
 				E8A2C86C23325699009F2E71 /* EntitySidebar.swift in Sources */,
 				E8A2C82D23325698009F2E71 /* ManagedObjectDefaults.swift in Sources */,
 				E8A2C84523325698009F2E71 /* EnvironmentPathes.swift in Sources */,
@@ -1255,6 +1262,7 @@
 				E8A2C87C23325699009F2E71 /* BasicLook.swift in Sources */,
 				E8D42FF52337C84500652366 /* Logger.swift in Sources */,
 				E8A2C91223325699009F2E71 /* D2SDebugEntityDetails.swift in Sources */,
+				E8907DA02338EFE000CE0FBD /* DataSource.swift in Sources */,
 				E8A2C86D23325699009F2E71 /* EntitySidebar.swift in Sources */,
 				E8A2C82E23325698009F2E71 /* ManagedObjectDefaults.swift in Sources */,
 				E8A2C84623325698009F2E71 /* EnvironmentPathes.swift in Sources */,

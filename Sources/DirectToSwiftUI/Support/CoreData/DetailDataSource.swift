@@ -10,7 +10,7 @@ import CoreData
 extension NSManagedObject {
     
   func dataSourceQualifiedByKey(_ key: String)
-       -> ActiveDataSource<NSManagedObject>?
+       -> ManagedObjectDataSource<NSManagedObject>?
   {
     // We could try to extract the proper static type using
     //   CodeRelationshipBase<Target: SwiftObject>
@@ -32,12 +32,13 @@ extension NSManagedObject {
                           "  datasource:  ", self)
       return nil
     }
-    let ds = ActiveDataSource<NSManagedObject>(database: database, entity: entity)
-    ds.fetchSpecification = ModelFetchSpecification(
-      entity    : entity, // TODO
-      qualifier : relship.qualifierInDestinationForSource(self)
-    )
-    
+    guard let ds = managedObjectContext?.dataSource(for: entity) else {
+      globalD2SLogger.error("missing MOC:", self)
+      return nil
+    }
+    let fs = NSFetchRequest<NSManagedObject>(entityName: entity.name ?? "")
+    fs.predicate = relship.qualifierInDestinationForSource(self)
+    ds.fetchRequest = fs
     return ds
   }
   
@@ -48,10 +49,14 @@ extension NSRelationshipDescription {
   func qualifierInDestinationForSource(_ source: NSManagedObject)
        -> NSPredicate?
   {
+    #if true // FIXME: implement me
+      globalD2SLogger.error("TODO: implement:", #function)
+      return nil
+    #else
     // FIXME: Still has issues for some setups (FilmActors N:M)
     guard !joins.isEmpty else { return nil }
     
-    var qualifiers = [ Qualifier ]()
+    var qualifiers = [ NSPredicate ]()
     qualifiers.reserveCapacity(joins.count)
     
     for join in joins {
@@ -75,7 +80,8 @@ extension NSRelationshipDescription {
     
     guard !qualifiers.isEmpty else { return nil }
     if qualifiers.count == 1 { return qualifiers[0] }
-    return CompoundQualifier(qualifiers: qualifiers, op: .And)
+    return NSCompoundPredicate(andPredicateWithSubpredicates: qualifiers)
+    #endif
   }
 }
 
@@ -97,7 +103,7 @@ extension NSManagedObject {
       return nil
     }
     do {
-      ds.fetchSpecification = ds.fetchSpecification?.limit(2)
+      ds.fetchRequest = ds.fetchRequest?.limit(2)
       let results = try ds.fetchObjects()
       guard !results.isEmpty else {
         globalD2SLogger.log("did not find relationship target:", name)

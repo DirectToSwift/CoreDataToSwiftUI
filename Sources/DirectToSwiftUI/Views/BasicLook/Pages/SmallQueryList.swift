@@ -17,14 +17,14 @@ public extension BasicLook.Page {
    */
   struct SmallQueryList: View {
     
-    @Environment(\.database)           private var database
+    @Environment(\.database)           private var moc
     @Environment(\.entity)             private var entity
     @Environment(\.auxiliaryQualifier) private var auxiliaryQualifier
     
     public init() {}
 
-    private func makeDataSource() -> ActiveDataSource<NSManagedObject> {
-      return ActiveDataSource(database: database, entity: entity)
+    private func makeDataSource() -> ManagedObjectDataSource<NSManagedObject> {
+      moc.dataSource(for: entity)
     }
     
     public var body: some View {
@@ -38,12 +38,12 @@ public extension BasicLook.Page {
       // This seems to crash on macOS b7
       @ObservedObject private var displayGroup : D2SDisplayGroup<Object>
       
-      init(dataSource: ActiveDataSource<Object>,
-           auxiliaryQualifier: NSPredicate?)
+      init(dataSource         : ManagedObjectDataSource<Object>,
+           auxiliaryQualifier : NSPredicate?)
       {
         self.displayGroup = D2SDisplayGroup(
-          dataSource: dataSource,
-          auxiliaryQualifier: auxiliaryQualifier
+          dataSource         : dataSource,
+          auxiliaryQualifier : auxiliaryQualifier
         )
       }
 

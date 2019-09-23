@@ -173,3 +173,35 @@ public extension NSAttributeDescription {
 fileprivate let falseStrings = [
   "no", "false", "nein", "njet", "nada", "nope"
 ]
+
+
+// MARK: - Query Builder
+
+public extension NSAttributeDescription {
+  
+  func eq(_ attr: NSAttributeDescription) -> NSComparisonPredicate {
+    NSComparisonPredicate(leftExpression  : NSExpression(forKeyPath: self.name),
+                          rightExpression : NSExpression(forKeyPath: attr.name),
+                          modifier: .direct, type: .equalTo, options: [])
+  }
+  
+  func eq(_ value : Any?) -> NSComparisonPredicate {
+    NSComparisonPredicate(
+      leftExpression  : NSExpression(forKeyPath: self.name),
+      rightExpression : NSExpression(forConstantValue: value),
+      modifier: .direct, type: .equalTo, options: []
+    )
+  }
+}
+
+public extension NSAttributeDescription {
+  
+  func like(_ pattern : String) -> NSComparisonPredicate {
+    NSComparisonPredicate(
+      leftExpression  : NSExpression(forKeyPath: self.name),
+      rightExpression : NSExpression(forConstantValue: pattern),
+      modifier: .direct, type: .like, options: []
+    )
+  }
+  
+}

@@ -41,7 +41,7 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
       fetchSpecification.qualifier = q
     }
   }
-  @Published var sortAttribute : Attribute? = nil {
+  @Published var sortAttribute : NSAttributeDescription? = nil {
     didSet {
       guard oldValue !== sortAttribute else { return }
       if let newValue = sortAttribute {
@@ -51,12 +51,12 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
       }
       else {
         self.fetchSpecification.sortDescriptors =
-          dataSource.entity?.d2s.defaultSortDescriptors ?? []
+          dataSource.entity.d2s.defaultSortDescriptors
       }
     }
   }
   
-  internal let dataSource         : ActiveDataSource<Object>
+  internal let dataSource         : ManagedObjectDataSource<Object>
   private  let batchCount         : Int
   
   private  var auxiliaryQualifier : NSPredicate? = nil
@@ -68,10 +68,10 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
   private var needsRefetch = PassthroughSubject<NSFetchRequest<Object>, Never>()
     // Not using @Published because we want a _didset_
   
-  public init(dataSource: ActiveDataSource<Object>,
-              auxiliaryQualifier: NSPredicate? = nil,
-              displayPropertyKeys: [ String ]? = nil,
-              batchCount: Int = 20)
+  public init(dataSource          : ManagedObjectDataSource<Object>,
+              auxiliaryQualifier  : NSPredicate? = nil,
+              displayPropertyKeys : [ String ]?  = nil,
+              batchCount          : Int = 20)
   {
     // Note: We always fetch full objects, for the list we could also just
     //       select the displayPropertyKeys, but then we'd have to fetch the
@@ -81,8 +81,9 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
     self.auxiliaryQualifier = auxiliaryQualifier
     self.fetchSpecification = buildInitialFetchSpec(for: dataSource,
                                 auxiliaryQualifier: auxiliaryQualifier)
-    if let keys = displayPropertyKeys, let entity = dataSource.entity {
-      self.fetchSpecification.prefetchingRelationshipKeyPathes =
+    let entity = dataSource.entity
+    if let keys = displayPropertyKeys {
+      self.fetchSpecification.relationshipKeyPathsForPrefetching =
         entity.prefetchPathesForPropertyKeys(keys)
     }
     
@@ -138,6 +139,12 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
     results.clearOrderAndApplyNewCount(count)
   }
   
+  #if true // IMPLEMENT ME
+  private func fetchCount(_ fetchSpecification: NSFetchRequest<Object>) {
+    globalD2SLogger.error("TODO: fetch count")
+    integrateCount(0)
+  }
+  #else
   private func fetchCount(_ fetchSpecification: NSFetchRequest<Object>) {
     let fs = fetchSpecification // has to be done, can't use inside fetchCount?
     _ = dataSource.fetchCount(fs, on: D2SFetchQueue)
@@ -148,6 +155,7 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
       }
       .sink(receiveValue: self.integrateCount)
   }
+  #endif
   
   
   // MARK: - Fetching Values
@@ -179,11 +187,7 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
       let targetIndex = i + range.lowerBound
       assert(newResults.count > targetIndex)
       
-      guard let gid = result.globalID else {
-        globalD2SLogger.error("got a record w/o a globalID?:", result)
-        assertionFailure("record w/o GID")
-        continue
-      }
+      let gid = result.globalID
       
       if newResults.count > targetIndex {
         newResults[targetIndex] = .object(gid, result)
@@ -295,27 +299,21 @@ internal let D2SFetchQueue = DispatchQueue(label: "de.zeezide.d2s.fetchqueue")
 
 
 fileprivate func buildInitialFetchSpec<Object: NSManagedObject>
-                   (for     dataSource : ActiveDataSource<Object>,
+                   (for     dataSource : ManagedObjectDataSource<Object>,
                     auxiliaryQualifier : NSPredicate?)
                  -> NSFetchRequest<Object>
 {
   // all cases, kinda non-sense here
   var fs : NSFetchRequest<Object> = {
-    if let fs = dataSource.fetchSpecification {
-      return NSFetchRequest<Object>(fetchSpecification: fs)
+    if let fs = dataSource.fetchRequest?.copy() as? NSFetchRequest<Object> {
+      return fs
     }
-    if let entity = dataSource.entity {
-      return NSFetchRequest<Object>(entity: entity)
-    }
-    if let entityName = dataSource.entityName {
-      return NSFetchRequest<Object>(entityName: entityName)
-    }
-    return NSFetchRequest<Object>()
+    return NSFetchRequest<Object>(entityName: dataSource.entity.name ?? "")
   }()
   
   // We NEED a sort ordering (unless we prefetch all IDs)
   if (fs.sortDescriptors?.count ?? 0) == 0 {
-    fs.sortDescriptors = dataSource.entity?.d2s.defaultSortDescriptors ?? []
+    fs.sortDescriptors = dataSource.entity.d2s.defaultSortDescriptors
   }
   #if os(macOS)
     if !(fs.sortDescriptors != nil && !(fs.sortDescriptors?.isEmpty ?? true)) {

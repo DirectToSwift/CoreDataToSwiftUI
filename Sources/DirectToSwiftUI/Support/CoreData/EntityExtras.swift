@@ -47,19 +47,6 @@ public extension NSEntityDescription {
 
 extension NSEntityDescription {
   
-  // FIXME: CD doesn't have that
-  
-  var singleIntegerPrimaryKeyAttribute : NSAttributeDescription? {
-    guard let pkeys = primaryKeyAttributeNames, pkeys.count == 1
-     else { return nil }
-
-    guard let attribute = self[attribute: pkeys[0]] else { return nil }
-    return attribute.isIntegerAttribute ? attribute : nil
-  }
-}
-
-extension NSEntityDescription {
-  
   /// Returns all attributes which have String or String? as the value type.
   var stringAttributeNames : [ String ] {
     return attributes.compactMap { $0.isStringAttribute ? $0.name : nil }
@@ -82,7 +69,7 @@ extension NSEntityDescription {
     // TODO: show message unless cookie is set with instructions (using Semantic
     //       Nag attached to cookie)
     let isNumber = Int(qs)
-    var q        : Qualifier? = nil
+    var q        : NSPredicate? = nil
     
     let strattrs = stringAttributeNames
     if !strattrs.isEmpty {

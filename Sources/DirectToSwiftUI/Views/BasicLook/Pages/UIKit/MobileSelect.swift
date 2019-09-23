@@ -25,7 +25,7 @@ public extension BasicLook.Page.UIKit {
   struct Select: View {
     // Note: This is _almost_ a dupe of the QueryList page. But not quite.
 
-    @Environment(\.database)            private var db
+    @Environment(\.database)            private var moc
     @Environment(\.entity)              private var entity
     @Environment(\.auxiliaryQualifier)  private var auxiliaryQualifier
     @Environment(\.displayPropertyKeys) private var displayPropertyKeys
@@ -36,7 +36,7 @@ public extension BasicLook.Page.UIKit {
 
     private func makeDisplayGroup() -> D2SDisplayGroup<NSManagedObject> {
       return D2SDisplayGroup(
-        dataSource          : ActiveDataSource(database: db, entity: entity),
+        dataSource          : moc.dataSource(for: entity),
         auxiliaryQualifier  : auxiliaryQualifier,
         displayPropertyKeys : displayPropertyKeys
       )
