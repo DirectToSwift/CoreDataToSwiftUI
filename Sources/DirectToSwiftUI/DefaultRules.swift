@@ -205,7 +205,7 @@ public let D2SDefaultRules : RuleModel = [
                    => \.debugComponent <= D2SDebugEntityDetails(),
   \.debug == true && \.task == "edit"
                    => \.debugComponent <= D2SDebugObjectEditInfo(),
-  \.debug == true  => \.debugComponent <= D2SDebugDatabaseInfo(),
+  \.debug == true  => \.debugComponent <= D2SDebugMOCInfo(),
   \.debug == false => \.debugComponent <= EmptyView(),
                       
   /* derived defaults */

@@ -9,27 +9,29 @@ import CoreData
 
 public extension NSManagedObjectContext {
   
-  var d2s : D2S { return D2S(database: self) }
+  var d2s : D2S { return D2S(moc: self) }
   
   struct D2S {
-    let database: NSManagedObjectContext
+    let moc: NSManagedObjectContext
 
-    public var isDefault : Bool { database === D2SKeys.database.defaultValue }
+    public var isDefault : Bool { moc === D2SKeys.database.defaultValue }
     
     public var hasDefaultTitle: Bool {
-      if let url = database.adaptor.url, !url.path.isEmpty {
-        return !url.deletingPathExtension().lastPathComponent.isEmpty
-      }
-      return false
+      guard let psc = moc.persistentStoreCoordinator else { return false }
+      return (psc.persistentStores.first?.url != nil) || psc.name != nil
     }
 
     public var defaultTitle : String {
-      if let url = database.adaptor.url, !url.path.isEmpty {
-        let n = url.deletingPathExtension().lastPathComponent
-        if !n.isEmpty { return n }
+      if let psc = moc.persistentStoreCoordinator {
+        if let p = psc.persistentStores.first?.url?.lastPathComponent,
+           !p.isEmpty
+        {
+          return p
+        }
+        if let n = psc.name, !n.isEmpty { return n }
       }
-      
-      return "Database" // /shrug
+
+      return "CoreData" // /shrug
     }
   }
 }

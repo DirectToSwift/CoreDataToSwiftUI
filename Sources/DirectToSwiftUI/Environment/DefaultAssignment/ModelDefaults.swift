@@ -25,8 +25,8 @@ public struct ModelD2S {
   public var defaultVisibleEntityNames : [ String ] {
     // Loop through rule system to derive displayName?
     // No, that would be the job of a view (set the entity, query the title)
-    return model.entities.map { $0.name }
-      .sorted() // TBD: but probably makes sense
+    return model.entities.compactMap { $0.name }
+                .sorted()
   }
 }
 

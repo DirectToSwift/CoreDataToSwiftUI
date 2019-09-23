@@ -17,6 +17,8 @@
     - => setValue(_, forKeyPath:)
     - takeValue => setValue
 
+- auxiliaryQualifier => auxiliaryPredicate
+
 - allowsNull => optional
 
 - validation is builtin, can drop the own

@@ -32,10 +32,10 @@ public extension D2SKeys {
     #endif
   }
 
-  // TODO: rename
+  // TODO: rename for CoreData
   struct database: DynamicEnvironmentKey {
     public static var defaultValue : NSManagedObjectContext
-                                   = D2SDummyObjectContext()
+      = D2SDummyObjectContext(concurrencyType: .mainQueueConcurrencyType)
   }
   
   struct firstTask: DynamicEnvironmentKey {
@@ -112,7 +112,7 @@ public extension D2SKeys {
   }
   struct debugComponent: DynamicEnvironmentKey {
     #if DEBUG
-      public static let defaultValue : AnyView = AnyView(D2SDebugDatabaseInfo())
+      public static let defaultValue : AnyView = AnyView(D2SDebugMOCInfo())
     #else
       public static let defaultValue : AnyView = AnyView(EmptyView())
     #endif
@@ -196,6 +196,6 @@ public extension D2SKeys {
   // MARK: - Display Group
   
   struct auxiliaryQualifier : DynamicEnvironmentKey {
-    public static let defaultValue: Qualifier? = nil
+    public static let defaultValue: NSPredicate? = nil
   }
 }

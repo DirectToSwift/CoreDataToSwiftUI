@@ -24,7 +24,8 @@ public extension D2SDefaultAssignments {
     .init { ruleContext in
       // Hm, this recursion won't fly:
       // \.model.d2s.isDefault == true => \.model <= \.database.model // '!'
-      guard let model = ruleContext[D2SKeys.database].model else {
+      guard let model = ruleContext[D2SKeys.database]
+                        .persistentStoreCoordinator?.managedObjectModel else {
         return D2SKeys.model.defaultValue
       }
       return model
@@ -52,7 +53,7 @@ public extension D2SDefaultAssignments {
     .init { ruleContext in
       let entity     = ruleContext[D2SKeys.entity]
       let roEntities = ruleContext[D2SKeys.readOnlyEntityNames]
-      return roEntities.contains(entity.name)
+      return roEntities.contains(entity.name ?? "")
     }
   }
   static var isObjectEditable: A<D2SKeys.isObjectEditable> {

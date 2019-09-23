@@ -23,6 +23,9 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		E8907D9A2338DC6400CE0FBD /* PredicateExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8907D992338DC6400CE0FBD /* PredicateExtras.swift */; };
+		E8907D9B2338DC6400CE0FBD /* PredicateExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8907D992338DC6400CE0FBD /* PredicateExtras.swift */; };
+		E8907D9C2338DC6400CE0FBD /* PredicateExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8907D992338DC6400CE0FBD /* PredicateExtras.swift */; };
 		E8A2C7E723325698009F2E71 /* SparseFaultArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C76523325698009F2E71 /* SparseFaultArray.swift */; };
 		E8A2C7E823325698009F2E71 /* SparseFaultArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C76523325698009F2E71 /* SparseFaultArray.swift */; };
 		E8A2C7E923325698009F2E71 /* SparseFaultArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C76523325698009F2E71 /* SparseFaultArray.swift */; };
@@ -305,9 +308,9 @@
 		E8A2C90123325699009F2E71 /* D2SDebugFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C7E023325698009F2E71 /* D2SDebugFormatter.swift */; };
 		E8A2C90223325699009F2E71 /* D2SDebugFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C7E023325698009F2E71 /* D2SDebugFormatter.swift */; };
 		E8A2C90323325699009F2E71 /* D2SDebugFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C7E023325698009F2E71 /* D2SDebugFormatter.swift */; };
-		E8A2C90423325699009F2E71 /* D2SDebugDatabaseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C7E123325698009F2E71 /* D2SDebugDatabaseInfo.swift */; };
-		E8A2C90523325699009F2E71 /* D2SDebugDatabaseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C7E123325698009F2E71 /* D2SDebugDatabaseInfo.swift */; };
-		E8A2C90623325699009F2E71 /* D2SDebugDatabaseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C7E123325698009F2E71 /* D2SDebugDatabaseInfo.swift */; };
+		E8A2C90423325699009F2E71 /* D2SDebugMOCInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C7E123325698009F2E71 /* D2SDebugMOCInfo.swift */; };
+		E8A2C90523325699009F2E71 /* D2SDebugMOCInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C7E123325698009F2E71 /* D2SDebugMOCInfo.swift */; };
+		E8A2C90623325699009F2E71 /* D2SDebugMOCInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C7E123325698009F2E71 /* D2SDebugMOCInfo.swift */; };
 		E8A2C90723325699009F2E71 /* D2SDebugLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C7E223325698009F2E71 /* D2SDebugLabel.swift */; };
 		E8A2C90823325699009F2E71 /* D2SDebugLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C7E223325698009F2E71 /* D2SDebugLabel.swift */; };
 		E8A2C90923325699009F2E71 /* D2SDebugLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C7E223325698009F2E71 /* D2SDebugLabel.swift */; };
@@ -371,6 +374,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E8907D992338DC6400CE0FBD /* PredicateExtras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredicateExtras.swift; sourceTree = "<group>"; };
 		E8A2C76523325698009F2E71 /* SparseFaultArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SparseFaultArray.swift; sourceTree = "<group>"; };
 		E8A2C76623325698009F2E71 /* D2SToOneFetch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = D2SToOneFetch.swift; sourceTree = "<group>"; };
 		E8A2C76723325698009F2E71 /* D2SDisplayGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = D2SDisplayGroup.swift; sourceTree = "<group>"; };
@@ -471,7 +475,7 @@
 		E8A2C7DD23325698009F2E71 /* D2SPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = D2SPageView.swift; sourceTree = "<group>"; };
 		E8A2C7DF23325698009F2E71 /* D2SDebugEntityInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = D2SDebugEntityInfo.swift; sourceTree = "<group>"; };
 		E8A2C7E023325698009F2E71 /* D2SDebugFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = D2SDebugFormatter.swift; sourceTree = "<group>"; };
-		E8A2C7E123325698009F2E71 /* D2SDebugDatabaseInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = D2SDebugDatabaseInfo.swift; sourceTree = "<group>"; };
+		E8A2C7E123325698009F2E71 /* D2SDebugMOCInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = D2SDebugMOCInfo.swift; sourceTree = "<group>"; };
 		E8A2C7E223325698009F2E71 /* D2SDebugLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = D2SDebugLabel.swift; sourceTree = "<group>"; };
 		E8A2C7E323325698009F2E71 /* D2SDebugObjectEditInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = D2SDebugObjectEditInfo.swift; sourceTree = "<group>"; };
 		E8A2C7E423325698009F2E71 /* D2SDebugBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = D2SDebugBox.swift; sourceTree = "<group>"; };
@@ -582,6 +586,7 @@
 				E8A2C77623325698009F2E71 /* ManagedObjectBindings.swift */,
 				E8A2C77723325698009F2E71 /* EntityExtras.swift */,
 				E8A2C77823325698009F2E71 /* D2SEditValidation.swift */,
+				E8907D992338DC6400CE0FBD /* PredicateExtras.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -817,7 +822,7 @@
 			children = (
 				E8A2C7DF23325698009F2E71 /* D2SDebugEntityInfo.swift */,
 				E8A2C7E023325698009F2E71 /* D2SDebugFormatter.swift */,
-				E8A2C7E123325698009F2E71 /* D2SDebugDatabaseInfo.swift */,
+				E8A2C7E123325698009F2E71 /* D2SDebugMOCInfo.swift */,
 				E8A2C7E223325698009F2E71 /* D2SDebugLabel.swift */,
 				E8A2C7E323325698009F2E71 /* D2SDebugObjectEditInfo.swift */,
 				E8A2C7E423325698009F2E71 /* D2SDebugBox.swift */,
@@ -1036,7 +1041,7 @@
 				E8A2C7EA23325698009F2E71 /* D2SToOneFetch.swift in Sources */,
 				E8A2C88923325699009F2E71 /* EditBool.swift in Sources */,
 				E8A2C8B323325699009F2E71 /* MobileSelect.swift in Sources */,
-				E8A2C90423325699009F2E71 /* D2SDebugDatabaseInfo.swift in Sources */,
+				E8A2C90423325699009F2E71 /* D2SDebugMOCInfo.swift in Sources */,
 				E8A2C8DA23325699009F2E71 /* D2SComponentView.swift in Sources */,
 				E8A2C8E323325699009F2E71 /* D2SDisplayPropertiesList.swift in Sources */,
 				E8A2C89823325699009F2E71 /* DisplayBool.swift in Sources */,
@@ -1093,6 +1098,7 @@
 				E8A2C86523325698009F2E71 /* ListEnabledDatePicker.swift in Sources */,
 				E8A2C85323325698009F2E71 /* RuleKeyPathAssignment.swift in Sources */,
 				E8D42FEE2337C0E200652366 /* ZeeQLAliases.swift in Sources */,
+				E8907D9A2338DC6400CE0FBD /* PredicateExtras.swift in Sources */,
 				E8A2C86E23325699009F2E71 /* NavigationPage.swift in Sources */,
 				E8A2C82023325698009F2E71 /* Hashes.swift in Sources */,
 				E8A2C88F23325699009F2E71 /* EditNumber.swift in Sources */,
@@ -1149,7 +1155,7 @@
 				E8A2C7EB23325698009F2E71 /* D2SToOneFetch.swift in Sources */,
 				E8A2C88A23325699009F2E71 /* EditBool.swift in Sources */,
 				E8A2C8B423325699009F2E71 /* MobileSelect.swift in Sources */,
-				E8A2C90523325699009F2E71 /* D2SDebugDatabaseInfo.swift in Sources */,
+				E8A2C90523325699009F2E71 /* D2SDebugMOCInfo.swift in Sources */,
 				E8A2C8DB23325699009F2E71 /* D2SComponentView.swift in Sources */,
 				E8A2C8E423325699009F2E71 /* D2SDisplayPropertiesList.swift in Sources */,
 				E8A2C89923325699009F2E71 /* DisplayBool.swift in Sources */,
@@ -1206,6 +1212,7 @@
 				E8A2C86623325699009F2E71 /* ListEnabledDatePicker.swift in Sources */,
 				E8A2C85423325698009F2E71 /* RuleKeyPathAssignment.swift in Sources */,
 				E8D42FEF2337C0E200652366 /* ZeeQLAliases.swift in Sources */,
+				E8907D9B2338DC6400CE0FBD /* PredicateExtras.swift in Sources */,
 				E8A2C86F23325699009F2E71 /* NavigationPage.swift in Sources */,
 				E8A2C82123325698009F2E71 /* Hashes.swift in Sources */,
 				E8A2C89023325699009F2E71 /* EditNumber.swift in Sources */,
@@ -1262,7 +1269,7 @@
 				E8A2C7EC23325698009F2E71 /* D2SToOneFetch.swift in Sources */,
 				E8A2C88B23325699009F2E71 /* EditBool.swift in Sources */,
 				E8A2C8B523325699009F2E71 /* MobileSelect.swift in Sources */,
-				E8A2C90623325699009F2E71 /* D2SDebugDatabaseInfo.swift in Sources */,
+				E8A2C90623325699009F2E71 /* D2SDebugMOCInfo.swift in Sources */,
 				E8A2C8DC23325699009F2E71 /* D2SComponentView.swift in Sources */,
 				E8A2C8E523325699009F2E71 /* D2SDisplayPropertiesList.swift in Sources */,
 				E8A2C89A23325699009F2E71 /* DisplayBool.swift in Sources */,
@@ -1319,6 +1326,7 @@
 				E8A2C86723325699009F2E71 /* ListEnabledDatePicker.swift in Sources */,
 				E8A2C85523325698009F2E71 /* RuleKeyPathAssignment.swift in Sources */,
 				E8D42FF02337C0E200652366 /* ZeeQLAliases.swift in Sources */,
+				E8907D9C2338DC6400CE0FBD /* PredicateExtras.swift in Sources */,
 				E8A2C87023325699009F2E71 /* NavigationPage.swift in Sources */,
 				E8A2C82223325698009F2E71 /* Hashes.swift in Sources */,
 				E8A2C89123325699009F2E71 /* EditNumber.swift in Sources */,

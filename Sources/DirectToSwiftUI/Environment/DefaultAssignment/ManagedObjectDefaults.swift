@@ -60,14 +60,11 @@ public extension NSManagedObject {
       if let s = string(for: containsTitle) { return s }
       if let s = string(for: firstString)   { return s } // TBD
 
-      // Fallback to primary key, e.g.: `Film: 10`
+      // TBD
+      let s = object.objectID.uriRepresentation().lastPathComponent
+      if !s.isEmpty { return s }
       
-      if let pkey = entity.primaryKeyAttributeNames?.first,
-         let value = object.value(forKey: pkey)
-      {
-        return "\(entity.name): \(value)"
-      }
-      return entity.name
+      return String("\(object.objectID)")
     }
   }
   
