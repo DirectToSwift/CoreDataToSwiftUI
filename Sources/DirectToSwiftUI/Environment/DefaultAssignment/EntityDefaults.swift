@@ -12,7 +12,10 @@ public extension NSEntityDescription {
   var attributes : Dictionary<String, NSAttributeDescription>.Values {
     attributesByName.values
   }
-  
+  var relationships : Dictionary<String, NSRelationshipDescription>.Values {
+    relationshipsByName.values
+  }
+
 }
 
 public extension NSEntityDescription {

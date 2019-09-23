@@ -51,7 +51,7 @@ public extension BasicLook.Page.AppKit {
       // This seems to crash on macOS b7
       @ObservedObject private var displayGroup : D2SDisplayGroup<Object>
       
-      private var entity: Entity { displayGroup.dataSource.entity! }
+      private var entity: Entity { displayGroup.dataSource.entity }
       
       init(dataSource: ManagedObjectDataSource<Object>,
            auxiliaryQualifier: NSPredicate?)

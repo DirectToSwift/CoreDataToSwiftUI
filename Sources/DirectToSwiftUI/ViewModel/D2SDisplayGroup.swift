@@ -259,24 +259,20 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
       
       if missingGIDs.isEmpty {
         let objects = globalIDs.compactMap { gidToObject[$0] }
+        self.integrateResults(objects, for: fetchRange)
         return
       }
       
-      var objectFS = self.fetchSpecification.typedCopy()
+      let objectFS = self.fetchSpecification.typedCopy()
       objectFS.predicate =
         missingGIDs.map({ entity.qualifierForGlobalID($0) }).compactingOr()
       let fetchedObjects = try dataSource.fetchObjects(objectFS)
         
-      #if false // TODO:
-        .map { fetchedObjects in
-          for object in fetchedObjects {
-            guard let gid = object.globalID else { continue }
-            gidToObject[gid] = object
-          }
-          return globalIDs.compactMap { gidToObject[$0] }
-        }
-      #endif
+      for object in fetchedObjects {
+        gidToObject[object.objectID] = object
+      }
 
+      let objects = globalIDs.compactMap { gidToObject[$0] }
       self.integrateResults(objects, for: fetchRange)
     }
     catch {

@@ -28,6 +28,10 @@ public protocol DataSource {
 
 public extension DataSource {
 
+  func fetchObjects(_ fr: NSFetchRequest<Object>) throws -> [ Object ] {
+    try _primaryFetchObjects(fr)
+  }
+
   func fetchObjects() throws -> [ Object ] {
     try _primaryFetchObjects(try fetchRequestForFetch())
   }

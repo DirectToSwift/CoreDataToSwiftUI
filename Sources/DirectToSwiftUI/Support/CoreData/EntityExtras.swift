@@ -157,23 +157,14 @@ extension NSAttributeDescription {
   // TBD: check externalType if no valueType is present
   
   var isStringAttribute : Bool {
-    guard let t = valueType else {
-      // this is kinda OK, can happen, e.g. in dvdrental for DATE(4)
-      // (which should be a DateComponents)
-      globalD2SLogger.trace("attribute has no value type?:", self)
-      return false
-    }
-    return t.isStringAttribute
+    attributeType == .stringAttributeType
   }
   
   var isIntegerAttribute : Bool {
-    guard let t = valueType else {
-      globalD2SLogger.trace("attribute has no value type?:", self)
-      return false
-    }
-    return t.isIntegerAttribute
+    attributeType == .integer16AttributeType ||
+    attributeType == .integer32AttributeType ||
+    attributeType == .integer64AttributeType
   }
-  
 }
 
 
