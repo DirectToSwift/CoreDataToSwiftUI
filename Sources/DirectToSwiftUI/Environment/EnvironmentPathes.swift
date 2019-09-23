@@ -446,7 +446,7 @@ public extension DynamicEnvironmentPathes {
   /**
    * The auxiliaryQualifier can be used to restrict the queries in a page.
    */
-  var auxiliaryQualifier : Qualifier? {
+  var auxiliaryQualifier : NSPredicate? {
     set { self[dynamic: D2SKeys.auxiliaryQualifier.self] = newValue }
     get { self[dynamic: D2SKeys.auxiliaryQualifier.self] }
   }

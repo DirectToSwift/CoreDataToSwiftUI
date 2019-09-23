@@ -21,16 +21,16 @@ public extension NSAttributeDescription {
   
   func validateForInsert(_ object: KeyValueCodingType?) -> Bool {
     guard let object = object else { return false }
-    let nullable = isOptional ?? true
-    if !nullable, KeyValueCoding.value(forKey: name, inObject: object) == nil {
+    if !isOptional, KeyValueCoding.value(forKey: name, inObject: object) == nil
+    {
       return false
     }
     return true
   }
   func validateForUpdate(_ object: KeyValueCodingType?) -> Bool {
     guard let object = object else { return false }
-    let nullable = isOptional ?? true
-    if !nullable, KeyValueCoding.value(forKey: name, inObject: object) == nil {
+    if !isOptional, KeyValueCoding.value(forKey: name, inObject: object) == nil
+    {
       return false
     }
     return true
@@ -77,16 +77,7 @@ internal let dateTimeFormatter : DateFormatter = {
 public extension NSAttributeDescription {
   
   func dateFormatter() -> DateFormatter {
-    guard let externalType = externalType?.uppercased() else {
-      return dateTimeFormatter
-    }
-    
-    if externalType.contains("TIMESTAMP") { return dateTimeFormatter }
-    if externalType.contains("DATETIME")  { return dateTimeFormatter }
-    if externalType.contains("DATE")      { return ddateFormatter    }
-    if externalType.contains("TIME")      { return timeFormatter     }
-    
-    return dateTimeFormatter
+    dateTimeFormatter
   }
   
 }
@@ -100,10 +91,6 @@ public extension NSAttributeDescription {
   func coerceFromString(_ string: String?) throws -> Any? {
     func logError() throws -> Any? {
       throw D2SAttributeCoercionError.failedToCoerceFromString(string, self)
-    }
-    
-    guard let valueType = valueType else { // no type assigned, use as-is
-      return string
     }
     
     var trimmed : String? {
@@ -124,92 +111,61 @@ public extension NSAttributeDescription {
     
     // ☢️ QUICK: LOOK AWAY. Dirty dirty stuff ahead! ☢️
     
-    if valueType == String .self { return string }
-    if valueType == String?.self {
-      guard let s = string else { return try logError() }
-      return s
-    }
-    if valueType == Int.self     { return try coerce   (to: Int.self) }
-    if valueType == Int?.self    { return try coerceOpt(to: Int.self) }
+    switch attributeType {
     
-    if valueType == Date.self {
-      guard let s = trimmed else { return try logError() }
-      guard let v = dateFormatter().date(from: s) else { return try logError() }
-      return v
-    }
-    if valueType == Date?.self {
-      guard let s = trimmed else { return nil }
-      guard let v = dateFormatter().date(from: s) else { return try logError() }
-      return v
-    }
-    
-    if valueType == Bool.self {
-      guard let s = trimmed?.lowercased() else { return false }
-      if s.isEmpty { return false }
-      if falseStrings.first(where: { s.contains($0)} ) != nil { return false }
-      return true
-    }
-    if valueType == Bool?.self {
-      guard let s = trimmed?.lowercased() else { return nil }
-      if s.isEmpty { return false }
-      if falseStrings.first(where: { s.contains($0)} ) != nil { return false }
-      return true
-    }
+      case .stringAttributeType:
+        guard let s = string else { return isOptional ? nil : try logError() }
+        return s
+        
+      case .integer64AttributeType:
+        return isOptional ? try coerceOpt(to: Int64.self)
+                          : try coerce   (to: Int64.self)
+      case .integer32AttributeType:
+        return isOptional ? try coerceOpt(to: Int32.self)
+                          : try coerce   (to: Int32.self)
+      case .integer16AttributeType:
+        return isOptional ? try coerceOpt(to: Int16.self)
+                          : try coerce   (to: Int16.self)
 
-    if valueType == Float.self {
-      guard let s = trimmed  else { return try logError() }
-      guard let v = Float(s) else { return try logError() }
-      return v
-    }
-    if valueType == Float?.self {
-      guard let s = trimmed else { return nil }
-      guard let v = Float(s) else { return try logError() }
-      return v
-    }
+      case .dateAttributeType:
+        guard let s = trimmed else { return isOptional ? nil : try logError() }
+        guard let v = dateFormatter().date(from: s) else { return try logError() }
+        return v
+        
+      case .booleanAttributeType:
+        guard let s = trimmed?.lowercased() else {
+          return isOptional ? nil : false
+        }
+        if s.isEmpty { return false }
+        if falseStrings.first(where: { s.contains($0)} ) != nil { return false }
+        return true
+      
+      case .doubleAttributeType:
+        guard let s = trimmed  else { return isOptional ? nil : try logError() }
+        guard let v = Double(s) else { return try logError() }
+        return v
+      case .floatAttributeType:
+        guard let s = trimmed  else { return isOptional ? nil : try logError() }
+        guard let v = Float(s) else { return try logError() }
+        return v
+      case .decimalAttributeType:
+        guard let s = trimmed  else { return isOptional ? nil : try logError() }
+        guard let v = Decimal(string: s) else { return try logError() }
+        return v
+        
+      case .URIAttributeType:
+        guard let s = trimmed  else { return isOptional ? nil : try logError() }
+        guard let v = URL(string: s) else { return try logError() }
+        return v
+      case .UUIDAttributeType:
+        guard let s = trimmed  else { return isOptional ? nil : try logError() }
+        guard let v = UUID(uuidString: s) else { return try logError() }
+        return v
 
-    if valueType == Double.self {
-      guard let s = trimmed else { return try logError() }
-      guard let v = Double(s) else { return try logError() }
-      return v
-    }
-    if valueType == Double?.self {
-      guard let s = trimmed else { return nil }
-      guard let v = Double(s) else { return try logError() }
-      return v
-    }
+      // Data. Hm, well, what would the Data be, UTF8?
 
-    if valueType == Decimal?.self {
-      guard let s = trimmed else { return nil }
-      guard let v = Decimal(string: s) else { return try logError() }
-      return v
+      default: return try logError()
     }
-
-    if valueType == URL.self {
-      guard let s = trimmed else { return nil }
-      guard let v = URL(string: s) else { return try logError() }
-      return v
-    }
-    if valueType == URL?.self {
-      guard let s = trimmed else { return nil }
-      guard let v = URL(string: s) else { return try logError() }
-      return v
-    }
-    
-    // Data. Hm, well, what would the Data be, UTF8?
-
-    // TODO: all the different Int variants!
-    if valueType == UInt.self   { return try coerce   (to: UInt .self) }
-    if valueType == UInt?.self  { return try coerceOpt(to: UInt .self) }
-    if valueType == Int8.self   { return try coerce   (to: Int8 .self) }
-    if valueType == Int8?.self  { return try coerceOpt(to: Int8 .self) }
-    if valueType == Int16.self  { return try coerce   (to: Int16.self) }
-    if valueType == Int16?.self { return try coerceOpt(to: Int16.self) }
-    if valueType == Int32.self  { return try coerce   (to: Int32.self) }
-    if valueType == Int32?.self { return try coerceOpt(to: Int32.self) }
-    if valueType == Int64.self  { return try coerce   (to: Int64.self) }
-    if valueType == Int64?.self { return try coerceOpt(to: Int64.self) }
-    
-    return try logError()
   }
   
 }

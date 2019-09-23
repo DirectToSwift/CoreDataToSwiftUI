@@ -28,6 +28,7 @@ extension NSComparisonPredicate.Operator: Equatable {
       case ( endsWith,               endsWith               ): return true
       case ( matches,                matches                ): return true
       case ( customSelector,         customSelector         ): return true //TBD
+      default: return false
     }
   }
 }
@@ -40,12 +41,12 @@ public extension NSComparisonPredicate.Operator {
   func compare(_ a: Any?, _ b: Any?) -> Bool {
     // Everytime you compare an Any, a 🐄 dies.
     switch self {
-      case .equalTo:            return eq(a, b)
-      case .notEqualTo:         return !eq(a, b)
-      case .lessThan:           return isSmaller(a, b)
-      case .greaterThan:        return isSmaller(b, a)
-      case .lessThanOrEqual:    return isSmaller(a, b) || eq(a, b)
-      case .greaterThanOrEqual: return isSmaller(b, a) || eq(a, b)
+      case .equalTo:              return eq(a, b)
+      case .notEqualTo:           return !eq(a, b)
+      case .lessThan:             return isSmaller(a, b)
+      case .greaterThan:          return isSmaller(b, a)
+      case .lessThanOrEqualTo:    return isSmaller(a, b) || eq(a, b)
+      case .greaterThanOrEqualTo: return isSmaller(b, a) || eq(a, b)
       
       case .contains: // firstname in ["donald"] or firstname in "donald"
         guard let b = b else { return false }
@@ -59,8 +60,8 @@ public extension NSComparisonPredicate.Operator {
         }
         return list.contains(other: a)
       
-      case .like, .caseInsensitiveLike: // firstname like *Donald*
-        let ci = self == .CaseInsensitiveLike
+      case .like: // firstname like *Donald*
+        let ci = false // TBD
         if a == nil && b == nil { return true } // nil is like nil
         guard let value = a as? LikeComparisonType else {
           globalD2SLogger.error(
@@ -76,7 +77,7 @@ public extension NSComparisonPredicate.Operator {
       
       default:
         globalD2SLogger.error(
-          "attempt to evaluate an ComparisonOperation dynamically:",
+          "attempt to evaluate an NSComparisonPredicate dynamically:",
           self, a, b
         )
         assertionFailure("comparison not supported for dynamic evaluation")
