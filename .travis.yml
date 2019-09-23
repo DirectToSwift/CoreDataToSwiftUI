@@ -18,5 +18,6 @@ install:
 
 script:
     - export PATH="$HOME/usr/bin:$PATH"
+    - set -o pipefail
     - xcodebuild -scheme DirectToSwiftUI-All -configuration Debug   -target DirectToSwiftUI-All | xcpretty
     - xcodebuild -scheme DirectToSwiftUI-All -configuration Release -target DirectToSwiftUI-All | xcpretty
