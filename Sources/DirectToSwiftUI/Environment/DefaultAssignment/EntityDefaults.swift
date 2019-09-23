@@ -33,6 +33,7 @@ public extension EntityD2S {
   var defaultTitle : String { return entity.name ?? "" }
 
   var defaultSortDescriptors : [ NSSortDescriptor ] {
+    // This is not great, but there is no reasonable option?
     guard let firstAttribute = entity.attributes.first else { return [] }
     return [ NSSortDescriptor(key: firstAttribute.name, ascending: true) ]
   }
