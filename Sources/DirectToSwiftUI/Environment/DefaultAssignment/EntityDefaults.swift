@@ -9,11 +9,11 @@ import CoreData
 
 public extension NSEntityDescription {
   
-  var attributes : Dictionary<String, NSAttributeDescription>.Values {
-    attributesByName.values
+  var attributes : [ NSAttributeDescription ] {
+    properties.compactMap { $0 as? NSAttributeDescription }
   }
-  var relationships : Dictionary<String, NSRelationshipDescription>.Values {
-    relationshipsByName.values
+  var relationships : [ NSRelationshipDescription ] {
+    properties.compactMap { $0 as? NSRelationshipDescription }
   }
 
 }
