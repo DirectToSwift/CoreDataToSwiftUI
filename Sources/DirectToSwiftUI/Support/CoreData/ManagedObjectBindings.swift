@@ -162,38 +162,40 @@ internal extension NSManagedObject {
       globalD2SLogger.log("writing raw date to attr-less key:", key)
       return date
     }
-    guard let valueType = attribute.valueType else { // no type, use as-is
-      return date
-    }
-    
     func logError() throws -> Any? {
       globalD2SLogger.log("could not coerce date key:", key)
       return nil
     }
     
-    if valueType == Date.self {
-      guard let d = date else { return (try? logError()) ?? nil }
-      return d
-    }
-    if valueType == Date?.self { return date }
+    switch attribute.attributeType {
     
-    if valueType == Int.self {
-      guard let d = date else { return (try? logError()) ?? nil }
-      return Int(d.timeIntervalSince1970) // Unix timestamp
-    }
-    if valueType == Int?.self {
-      guard let d = date else { return nil }
-      return Int(d.timeIntervalSince1970) // Unix timestamp
-    }
-    
-    if valueType == String.self || valueType == String?.self { // lazy me
-      guard let d = date else { return nil } // Fix for non-optional
+      case .dateAttributeType:
+        guard let d = date else {
+          return attribute.isOptional ? nil : (try? logError()) ?? nil
+        }
+        return d
       
-      let formatter = attribute.dateFormatter()
-      return formatter.string(from: d)
-    }
+      case .integer64AttributeType:
+        guard let d = date else {
+          return attribute.isOptional ? nil : (try? logError()) ?? nil
+        }
+        return Int64(d.timeIntervalSince1970) // Unix timestamp
 
-    return (try? logError()) ?? nil
+      case .integer32AttributeType:
+        guard let d = date else {
+          return attribute.isOptional ? nil : (try? logError()) ?? nil
+        }
+        return Int32(d.timeIntervalSince1970) // Unix timestamp
+      
+      case .stringAttributeType:
+        guard let d = date else { return nil } // Fix for non-optional
+        
+        let formatter = attribute.dateFormatter()
+        return formatter.string(from: d)
+
+      default:
+        return (try? logError()) ?? nil
+    }
   }
 
   func coerceValueToBool(_ flag: Any?, forKey key: String) -> Bool? {
@@ -211,35 +213,41 @@ internal extension NSManagedObject {
       globalD2SLogger.log("writing raw bool to attr-less key:", key)
       return flag
     }
-    guard let valueType = attribute.valueType else { // no type, use as-is
-      return flag
-    }
+    let valueType = attribute.attributeType
     
     func logError() throws -> Any? {
       globalD2SLogger.log("could not coerce bool key:", key)
       return nil
     }
     
-    if valueType == Bool.self {
-      guard let flag = flag else { return (try? logError()) ?? nil }
-      return flag
+    switch attribute.attributeType {
+      case .booleanAttributeType:
+        guard let flag = flag else {
+          return attribute.isOptional ? nil : (try? logError()) ?? nil
+        }
+        return flag
+      case .integer64AttributeType:
+        guard let flag = flag else {
+          return attribute.isOptional ? nil : (try? logError()) ?? nil
+        }
+        return flag ? 1 as Int64 : 0 as Int64
+      case .integer32AttributeType:
+        guard let flag = flag else {
+          return attribute.isOptional ? nil : (try? logError()) ?? nil
+        }
+        return flag ? 1 as Int32 : 0 as Int32
+      case .integer16AttributeType:
+        guard let flag = flag else {
+          return attribute.isOptional ? nil : (try? logError()) ?? nil
+        }
+        return flag ? 1 as Int16 : 0 as Int16
+
+      case .stringAttributeType:
+        guard let flag = flag else { return nil } // Fix for non-optional
+        return flag ? "true" : ""
+      
+      default:
+        return (try? logError()) ?? nil
     }
-    if valueType == Bool?.self { return flag }
-    
-    if valueType == Int.self {
-      guard let flag = flag else { return (try? logError()) ?? nil }
-      return flag ? 1 : 0
-    }
-    if valueType == Int?.self {
-      guard let flag = flag else { return nil }
-      return flag ? 1 : 0
-    }
-    
-    if valueType == String.self || valueType == String?.self { // lazy me
-      guard let flag = flag else { return nil } // Fix for non-optional
-      return flag ? "true" : ""
-    }
-    
-    return (try? logError()) ?? nil
   }
 }

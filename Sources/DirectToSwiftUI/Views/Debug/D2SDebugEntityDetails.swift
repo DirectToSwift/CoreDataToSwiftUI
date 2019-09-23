@@ -26,8 +26,8 @@ public struct D2SDebugEntityDetails: View {
           {
             Text(verbatim: attribute.columnName!)
           }
-          attribute.externalType.map { Text(verbatim: $0) }
-          attribute.valueType   .map { Text(verbatim: String(describing: $0)) }
+          attribute.externalType .map { Text(verbatim: $0) }
+          attribute.attributeType.map { Text(verbatim: String(describing: $0)) }
         }
         .frame(maxWidth: .infinity)
         .padding(EdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 0))
@@ -44,11 +44,11 @@ public struct D2SDebugEntityDetails: View {
       VStack(alignment: .leading) {
         Text(verbatim: relationship.name)
         VStack(alignment: .leading) {
-          if relationship.isPattern   { Text("*Pattern!") }
-          if relationship.isMandatory { Text("Mandatory") }
+          if relationship.isOptional { Text("Optional") }
+          if relationship.isOrdered  { Text("Ordered") }
           Text(relationship.isToMany ? "ToMany" : "ToOne")
           relationship.destinationEntity.map { entity in
-            Text(verbatim: entity.name)
+            Text(verbatim: entity.name ?? "-")
           }
          /*
          var  entity            : Entity          { get }

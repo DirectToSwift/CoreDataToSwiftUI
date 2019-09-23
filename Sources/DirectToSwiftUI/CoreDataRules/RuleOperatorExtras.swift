@@ -7,7 +7,8 @@
 
 import CoreData
 
-// e.g. \.attribute.valueType == Date.self
+// FIXME: not required?
+// e.g. \.attribute.attributeType == .dateAttributeType
 public func ==<VT>(lhs: Swift.KeyPath<RuleContext, AttributeValue.Type?>,
                    rhs: VT.Type)
             -> some RulePredicate

@@ -15,10 +15,10 @@ strings and `D2SDisplayDate` to display dates.
 Which one is displayed for a property is selected by the rule system, and there 
 are quite a few builtin rules to select the basic types, e.g.
 ```swift
-(\.task == "edit" && \.attribute.valueType == Date.self
+(\.task == "edit" && \.attribute.attributeType == .dateAttributeType
                      => \.component <= D2SEditDate())
                      .priority(3),
-(\.task == "edit" && \.attribute.valueType == Bool.self
+(\.task == "edit" && \.attribute.attributeType == .booleanAttributeType
                      => \.component <= D2SEditBool())
                      .priority(3),
 ```

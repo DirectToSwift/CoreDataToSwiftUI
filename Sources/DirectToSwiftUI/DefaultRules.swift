@@ -76,19 +76,18 @@ public let D2SDefaultRules : RuleModel = [
   (\.task == "edit" && \.relationship.d2s.type == .toOne
                        => \.component <= BasicLook.Property.Edit.ToOne())
                        .priority(3),
-  (\.task == "edit" && \.attribute.valueType == Date.self
+  (\.task == "edit" && \.attribute.attributeType == .dateAttributeType
                        => \.component <= BasicLook.Property.Edit.Date())
                        .priority(3),
-  (\.task == "edit" && \.attribute.valueType == Bool.self
+  (\.task == "edit" && \.attribute.attributeType == .booleanAttributeType
                        => \.component <= BasicLook.Property.Edit.Bool())
                        .priority(3),
-  (\.task == "edit" && \.attribute.valueType == Int.self
-                       => \.component <= BasicLook.Property.Edit.Number())
-                       .priority(3),
-  (\.task == "edit" && \.attribute.valueType == Double.self
-                       => \.component <= BasicLook.Property.Edit.Number())
-                       .priority(3),
-  (\.task == "edit" && \.attribute.valueType == Decimal.self
+  (\.task == "edit" && (\.attribute.attributeType == .integer64AttributeType
+                     || \.attribute.attributeType == .integer32AttributeType
+                     || \.attribute.attributeType == .integer16AttributeType
+                     || \.attribute.attributeType == .decimalAttributeType
+                     || \.attribute.attributeType == .doubleAttributeType
+                     || \.attribute.attributeType == .floatAttributeType)
                        => \.component <= BasicLook.Property.Edit.Number())
                        .priority(3),
   (\.task == "edit" && \.attribute.isPassword == true
@@ -104,10 +103,10 @@ public let D2SDefaultRules : RuleModel = [
                    => \.component <= BasicLook.Property.Display.ToOneSummary())
                        .priority(2),
   
-  (\.attribute.valueType == Date.self
+  (\.attribute.attributeType == .dateAttributeType
                    => \.component <= BasicLook.Property.Display.Date())
                        .priority(.fallback),
-  (\.attribute.valueType == Bool.self
+  (\.attribute.attributeType == .booleanAttributeType
                    => \.component <= BasicLook.Property.Display.Bool())
                        .priority(.fallback),
 
@@ -118,16 +117,21 @@ public let D2SDefaultRules : RuleModel = [
   (\.component <= BasicLook.Property.Display.String())
                 .priority(.fallback),
   
-  (\.attribute.valueType == Int.self     => \.formatter <= intFormatter)
-                       .priority(.fallback),
-  (\.attribute.valueType == Double.self  => \.formatter <= floatFormatter)
-                       .priority(.fallback),
-  (\.attribute.valueType == Float.self   => \.formatter <= floatFormatter)
-                       .priority(.fallback),
-  (\.attribute.valueType == Decimal.self => \.formatter <= decimalFormatter)
-                       .priority(.fallback),
-  (\.attribute.valueType == Date.self    => \.formatter <= dateTimeFormatter)
-                       .priority(.fallback),
+  ((\.attribute.attributeType == .integer64AttributeType ||
+    \.attribute.attributeType == .integer32AttributeType ||
+    \.attribute.attributeType == .integer16AttributeType)
+                              => \.formatter <= intFormatter)
+                              .priority(.fallback),
+  ((\.attribute.attributeType == .doubleAttributeType ||
+    \.attribute.attributeType == .floatAttributeType)
+                              => \.formatter <= floatFormatter)
+                              .priority(.fallback),
+  ( \.attribute.attributeType == .decimalAttributeType
+                              => \.formatter <= decimalFormatter)
+                              .priority(.fallback),
+  ( \.attribute.attributeType == .dateAttributeType
+                              => \.formatter <= dateTimeFormatter)
+                              .priority(.fallback),
 
   /* pageWrapper */
   

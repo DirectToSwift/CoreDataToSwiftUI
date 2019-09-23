@@ -127,8 +127,8 @@ Same like `Inspect` page, but for editing objects.
 A property is a view which is bound to and selected using the `component`  
 environment key:
 ```swift
-\.task == "edit" && \.attribute.valueType == Date.self
-  => \.component <= D2SEditDate()
+\.task == "edit" && \.attribute.attributeType == .dateAttributeType
+       => \.component <= D2SEditDate()
 ```
 To summon a property using the rule system, just use the `D2SComponentView` 
 View.
