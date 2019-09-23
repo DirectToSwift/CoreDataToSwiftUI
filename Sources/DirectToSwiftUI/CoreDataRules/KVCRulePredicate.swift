@@ -43,6 +43,7 @@ public extension SwiftUIRules.RuleComparisonOperation {
       case .greaterThanOrEqualTo: self = .greaterThanOrEqual
       case .lessThan:             self = .lessThan
       case .lessThanOrEqualTo:    self = .lessThanOrEqual
+      @unknown default: return nil
     }
   }
 }

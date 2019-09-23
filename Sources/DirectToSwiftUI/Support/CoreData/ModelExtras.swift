@@ -17,7 +17,8 @@ public extension NSManagedObjectModel {
     var lcNameToUserEntity = [ String : NSEntityDescription ]()
     for entity in entities {
       guard let _ = entity.lookupUserDatabaseProperties() else { continue }
-      lcNameToUserEntity[entity.name.lowercased()] = entity
+      guard let name = entity.name else { continue }
+      lcNameToUserEntity[name.lowercased()] = entity
     }
     if lcNameToUserEntity.isEmpty    { return nil }
     if lcNameToUserEntity.count == 1 { return lcNameToUserEntity.values.first }
@@ -30,5 +31,12 @@ public extension NSManagedObjectModel {
         ?? lcNameToUserEntity["account"]
         ?? lcNameToUserEntity["person"]
         ?? lcNameToUserEntity.values.first // any, good luck
+  }
+}
+
+public extension NSManagedObjectModel {
+  
+  subscript(entity name: String) -> NSEntityDescription? {
+    entitiesByName[name]
   }
 }

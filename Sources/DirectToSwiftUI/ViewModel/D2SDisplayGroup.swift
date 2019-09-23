@@ -35,10 +35,10 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
   @Published var queryString = "" {
     didSet {
       guard oldValue != queryString else { return }
-      let qs = dataSource.entity?.qualifierForQueryString(queryString)
+      let qs = dataSource.entity.qualifierForQueryString(queryString)
       let q  = and(qs, auxiliaryQualifier)
-      guard !q.isEqual(to: fetchSpecification.qualifier) else { return }
-      fetchSpecification.qualifier = q
+      guard !q.isEqual(to: fetchSpecification.predicate) else { return }
+      fetchSpecification.predicate = q
     }
   }
   @Published var sortAttribute : NSAttributeDescription? = nil {
@@ -238,60 +238,50 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
     let dataSource = self.dataSource
     let fetchRange = fetchRangeForIndex(index)
     
-    // TODO: add .range operator! (with closed, open, all!)
     let entity = fetchSpecification.entity ?? dataSource.entity
-    let fs     = fetchSpecification.range(fetchRange)
+    let fs     = fetchSpecification.offset(fetchRange.lowerBound)
+                                   .limit (fetchRange.count)
     assert(fs.sortDescriptors != nil && !(fs.sortDescriptors?.isEmpty ?? true))
     
     let query = Query(range: fetchRange)
     activeQueries.append(query) // keep it alive
     
-    _ = dataSource.fetchGlobalIDs(fs, on: D2SFetchQueue)
-      .receive(on: RunLoop.main)
-      .flatMap { ( globalIDs ) -> AnyPublisher<[ Object ], Error> in
-        var missingGIDs = Set<GlobalID>()
-        var gidToObject = [ GlobalID : Object ]()
-        for gid in globalIDs {
-          if let object = self.results[gid] { gidToObject[gid] = object }
-          else { missingGIDs.insert(gid) }
-        }
+    // FIXME: Make this async like in the ZeeQL D2S. Needs a context
+    do {
+      let globalIDs = try dataSource.fetchGlobalIDs(fs)
+      
+      var missingGIDs = Set<GlobalID>()
+      var gidToObject = [ GlobalID : Object ]()
+      for gid in globalIDs {
+        if let object = self.results[gid] { gidToObject[gid] = object }
+        else { missingGIDs.insert(gid) }
+      }
+      
+      if missingGIDs.isEmpty {
+        let objects = globalIDs.compactMap { gidToObject[$0] }
+        return
+      }
+      
+      var objectFS = self.fetchSpecification.typedCopy()
+      objectFS.predicate =
+        missingGIDs.map({ entity.qualifierForGlobalID($0) }).compactingOr()
+      let fetchedObjects = try dataSource.fetchObjects(objectFS)
         
-        if missingGIDs.isEmpty {
-          let objects = globalIDs.compactMap { gidToObject[$0] }
-          return Just(objects)
-            .setFailureType(to: Swift.Error.self)
-            .eraseToAnyPublisher()
-        }
-        
-        var objectFS = self.fetchSpecification
-        objectFS.qualifier =
-          missingGIDs.map({ entity!.qualifierForGlobalID($0) }).compactingOr()
-        return dataSource.fetchObjects(objectFS, on: D2SFetchQueue)
-          .collect() // avoid dispatching each result via GCD
-          .map { fetchedObjects in
-            for object in fetchedObjects {
-              guard let gid = object.globalID else { continue }
-              gidToObject[gid] = object
-            }
-            return globalIDs.compactMap { gidToObject[$0] }
+      #if false // TODO:
+        .map { fetchedObjects in
+          for object in fetchedObjects {
+            guard let gid = object.globalID else { continue }
+            gidToObject[gid] = object
           }
-          .eraseToAnyPublisher()
-      }
-      .receive(on: RunLoop.main)
-      .catch { ( error: Swift.Error ) -> AnyPublisher<[ Object ], Never> in
-        self.handleError(error)
-        return Just([ Object ]()).eraseToAnyPublisher()
-      }
-      .sink(receiveCompletion: { _ in self.finishedBatch(query) }) { objects in
-        self.integrateResults(objects, for: fetchRange)
-      }
-  }
+          return globalIDs.compactMap { gidToObject[$0] }
+        }
+      #endif
 
-}
-
-extension NSFetchRequest {
-  func range(_ range: Range<Int>) -> Self {
-    self.offset(range.lowerBound).limit(range.count)
+      self.integrateResults(objects, for: fetchRange)
+    }
+    catch {
+      return self.handleError(error)
+    }
   }
 }
 

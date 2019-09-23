@@ -9,6 +9,17 @@ import CoreData
 
 public extension NSEntityDescription {
   
+  func qualifierForGlobalID(_ gid: NSManagedObjectID) -> NSPredicate {
+    NSComparisonPredicate(
+      leftExpression: NSExpression(forKeyPath: "objectID"),
+      rightExpression: NSExpression(forConstantValue: gid),
+      modifier: .direct, type: .equalTo, options: []
+    )
+  }
+}
+
+public extension NSEntityDescription {
+  
   subscript(attribute name: String) -> NSAttributeDescription? {
     return attributesByName[name]
   }
@@ -78,8 +89,9 @@ extension NSEntityDescription {
       for name in strattrs {
         map[name] = pat
       }
+      
       q = or(q, qualifierToMatchAnyValue(
-        map, pat.isMixedCase ? .Like : .CaseInsensitiveLike)
+                  map, .like, caseInsensitive: !pat.isMixedCase)
       )
     }
     
@@ -88,7 +100,7 @@ extension NSEntityDescription {
       for name in numberAttributeNames {
         map[name] = numberValue
       }
-      q = or(q, qualifierToMatchAnyValue(map, .EqualTo))
+      q = or(q, qualifierToMatchAnyValue(map, .equalTo))
     }
     
     return q

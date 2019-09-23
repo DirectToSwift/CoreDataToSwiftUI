@@ -122,3 +122,23 @@ public extension Collection where Element == NSComparisonPredicate {
     #endif
   }
 }
+
+
+public func qualifierToMatchAnyValue(_ values: [ String : Any? ]?,
+                                     _ op: NSComparisonPredicate.Operator
+                                              = .equalTo,
+                                     caseInsensitive: Bool = false)
+            -> NSPredicate?
+{
+  guard let values = values, !values.isEmpty else { return nil }
+  let kvq = values.map { key, value in
+    NSComparisonPredicate(
+      leftExpression  : NSExpression(forKeyPath: key),
+      rightExpression : NSExpression(forConstantValue: value),
+      modifier: .direct, type: .equalTo,
+      options: caseInsensitive ? [ .caseInsensitive ] : []
+    )
+  }
+  if kvq.count == 1 { return kvq[0] }
+  return NSCompoundPredicate(orPredicateWithSubpredicates: kvq)
+}

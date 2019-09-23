@@ -46,8 +46,7 @@ public protocol KeyValueCodingType {
   func value(forKeyPath path: String) -> Any?
 }
 
-extension NSObject        : KeyValueCodingType {}
-extension NSManagedObject : KeyValueCodingType {}
+extension NSObject: KeyValueCodingType {}
 
 public extension KeyValueCodingType {
 

@@ -169,6 +169,10 @@ extension NSManagedObject {
   func wire(destination: NSManagedObject?,
             to relationship: NSRelationshipDescription)
   {
+    #if true
+    // TBD: I don't think this is even necessary
+    globalD2SLogger.error("TODO: implement:", #function)
+    #else
     do {
       guard let destination = destination else {
         setValue(nil, forKey: relationship.name)
@@ -204,6 +208,7 @@ extension NSManagedObject {
       globalD2SLogger.error("could not apply value for:", relationship,
                             "\n  in:", self)
     }
+    #endif
   }
 }
 
@@ -220,6 +225,10 @@ struct JoinTargetID: Hashable {
     // TBD: if the source has the relationship _object_ assigned,
     //      rather grab the values of the dest object? (and maybe
     //      match them up and report inconsistencies).
+    #if true
+      globalD2SLogger.error("ERROR: implement:", #function)
+      return nil
+    #else
     if relationship.joins.isEmpty { return nil }
     
     var hadNonNil = false
@@ -236,12 +245,18 @@ struct JoinTargetID: Hashable {
     }
     if !hadNonNil { return nil }
     self.values = values
+    #endif
   }
   init(destination: NSManagedObject, relationship: NSRelationshipDescription) {
+    #if true
+      globalD2SLogger.error("ERROR: implement:", #function)
+      values = []
+    #else
     values = relationship.joins.map { join in
       (join.destination?.name ?? join.destinationName)
         .flatMap { name in destination.value(forKey: name) }
     }
+    #endif
   }
   
   static func == (lhs: Self, rhs: Self) -> Bool {

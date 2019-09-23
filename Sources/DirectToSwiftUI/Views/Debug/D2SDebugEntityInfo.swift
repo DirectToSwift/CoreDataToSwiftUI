@@ -17,13 +17,13 @@ public struct D2SDebugEntityInfo: View {
         Text("No Entity set")
       }
       else {
-        Text(verbatim: entity.displayNameWithExternalName)
+        Text(verbatim: entity.displayName)
           .font(.title)
         Text(verbatim: "\(entity)")
           .lineLimit(3)
         
         Text("#\(entity.attributes.count) attributes")
-        Text("#\(entity.relationships.count) relationships")
+        Text("#\(entity.relationshipsByName.count) relationships")
       }
     }
     .lineLimit(1)

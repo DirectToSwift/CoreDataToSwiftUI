@@ -23,7 +23,7 @@ public struct D2SDebugObjectEditInfo: View {
         Text("No object set")
       }
       else {
-        Text(verbatim: object.entity.displayNameWithExternalName)
+        Text(verbatim: object.entity.displayName)
           .font(.title)
         Text(verbatim: "\(object)")
           .lineLimit(3)
@@ -47,13 +47,18 @@ public struct D2SDebugObjectEditInfo: View {
     @ObservedObject var object : NSManagedObject
     
     private var changes : [ ( key: String, value: Any? ) ] {
-      if object.isNew {
-        return object.values.sorted(by: { $0.key < $1.key })
-      }
-      else {
-        return object.changesFromSnapshot(object.snapshot ?? [:])
-                     .sorted(by: { $0.key < $1.key })
-      }
+      #if true
+        // TODO: implement me
+        return []
+      #else
+        if object.isNew {
+          return object.values.sorted(by: { $0.key < $1.key })
+        }
+        else {
+          return object.changesFromSnapshot(object.snapshot ?? [:])
+                       .sorted(by: { $0.key < $1.key })
+        }
+      #endif
     }
 
     var body: some View {
