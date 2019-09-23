@@ -52,7 +52,7 @@ public extension Sequence where Element : NSPredicate {
     return reduce(nil, { or1($0, $1) }) ?? NSPredicate(value: false)
   }
   func compactingOr() -> NSPredicate {
-    return Array(self).compactingOr()
+    return NSCompoundPredicate(orPredicateWithSubpredicates: Array(self))
   }
 }
 public extension Collection where Element : NSPredicate {
@@ -77,10 +77,7 @@ public extension Array where Element : NSPredicate {
   func compactingOr() -> NSPredicate {
     if isEmpty { return NSPredicate(value: false) }
     if count == 1 { return self[self.startIndex] }
-    guard let kva = self as? [ NSComparisonPredicate ] else {
-      return NSCompoundPredicate(orPredicateWithSubpredicates: Array(self))
-    }
-    return kva.compactingOr()
+    return NSCompoundPredicate(orPredicateWithSubpredicates: self)
   }
 }
 public extension Collection where Element == NSComparisonPredicate {

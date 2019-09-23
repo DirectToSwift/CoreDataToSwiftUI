@@ -139,23 +139,16 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
     results.clearOrderAndApplyNewCount(count)
   }
   
-  #if true // IMPLEMENT ME
   private func fetchCount(_ fetchSpecification: NSFetchRequest<Object>) {
-    globalD2SLogger.error("TODO: fetch count")
-    integrateCount(0)
+    // TODO: make async like in ZeeQL version
+    do {
+      let count = try dataSource.fetchCount()
+      integrateCount(count)
+    }
+    catch {
+      handleError(error)
+    }
   }
-  #else
-  private func fetchCount(_ fetchSpecification: NSFetchRequest<Object>) {
-    let fs = fetchSpecification // has to be done, can't use inside fetchCount?
-    _ = dataSource.fetchCount(fs, on: D2SFetchQueue)
-      .receive(on: RunLoop.main)
-      .catch { ( error : Swift.Error ) -> Just<Int> in
-        self.handleError(error)
-        return Just(0)
-      }
-      .sink(receiveValue: self.integrateCount)
-  }
-  #endif
   
   
   // MARK: - Fetching Values
@@ -238,7 +231,11 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
     let dataSource = self.dataSource
     let fetchRange = fetchRangeForIndex(index)
     
-    let entity = fetchSpecification.entity ?? dataSource.entity
+    #if false // This raises (init via name, not used w/ MOC yet)
+      let entity = fetchSpecification.entity ?? dataSource.entity
+    #else
+      let entity = dataSource.entity
+    #endif
     let fs     = fetchSpecification.offset(fetchRange.lowerBound)
                                    .limit (fetchRange.count)
     assert(fs.sortDescriptors != nil && !(fs.sortDescriptors?.isEmpty ?? true))
@@ -264,10 +261,9 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
       }
       
       let objectFS = self.fetchSpecification.typedCopy()
-      objectFS.predicate =
-        missingGIDs.map({ entity.qualifierForGlobalID($0) }).compactingOr()
+      objectFS.predicate = entity.qualifierForGlobalIDs(missingGIDs)
       let fetchedObjects = try dataSource.fetchObjects(objectFS)
-        
+      
       for object in fetchedObjects {
         gidToObject[object.objectID] = object
       }

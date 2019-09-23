@@ -9,12 +9,24 @@ import CoreData
 
 public extension NSEntityDescription {
   
+  func qualifierForGlobalIDs<S: Sequence>(_ gids: S) -> NSPredicate
+         where S.Element == NSManagedObjectID
+  {
+    NSPredicate(format: "(SELF IN %@)", argumentArray: [ Array(gids) ])
+  }
+  
   func qualifierForGlobalID(_ gid: NSManagedObjectID) -> NSPredicate {
-    NSComparisonPredicate(
-      leftExpression: NSExpression(forKeyPath: "objectID"),
-      rightExpression: NSExpression(forConstantValue: gid),
-      modifier: .direct, type: .equalTo, options: []
-    )
+    #if true
+      // this is a `NSComparisonPredicate` with an NSSelfExpression on
+      // the left, no idea how to create that programatically.
+      return NSPredicate(format: "(SELF = %@)", argumentArray: [ gid ])
+    #else
+      return NSComparisonPredicate(
+        leftExpression: NSExpression(forKeyPath: "objectID"),
+        rightExpression: NSExpression(forConstantValue: gid),
+        modifier: .direct, type: .equalTo, options: []
+      )
+    #endif
   }
 }
 
