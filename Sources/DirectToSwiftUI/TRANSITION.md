@@ -1,5 +1,9 @@
 # Transition TODOs
 
+- Dynamic Member lookup
+  - I think we can't add this to NSManagedObject? But do we
+    need to? We have concrete classes? Hmm...
+
 - NSManagedObject's are faults?
 
 - ModelFetchSpecification? FetchSpecification => NSFetchRequest?
