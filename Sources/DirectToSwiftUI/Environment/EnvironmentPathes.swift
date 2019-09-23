@@ -218,7 +218,7 @@ public extension DynamicEnvironmentPathes {
   }
   
   /**
-   * A ZeeQL relationship object, part of an `entity`. Relationships form
+   * A CoreData relationship object, part of an `entity`. Relationships form
    * connections between objects in different (or the same) entities.
    *
    * For example a `toManager` relationship might connect an employee record

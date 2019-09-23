@@ -81,6 +81,10 @@ public func isSmaller(_ a: Any?, _ b: Any?) -> Bool {
 
 // TBD: is there a betta way? :-)
 
+extension NSObject: EquatableType {
+  public func isEqual(to object: Any?) -> Bool { isEqual(object) }
+}
+
 public extension FixedWidthInteger {
   func isEqual(to object: Any?) -> Bool {
     guard let object = object else { return false } // other is nil

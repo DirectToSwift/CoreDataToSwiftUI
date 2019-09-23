@@ -92,6 +92,13 @@ public class ManagedObjectDataSource<Object: NSManagedObject>: DataSource {
     fs.resultType = .managedObjectIDResultType
     return try _primaryFetchGlobalIDs(fs)
   }
+  
+  public func createObject() -> Object {
+    NSEntityDescription.insertNewObject(
+      forEntityName: entity.name ?? "",
+      into: managedObjectContext
+    ) as! Object
+  }
 }
 
 public extension ManagedObjectDataSource {

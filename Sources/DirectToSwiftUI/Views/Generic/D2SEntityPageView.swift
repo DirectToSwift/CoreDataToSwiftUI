@@ -17,7 +17,7 @@ public struct D2SEntityPageView: View {
   
   public let entityName : String
 
-  var entity: Entity {
+  var entity: NSEntityDescription {
     guard let entity = model[entity: entityName] else {
       fatalError("did not find entity: \(entityName) in \(model)")
     }

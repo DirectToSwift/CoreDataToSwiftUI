@@ -20,7 +20,7 @@ public extension BasicLook.PageWrapper.MasterDetail {
     @Environment(\.model) private var model
     @State private var selectedEntityName : String?
 
-    private var selectedEntity: Entity? {
+    private var selectedEntity: NSEntityDescription? {
       guard let entityName = selectedEntityName else { return nil }
       guard let entity = model[entity: entityName] else {
         #if os(macOS)

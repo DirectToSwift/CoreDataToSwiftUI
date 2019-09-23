@@ -87,7 +87,7 @@ public extension D2SKeys {
   }
   
   /**
-   * Returns the active ZeeQL Relationship.
+   * Returns the active NSRelationshipDescription.
    *
    * If none is set explicitly, it tries to lookup the relationship using the
    * `entity` and `propertyKey`.

@@ -1,5 +1,7 @@
 # Transition TODOs
 
+- NSManagedObject's are faults?
+
 - ModelFetchSpecification? FetchSpecification => NSFetchRequest?
   - [ ] rename fetchSpecification => fetchRequest everywhere
   - [ ] rename sortOrderings => sortDescriptors everywhere

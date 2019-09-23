@@ -47,7 +47,9 @@ public extension BasicLook.Page {
       return !username.isEmpty
     }
     
-    private func loginAttributes() -> ( Attribute, Attribute )? {
+    private func loginAttributes()
+                 -> ( NSAttributeDescription, NSAttributeDescription )?
+    {
       // We allow the user to specify the login property, but not the
       // password yet.
       let authProps = entity.lookupUserDatabaseProperties()

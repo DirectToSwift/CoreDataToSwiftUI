@@ -83,7 +83,7 @@ public extension NSAttributeDescription {
 }
 
 enum D2SAttributeCoercionError: Swift.Error {
-  case failedToCoerceFromString(String?, Attribute)
+  case failedToCoerceFromString(String?, NSAttributeDescription)
 }
 
 public extension NSAttributeDescription {

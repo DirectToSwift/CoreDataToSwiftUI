@@ -121,7 +121,7 @@ public extension BasicLook.Page.UIKit {
       }
       
       private var isValid: Bool {
-        if relationship.isMandatory && selectedID == nil { return false }
+        if !relationship.isOptional && selectedID == nil { return false }
         return true
       }
       
@@ -133,12 +133,12 @@ public extension BasicLook.Page.UIKit {
       
       struct FaultJoinIDWrap: Identifiable {
         enum ID: Hashable {
-          case fault(GlobalID)
+          case fault(NSManagedObjectID)
           case object(JoinTargetID)
         }
         let fault : Fault
         let id    : ID
-        init(fault: Fault, relationship: Relationship) {
+        init(fault: Fault, relationship: NSRelationshipDescription) {
           self.fault = fault
           switch fault {
             case .fault (let gid, _):    self.id = .fault(gid)

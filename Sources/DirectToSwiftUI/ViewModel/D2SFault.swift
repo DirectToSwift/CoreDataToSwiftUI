@@ -9,7 +9,7 @@ import protocol Swift.Identifiable
 
 public protocol D2SFaultResolver: AnyObject {
   
-  func resolveFaultWithID(_ id: GlobalID)
+  func resolveFaultWithID(_ id: NSManagedObjectID)
 }
 
 public enum D2SFault<Object /*: AnyObject*/, Resolver>
@@ -22,15 +22,15 @@ public enum D2SFault<Object /*: AnyObject*/, Resolver>
     unowned let object: Object
   }
   
-  init(_ id: GlobalID, _ resolver: Resolver) {
+  init(_ id: NSManagedObjectID, _ resolver: Resolver) {
     self = .fault(id, Unowned(object: resolver))
   }
   init(index: Int, resolver: Resolver) {
     self.init(IndexGlobalID.make(index), resolver)
   }
 
-  case object(GlobalID, Object)
-  case fault(GlobalID, Unowned<Resolver>)
+  case object(NSManagedObjectID, Object)
+  case fault(NSManagedObjectID, Unowned<Resolver>)
   
   public func accessingFault() -> Bool {
     switch self {
@@ -100,7 +100,7 @@ extension D2SFault: Identifiable {
     // Lets encode the fault state.
     public struct ID: Hashable {
       let isFault  : Bool
-      let objectID : GlobalID
+      let objectID : NSManagedObjectID
     }
     
     public var id: ID {
@@ -112,7 +112,7 @@ extension D2SFault: Identifiable {
   #else
     // I think this might not work because SwiftUI doesn't notice changes to the
     // fault state? Even though the enum _does_ change.
-    public var id: GlobalID {
+    public var id: NSManagedObjectID {
       switch self {
         case .object(let id, _): return id
         case .fault (let id, _): return id

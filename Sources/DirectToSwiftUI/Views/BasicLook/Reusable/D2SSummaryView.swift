@@ -24,7 +24,7 @@ public struct D2SSummaryView: View {
   private func summary(for object: NSManagedObject) -> String {
     return summary(for: object, entity: object.entity)
   }
-  private func summary(for object: NSManagedObject, entity: Entity,
+  private func summary(for object: NSManagedObject, entity: NSEntityDescription,
                        fieldSeparator : String = ": ",
                        itemSeparator  : String = ", ") -> String
   {

@@ -30,7 +30,7 @@ public struct D2SDebugEntityDetails: View {
   
   struct RelationshipInfo: View {
     
-    let relationship: Relationship
+    let relationship: NSRelationshipDescription
     
     var body: some View {
       VStack(alignment: .leading) {

@@ -76,7 +76,7 @@ public extension BasicLook.Page {
       }
     #endif
     
-    private func entity(for name: String) -> Entity {
+    private func entity(for name: String) -> NSEntityDescription {
       guard let entity = self.model[entity: name] else {
         #if false
           globalD2SLogger.warn("did not find entity:", name, "\n  in:", model)

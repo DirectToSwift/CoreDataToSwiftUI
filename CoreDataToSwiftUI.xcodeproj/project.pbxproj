@@ -332,9 +332,6 @@
 		E8A2C91323325699009F2E71 /* D2SMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C7E623325698009F2E71 /* D2SMainView.swift */; };
 		E8A2C91423325699009F2E71 /* D2SMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C7E623325698009F2E71 /* D2SMainView.swift */; };
 		E8A2C91523325699009F2E71 /* D2SMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A2C7E623325698009F2E71 /* D2SMainView.swift */; };
-		E8D42FEE2337C0E200652366 /* ZeeQLAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D42FED2337C0E200652366 /* ZeeQLAliases.swift */; };
-		E8D42FEF2337C0E200652366 /* ZeeQLAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D42FED2337C0E200652366 /* ZeeQLAliases.swift */; };
-		E8D42FF02337C0E200652366 /* ZeeQLAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D42FED2337C0E200652366 /* ZeeQLAliases.swift */; };
 		E8D42FF32337C84500652366 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D42FF22337C84500652366 /* Logger.swift */; };
 		E8D42FF42337C84500652366 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D42FF22337C84500652366 /* Logger.swift */; };
 		E8D42FF52337C84500652366 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D42FF22337C84500652366 /* Logger.swift */; };
@@ -489,7 +486,6 @@
 		E8A2C7E423325698009F2E71 /* D2SDebugBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = D2SDebugBox.swift; sourceTree = "<group>"; };
 		E8A2C7E523325698009F2E71 /* D2SDebugEntityDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = D2SDebugEntityDetails.swift; sourceTree = "<group>"; };
 		E8A2C7E623325698009F2E71 /* D2SMainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = D2SMainView.swift; sourceTree = "<group>"; };
-		E8D42FED2337C0E200652366 /* ZeeQLAliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeeQLAliases.swift; sourceTree = "<group>"; };
 		E8D42FF12337C2AA00652366 /* TRANSITION.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TRANSITION.md; sourceTree = "<group>"; };
 		E8D42FF22337C84500652366 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		E8D42FF62337D4BE00652366 /* KeyValueCodingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueCodingType.swift; sourceTree = "<group>"; };
@@ -540,7 +536,6 @@
 				E8A2C76D23325698009F2E71 /* README.md */,
 				E8A2C7E623325698009F2E71 /* D2SMainView.swift */,
 				E8A2C76C23325698009F2E71 /* DefaultRules.swift */,
-				E8D42FED2337C0E200652366 /* ZeeQLAliases.swift */,
 				E8A2C78223325698009F2E71 /* Environment */,
 				E8A2C79923325698009F2E71 /* Views */,
 				E8A2C76423325698009F2E71 /* ViewModel */,
@@ -1109,7 +1104,6 @@
 				E8A2C91323325699009F2E71 /* D2SMainView.swift in Sources */,
 				E8A2C86523325698009F2E71 /* ListEnabledDatePicker.swift in Sources */,
 				E8A2C85323325698009F2E71 /* RuleKeyPathAssignment.swift in Sources */,
-				E8D42FEE2337C0E200652366 /* ZeeQLAliases.swift in Sources */,
 				E8907D9A2338DC6400CE0FBD /* PredicateExtras.swift in Sources */,
 				E8A2C86E23325699009F2E71 /* NavigationPage.swift in Sources */,
 				E8A2C82023325698009F2E71 /* Hashes.swift in Sources */,
@@ -1225,7 +1219,6 @@
 				E8A2C91423325699009F2E71 /* D2SMainView.swift in Sources */,
 				E8A2C86623325699009F2E71 /* ListEnabledDatePicker.swift in Sources */,
 				E8A2C85423325698009F2E71 /* RuleKeyPathAssignment.swift in Sources */,
-				E8D42FEF2337C0E200652366 /* ZeeQLAliases.swift in Sources */,
 				E8907D9B2338DC6400CE0FBD /* PredicateExtras.swift in Sources */,
 				E8A2C86F23325699009F2E71 /* NavigationPage.swift in Sources */,
 				E8A2C82123325698009F2E71 /* Hashes.swift in Sources */,
@@ -1341,7 +1334,6 @@
 				E8A2C91523325699009F2E71 /* D2SMainView.swift in Sources */,
 				E8A2C86723325699009F2E71 /* ListEnabledDatePicker.swift in Sources */,
 				E8A2C85523325698009F2E71 /* RuleKeyPathAssignment.swift in Sources */,
-				E8D42FF02337C0E200652366 /* ZeeQLAliases.swift in Sources */,
 				E8907D9C2338DC6400CE0FBD /* PredicateExtras.swift in Sources */,
 				E8A2C87023325699009F2E71 /* NavigationPage.swift in Sources */,
 				E8A2C82223325698009F2E71 /* Hashes.swift in Sources */,

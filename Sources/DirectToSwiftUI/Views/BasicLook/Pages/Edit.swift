@@ -49,6 +49,7 @@ public extension BasicLook.Page {
         @EnvironmentObject private var object : NSManagedObject
 
         @Environment(\.presentationMode) private var presentationMode
+        @Environment(\.database)         private var moc
         
         @State private var lastError      : Swift.Error?
         @State private var isShowingError = false
@@ -73,7 +74,7 @@ public extension BasicLook.Page {
           guard hasChanges else { return goBack() }
           
           do {
-            try object.save()
+            try moc.save()
             goBack()
           }
           catch {
@@ -83,7 +84,8 @@ public extension BasicLook.Page {
           }
         }
         private func discard() {
-          object.revert()
+          // TBD: is this the right way?
+          moc.refresh(object, mergeChanges: false)
         }
         
         private func errorAlert() -> Alert {

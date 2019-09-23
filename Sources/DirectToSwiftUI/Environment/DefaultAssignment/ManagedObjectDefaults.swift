@@ -30,12 +30,14 @@ public extension NSManagedObject {
       return title(for: object, entity: object.entity)
     }
     
-    static func title(for object: NSManagedObject, entity: Entity) -> String {
+    static func title(for object: NSManagedObject, entity: NSEntityDescription)
+                -> String
+    {
       // Look for string attributes, prefer 'title' exact match
-      var firstString   : Attribute?
-      var containsTitle : Attribute?
+      var firstString   : NSAttributeDescription?
+      var containsTitle : NSAttributeDescription?
       
-      func string(for attribute: Attribute?) -> String? {
+      func string(for attribute: NSAttributeDescription?) -> String? {
         guard let attribute = attribute else { return nil }
         guard let value = object.value(forKey: attribute.name) else { return nil }
         guard let s = value as? String else { return nil }

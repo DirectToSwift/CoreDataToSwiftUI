@@ -220,7 +220,7 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
     activeQueries.removeAll(where: { $0 == query })
   }
   
-  public func resolveFaultWithID(_ gid: GlobalID) {
+  public func resolveFaultWithID(_ gid: NSManagedObjectID) {
     // Yeah, we are just prepping things for the real imp using regular GIDs
     if let indexGID = gid as? IndexGlobalID {
       return resolveFault(at: indexGID.index)
@@ -250,8 +250,8 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
     do {
       let globalIDs = try dataSource.fetchGlobalIDs(fs)
       
-      var missingGIDs = Set<GlobalID>()
-      var gidToObject = [ GlobalID : Object ]()
+      var missingGIDs = Set<NSManagedObjectID>()
+      var gidToObject = [ NSManagedObjectID : Object ]()
       for gid in globalIDs {
         if let object = self.results[gid] { gidToObject[gid] = object }
         else { missingGIDs.insert(gid) }

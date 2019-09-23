@@ -28,10 +28,10 @@ public struct SparseFaultArray<Object: AnyObject, Resolver: D2SFaultResolver> {
   public private(set) var count = 0
   
   // Objects which got fetched already.
-  private var objects      = [ GlobalID : Object ]() // TBD: use NSCache?
+  private var objects      = [ NSManagedObjectID : Object ]() // TBD: use NSCache?
   
   // The known GIDs (might not be fetched yet!) in the order of this collection.
-  private var knownObjects = [ GlobalID? ]()
+  private var knownObjects = [ NSManagedObjectID? ]()
   
   // Used by fault objects to trigger a fetch.
   // var, because Swift.
@@ -64,7 +64,7 @@ public struct SparseFaultArray<Object: AnyObject, Resolver: D2SFaultResolver> {
   }
   
   @inline(__always)
-  fileprivate func makeGlobalID(for index: Int) -> GlobalID {
+  fileprivate func makeGlobalID(for index: Int) -> NSManagedObjectID {
     IndexGlobalID.make(index)
   }
   @inline(__always)
@@ -72,7 +72,7 @@ public struct SparseFaultArray<Object: AnyObject, Resolver: D2SFaultResolver> {
     return D2SFault(makeGlobalID(for: index), resolver!)
   }
   
-  public subscript(globalID: GlobalID) -> Object? {
+  public subscript(globalID: NSManagedObjectID) -> Object? {
     return objects[globalID]
   }
   
@@ -149,7 +149,7 @@ internal final class IndexGlobalID : NSManagedObjectID {
     self.index = index
   }
   
-  override func isEqual(to object: Any?) -> Bool {
+  override func isEqual(_ object: Any?) -> Bool {
     guard let gid = object as? IndexGlobalID else { return false }
     return gid == self
   }

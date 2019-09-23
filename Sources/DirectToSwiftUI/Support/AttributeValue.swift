@@ -16,7 +16,7 @@ public protocol AttributeValue {
   
   static var  isOptional : Bool { get }
   
-  static func shouldUseBindVariable(for attribute: Attribute) -> Bool
+  static func shouldUseBindVariable(for attribute: NSAttributeDescription) -> Bool
   
   /// Returns the type wrapped by the Optional, e.g. `Int` for `Int?`
   static var optionalBaseType : AttributeValue.Type? { get }
@@ -32,7 +32,7 @@ public protocol AttributeValue {
 
 public extension AttributeValue {
   static var isOptional : Bool { return false }
-  static func shouldUseBindVariable(for attribute: Attribute) -> Bool {
+  static func shouldUseBindVariable(for attribute: NSAttributeDescription) -> Bool {
     return false
   }
   
@@ -44,7 +44,7 @@ public extension AttributeValue {
 }
 
 extension String : AttributeValue {
-  public static func shouldUseBindVariable(for attribute: Attribute) -> Bool {
+  public static func shouldUseBindVariable(for attribute: NSAttributeDescription) -> Bool {
     return true
   }
   public static var optionalBaseType : AttributeValue.Type? { return self }
@@ -53,7 +53,7 @@ extension String : AttributeValue {
   }
 }
 extension Data   : AttributeValue {
-  public static func shouldUseBindVariable(for attribute: Attribute) -> Bool {
+  public static func shouldUseBindVariable(for attribute: NSAttributeDescription) -> Bool {
     return true
   }
   public static var optionalBaseType : AttributeValue.Type? { return self }
