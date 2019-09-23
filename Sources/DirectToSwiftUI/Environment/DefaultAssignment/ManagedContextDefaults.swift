@@ -23,7 +23,8 @@ public extension NSManagedObjectContext {
 
     public var defaultTitle : String {
       if let psc = moc.persistentStoreCoordinator {
-        if let p = psc.persistentStores.first?.url?.lastPathComponent,
+        if let p = psc.persistentStores.first?.url?.deletingPathExtension()
+                                                   .lastPathComponent,
            !p.isEmpty
         {
           return p
