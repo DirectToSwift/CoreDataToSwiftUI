@@ -30,6 +30,13 @@ public extension NSFetchRequest {
     }
     return typed
   }
+  @objc func countCopy() -> NSFetchRequest<NSNumber> {
+    let me = copy()
+    guard let typed = me as? NSFetchRequest<NSNumber> else {
+      fatalError("can't convert fetch request type! \(type(of: me))")
+    }
+    return typed
+  }
 }
 
 public extension NSFetchRequest {

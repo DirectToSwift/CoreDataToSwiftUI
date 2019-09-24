@@ -64,15 +64,22 @@ public class ManagedObjectDataSource<Object: NSManagedObject>: DataSource {
     try managedObjectContext.fetch(fr)
   }
   public func _primaryFetchCount(_ fr: NSFetchRequest<Object>) throws -> Int {
-    try managedObjectContext.count(for: fr)
+    if fr.resultType != .countResultType {
+      let fr = fr.countCopy()
+      fr.resultType = .countResultType
+      return try managedObjectContext.count(for: fr)
+    }
+    else {
+      return try managedObjectContext.count(for: fr)
+    }
   }
   public func _primaryFetchGlobalIDs(_ fr: NSFetchRequest<NSManagedObjectID>)
               throws -> [ NSManagedObjectID ]
   {
     if fr.resultType != .managedObjectIDResultType {
-      let fs = fr.objectIDsCopy()
-      fs.resultType = .managedObjectIDResultType
-      return try managedObjectContext.fetch(fs)
+      let fr = fr.objectIDsCopy()
+      fr.resultType = .managedObjectIDResultType
+      return try managedObjectContext.fetch(fr)
     }
     else {
       return try managedObjectContext.fetch(fr)
@@ -80,19 +87,23 @@ public class ManagedObjectDataSource<Object: NSManagedObject>: DataSource {
   }
   
   public func fetchGlobalIDs() throws -> [ NSManagedObjectID ] {
-    let fs = fetchRequest?.objectIDsCopy()
+    let fr = fetchRequest?.objectIDsCopy()
           ?? NSFetchRequest<NSManagedObjectID>(entityName: entity.name ?? "")
-    fs.resultType = .managedObjectIDResultType
-    return try _primaryFetchGlobalIDs(fs)
+    fr.resultType = .managedObjectIDResultType
+    return try _primaryFetchGlobalIDs(fr)
   }
-  public func fetchGlobalIDs(_ fs: NSFetchRequest<Object>)
+  public func fetchGlobalIDs(_ fr: NSFetchRequest<Object>)
               throws -> [ NSManagedObjectID ]
   {
-    let fs = fs.objectIDsCopy()
-    fs.resultType = .managedObjectIDResultType
-    return try _primaryFetchGlobalIDs(fs)
+    let fr = fr.objectIDsCopy()
+    fr.resultType = .managedObjectIDResultType
+    return try _primaryFetchGlobalIDs(fr)
   }
-  
+
+  public func fetchCount(_ fr: NSFetchRequest<Object>) throws -> Int {
+    return try _primaryFetchCount(fr)
+  }
+
   public func createObject() -> Object {
     NSEntityDescription.insertNewObject(
       forEntityName: entity.name ?? "",
@@ -104,10 +115,10 @@ public class ManagedObjectDataSource<Object: NSManagedObject>: DataSource {
 public extension ManagedObjectDataSource {
   
   func find() throws -> Object? {
-    let fs = try fetchRequestForFetch()
-    fs.fetchLimit = 2
+    let fr = try fetchRequestForFetch()
+    fr.fetchLimit = 2
     
-    let objects = try _primaryFetchObjects(fs)
+    let objects = try _primaryFetchObjects(fr)
     assert(objects.count < 2)
     return objects.first
   }

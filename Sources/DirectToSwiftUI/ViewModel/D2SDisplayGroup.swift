@@ -39,6 +39,7 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
       let q  = and(qs, auxiliaryPredicate)
       guard !q.isEqual(to: fetchRequest.predicate) else { return }
       fetchRequest.predicate = q
+      setNeedsRefetch()
     }
   }
   @Published var sortAttribute : NSAttributeDescription? = nil {
@@ -53,6 +54,7 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
         self.fetchRequest.sortDescriptors =
           dataSource.entity.d2s.defaultSortDescriptors
       }
+      setNeedsRefetch()
     }
   }
   
@@ -142,7 +144,9 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
   private func fetchCount(_ fetchRequest: NSFetchRequest<Object>) {
     // TODO: make async like in ZeeQL version
     do {
-      let count = try dataSource.fetchCount()
+      let count = try dataSource.fetchCount(fetchRequest)
+      globalD2SLogger.trace("fetched count:", count,
+                            "\n  for:", fetchRequest.predicate)
       integrateCount(count)
     }
     catch {
@@ -258,8 +262,6 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
     }
   }
 }
-
-internal let D2SFetchQueue = DispatchQueue(label: "de.zeezide.d2s.fetchqueue")
 
 fileprivate func buildInitialFetchSpec<Object: NSManagedObject>
                    (for     dataSource : ManagedObjectDataSource<Object>,

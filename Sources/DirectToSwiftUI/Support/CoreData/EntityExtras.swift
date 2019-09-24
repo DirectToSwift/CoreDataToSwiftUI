@@ -91,6 +91,8 @@ extension NSEntityDescription {
     //       => name:He* 10111 -skyrix +addresses.city:Magdeburg
     // TODO: show message unless cookie is set with instructions (using Semantic
     //       Nag attached to cookie)
+    if qs.isEmpty { return nil }
+    
     let isNumber = Int(qs)
     var q        : NSPredicate? = nil
     

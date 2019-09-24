@@ -132,7 +132,7 @@ public func predicateToMatchAnyValue(_ values: [ String : Any? ]?,
     NSComparisonPredicate(
       leftExpression  : NSExpression(forKeyPath: key),
       rightExpression : NSExpression(forConstantValue: value),
-      modifier: .direct, type: .equalTo,
+      modifier: .direct, type: op,
       options: caseInsensitive ? [ .caseInsensitive ] : []
     )
   }
