@@ -20,8 +20,8 @@ public struct D2SNavigationLink<Label, Destination>: View
          where Label: View, Destination: View
 {
   @Environment(\.ruleContext) private var context
-    // Note: cannot attach a setter, sends swiftc into loop
-  
+  @Environment(\.managedObjectContext) private var moc
+
   private let destination : Destination
   private let label       : Label
   private let isActive    : Binding<Bool>?
@@ -40,21 +40,25 @@ public struct D2SNavigationLink<Label, Destination>: View
       if isActive != nil {
         NavigationLink(destination: destination
                                       .environmentObject(context.object)
+                                      .environment(\.managedObjectContext, moc)
                                       .ruleContext(context),
                        isActive: isActive!)
         {
           label
             .environmentObject(context.object)
+            .environment(\.managedObjectContext, moc)
             .ruleContext(context)
         }
       }
       else {
         NavigationLink(destination: destination
                                       .environmentObject(context.object)
+                                      .environment(\.managedObjectContext, moc)
                                       .ruleContext(context))
         {
           label
             .environmentObject(context.object)
+            .environment(\.managedObjectContext, moc)
             .ruleContext(context)
         }
       }
