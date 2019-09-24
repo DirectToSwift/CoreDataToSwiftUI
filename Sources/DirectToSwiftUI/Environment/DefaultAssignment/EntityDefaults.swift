@@ -38,13 +38,6 @@ public extension EntityD2S {
     return [ NSSortDescriptor(key: firstAttribute.name, ascending: true) ]
   }
   
-  /**
-   * This first looks at the `classPropertyNames`. If set, it filters out the
-   * INT foreign keys and returns them.
-   *
-   * If `classPropertyNames` is not set, returns attributes + relationships,
-   * while also filterting the attributes for INT foreign keys.
-   */
   var defaultAttributeAndRelationshipPropertyKeys : [ String ] {
     // Note: It is a speciality of AR that we keep the IDs as class properties.
     //       That would not be the case for real, managed, EOs.
@@ -54,15 +47,11 @@ public extension EntityD2S {
   }
   
   var defaultAttributeAndToOnePropertyKeys : [ String ] {
-    var propertyKeys = entity.attributes.map { $0.name }
-    
-    for rs in entity.relationshipsByName.values {
-      if !rs.isToMany {
-        propertyKeys.append(rs.name)
-      }
+    entity.properties.compactMap {
+      if $0 is NSAttributeDescription { return $0.name }
+      guard let rs = $0 as? NSRelationshipDescription else { return nil }
+      return rs.isToMany ? nil : rs.name
     }
-    
-    return propertyKeys
   }
 
   var defaultDisplayPropertyKeys : [ String ] {

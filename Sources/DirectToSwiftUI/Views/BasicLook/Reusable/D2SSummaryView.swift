@@ -21,6 +21,13 @@ public struct D2SSummaryView: View {
   @Environment(\.displayPropertyKeys) private var displayPropertyKeys
   @Environment(\.ruleContext)         private var ruleContext
 
+  private func title(for object: NSManagedObject) -> String {
+    var localContext = ruleContext
+    localContext.object = object
+    localContext.task   = "list" // TBD
+    return localContext.title
+  }
+  
   private func summary(for object: NSManagedObject) -> String {
     return summary(for: object, entity: object.entity)
   }
@@ -53,6 +60,15 @@ public struct D2SSummaryView: View {
         return DateFormatter().string(from: date)
       }
       
+      if let mo = value as? NSManagedObject {
+        // This will recurse ...
+        #if false
+          return "[" + self.summary(for: mo) + "]"
+        #else
+          return self.title(for: mo)
+        #endif
+      }
+      
       return String(describing: value)
     }
     
@@ -62,19 +78,23 @@ public struct D2SSummaryView: View {
       defer { localContext.propertyKey = "" }
       
       guard let value = localContext.propertyValue else { continue }
+      
       if let v = value as? String, v.isEmpty { continue } // hide empty
       
       if value is Data { continue } // No data in summary
       
+      let name   = localContext.displayNameForProperty
+      let string = stringForValue(value)
+      if string.isEmpty { continue } // hide empty
+      
       if isFirst { isFirst = false }
       else { summary += itemSeparator }
 
-      let name = localContext.displayNameForProperty
       if !name.isEmpty { // do not add separator if name is empty
         summary += name
         summary += fieldSeparator
       }
-      summary += stringForValue(value)
+      summary += string
     }
     
     return summary
