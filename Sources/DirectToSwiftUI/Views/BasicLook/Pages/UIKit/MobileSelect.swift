@@ -27,7 +27,7 @@ public extension BasicLook.Page.UIKit {
 
     @Environment(\.database)            private var moc
     @Environment(\.entity)              private var entity
-    @Environment(\.auxiliaryQualifier)  private var auxiliaryQualifier
+    @Environment(\.auxiliaryPredicate)  private var auxiliaryPredicate
     @Environment(\.displayPropertyKeys) private var displayPropertyKeys
     @Environment(\.relationship)        private var relationship
     @EnvironmentObject private var sourceObject : NSManagedObject
@@ -37,7 +37,7 @@ public extension BasicLook.Page.UIKit {
     private func makeDisplayGroup() -> D2SDisplayGroup<NSManagedObject> {
       return D2SDisplayGroup(
         dataSource          : moc.dataSource(for: entity),
-        auxiliaryQualifier  : auxiliaryQualifier,
+        auxiliaryPredicate  : auxiliaryPredicate,
         displayPropertyKeys : displayPropertyKeys
       )
     }
@@ -53,7 +53,7 @@ public extension BasicLook.Page.UIKit {
                        sourceObject: sourceObject,
                        initialID: JoinTargetID(source: sourceObject,
                                                relationship: relationship))
-            .environment(\.auxiliaryQualifier, nil) // reset!
+            .environment(\.auxiliaryPredicate, nil) // reset!
         }
       }
     }

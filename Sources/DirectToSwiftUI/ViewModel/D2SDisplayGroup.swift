@@ -36,21 +36,21 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
     didSet {
       guard oldValue != queryString else { return }
       let qs = dataSource.entity.qualifierForQueryString(queryString)
-      let q  = and(qs, auxiliaryQualifier)
-      guard !q.isEqual(to: fetchSpecification.predicate) else { return }
-      fetchSpecification.predicate = q
+      let q  = and(qs, auxiliaryPredicate)
+      guard !q.isEqual(to: fetchRequest.predicate) else { return }
+      fetchRequest.predicate = q
     }
   }
   @Published var sortAttribute : NSAttributeDescription? = nil {
     didSet {
       guard oldValue !== sortAttribute else { return }
       if let newValue = sortAttribute {
-        self.fetchSpecification.sortDescriptors = [
+        self.fetchRequest.sortDescriptors = [
           NSSortDescriptor(key: newValue.name, ascending: true)
         ]
       }
       else {
-        self.fetchSpecification.sortDescriptors =
+        self.fetchRequest.sortDescriptors =
           dataSource.entity.d2s.defaultSortDescriptors
       }
     }
@@ -59,31 +59,32 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
   internal let dataSource         : ManagedObjectDataSource<Object>
   private  let batchCount         : Int
   
-  private  var auxiliaryQualifier : NSPredicate? = nil
-  private  var fetchSpecification : NSFetchRequest<Object> {
+  private  var auxiliaryPredicate : NSPredicate? = nil
+  private  var fetchRequest       : NSFetchRequest<Object> {
     didSet { setNeedsRefetch() }
   }
   
-  private func setNeedsRefetch() { needsRefetch.send(fetchSpecification) }
+  private func setNeedsRefetch() { needsRefetch.send(fetchRequest) }
   private var needsRefetch = PassthroughSubject<NSFetchRequest<Object>, Never>()
     // Not using @Published because we want a _didset_
   
   public init(dataSource          : ManagedObjectDataSource<Object>,
-              auxiliaryQualifier  : NSPredicate? = nil,
+              auxiliaryPredicate  : NSPredicate? = nil,
               displayPropertyKeys : [ String ]?  = nil,
-              batchCount          : Int = 20)
+              batchCount          : Int          = 20)
   {
     // Note: We always fetch full objects, for the list we could also just
     //       select the displayPropertyKeys, but then we'd have to fetch the
     //       full object for editing. Which might make sense :-)
     self.batchCount         = batchCount
     self.dataSource         = dataSource
-    self.auxiliaryQualifier = auxiliaryQualifier
-    self.fetchSpecification = buildInitialFetchSpec(for: dataSource,
-                                auxiliaryQualifier: auxiliaryQualifier)
+    self.auxiliaryPredicate = auxiliaryPredicate
+    self.fetchRequest =
+      buildInitialFetchSpec(for: dataSource,
+                            auxiliaryPredicate: auxiliaryPredicate)
     let entity = dataSource.entity
     if let keys = displayPropertyKeys {
-      self.fetchSpecification.relationshipKeyPathsForPrefetching =
+      self.fetchRequest.relationshipKeyPathsForPrefetching =
         entity.prefetchPathesForPropertyKeys(keys)
     }
     
@@ -95,7 +96,7 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
         self?.fetchCount(newValue)
       }
     
-    self.fetchCount(fetchSpecification)
+    self.fetchCount(fetchRequest)
   }
   
   
@@ -103,9 +104,8 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
   
   public func reload() {
     // TBD: somehow cancel running fetches
-    activeQueries.removeAll()
     results.reset()
-    self.fetchCount(fetchSpecification)
+    self.fetchCount(fetchRequest)
   }
   
   
@@ -139,7 +139,7 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
     results.clearOrderAndApplyNewCount(count)
   }
   
-  private func fetchCount(_ fetchSpecification: NSFetchRequest<Object>) {
+  private func fetchCount(_ fetchRequest: NSFetchRequest<Object>) {
     // TODO: make async like in ZeeQL version
     do {
       let count = try dataSource.fetchCount()
@@ -154,10 +154,6 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
   // MARK: - Fetching Values
   
   // TBD: rewrite this using Combine :-)
-  
-  private func isAlreadyFetching(_ i: Int) -> Bool {
-    return activeQueries.contains { $0.range.contains(i) }
-  }
   
   private func integrateResults(_ results: [ Object ], for range: Range<Int>) {
     // TBD: Avoid continuous change notifications by not doing in place
@@ -180,7 +176,7 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
       let targetIndex = i + range.lowerBound
       assert(newResults.count > targetIndex)
       
-      let gid = result.globalID
+      let gid = result.objectID
       
       if newResults.count > targetIndex {
         newResults[targetIndex] = .object(gid, result)
@@ -193,11 +189,6 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
     self.results = newResults
   }
   
-  private struct Query: Equatable {
-    let range : Range<Int>
-  }
-  private var activeQueries = [ Query ]()
-  
   private func fetchRangeForIndex(_ index: Int) -> Range<Int> {
     let batchIndex      = index / batchCount
     let batchStartIndex = batchIndex * batchCount
@@ -207,10 +198,6 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
                 ?? results.endIndex
     
     return batchStartIndex..<endIndex
-  }
-  
-  private func finishedBatch(_ query: Query) {
-    activeQueries.removeAll(where: { $0 == query })
   }
   
   public func resolveFaultWithID(_ gid: NSManagedObjectID) {
@@ -226,22 +213,17 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
     assert(_dispatchPreconditionTest(.onQueue(.main)))
     
     guard case .fault = results[index] else { return } // already fetched
-    guard !isAlreadyFetching(index)    else { return }
-
-    let dataSource = self.dataSource
+    
     let fetchRange = fetchRangeForIndex(index)
     
     #if false // This raises (init via name, not used w/ MOC yet)
-      let entity = fetchSpecification.entity ?? dataSource.entity
+      let entity = fetchRequest.entity ?? dataSource.entity
     #else
       let entity = dataSource.entity
     #endif
-    let fs     = fetchSpecification.offset(fetchRange.lowerBound)
+    let fs     = fetchRequest.offset(fetchRange.lowerBound)
                                    .limit (fetchRange.count)
     assert(fs.sortDescriptors != nil && !(fs.sortDescriptors?.isEmpty ?? true))
-    
-    let query = Query(range: fetchRange)
-    activeQueries.append(query) // keep it alive
     
     // FIXME: Make this async like in the ZeeQL D2S. Needs a context
     do {
@@ -260,7 +242,7 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
         return
       }
       
-      let objectFS = self.fetchSpecification.typedCopy()
+      let objectFS = self.fetchRequest.typedCopy()
       objectFS.predicate = entity.qualifierForGlobalIDs(missingGIDs)
       let fetchedObjects = try dataSource.fetchObjects(objectFS)
       
@@ -279,10 +261,9 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
 
 internal let D2SFetchQueue = DispatchQueue(label: "de.zeezide.d2s.fetchqueue")
 
-
 fileprivate func buildInitialFetchSpec<Object: NSManagedObject>
                    (for     dataSource : ManagedObjectDataSource<Object>,
-                    auxiliaryQualifier : NSPredicate?)
+                    auxiliaryPredicate : NSPredicate?)
                  -> NSFetchRequest<Object>
 {
   // all cases, kinda non-sense here
@@ -303,7 +284,7 @@ fileprivate func buildInitialFetchSpec<Object: NSManagedObject>
     assert(fs.sortDescriptors != nil && !(fs.sortDescriptors?.isEmpty ?? true))
   #endif
   
-  if let aux = auxiliaryQualifier {
+  if let aux = auxiliaryPredicate {
     fs.predicate = aux.and(fs.predicate)
   }
   

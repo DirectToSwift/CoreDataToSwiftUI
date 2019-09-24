@@ -10,8 +10,7 @@ import CoreData
 
 public extension NSManagedObject {
   
-  var isNew    : Bool { objectID.isTemporaryID } // TBD?
-  var globalID : NSManagedObjectID { objectID }
+  var isNew : Bool { objectID.isTemporaryID } // TBD?
 }
 
 extension NSManagedObject: Identifiable {

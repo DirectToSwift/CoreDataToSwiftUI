@@ -416,7 +416,7 @@ public extension DynamicEnvironmentPathes {
   /**
    * If you implement a login page, you can assign a value to the `user`
    * environment. And then adjust other environments based on that,
-   * e.g. `isEntityReadOnly` or even `auxiliaryQualifier`.
+   * e.g. `isEntityReadOnly` or even `auxiliaryPredicate`.
    */
   var user : NSManagedObject? {
     set { self[dynamic: D2SKeys.user.self] = newValue }
@@ -453,11 +453,11 @@ public extension DynamicEnvironmentPathes {
   // MARK: - Display Group
   
   /**
-   * The auxiliaryQualifier can be used to restrict the queries in a page.
+   * The auxiliaryPredicate can be used to restrict the queries in a page.
    */
-  var auxiliaryQualifier : NSPredicate? {
-    set { self[dynamic: D2SKeys.auxiliaryQualifier.self] = newValue }
-    get { self[dynamic: D2SKeys.auxiliaryQualifier.self] }
+  var auxiliaryPredicate : NSPredicate? {
+    set { self[dynamic: D2SKeys.auxiliaryPredicate.self] = newValue }
+    get { self[dynamic: D2SKeys.auxiliaryPredicate.self] }
   }
 }
 
@@ -496,6 +496,6 @@ extension D2SContextKVC {
     "user"                   : KVCMapEntry(D2SKeys.user                  .self),
     "isObjectEditable"       : KVCMapEntry(D2SKeys.isObjectEditable      .self),
     "isObjectDeletable"      : KVCMapEntry(D2SKeys.isObjectDeletable     .self),
-    "auxiliaryQualifier"     : KVCMapEntry(D2SKeys.auxiliaryQualifier    .self),
+    "auxiliaryPredicate"     : KVCMapEntry(D2SKeys.auxiliaryPredicate    .self),
   ]
 }

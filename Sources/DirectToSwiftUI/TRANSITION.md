@@ -6,28 +6,7 @@
 
 - NSManagedObject's are faults?
 
-- ModelFetchSpecification? FetchSpecification => NSFetchRequest?
-  - [ ] rename fetchSpecification => fetchRequest everywhere
-  - [ ] rename sortOrderings => sortDescriptors everywhere
-
-- managedobjects do not carry their entity? nah, they do
-
 - snapshot in managed objects, how? (and where?)
-
-- all key/value coding things
-  - RuleKeyPathAssignment
-    - how to do KVC against the rule context? Just define an own imp?
-      - it already has that, we just also need the builtin KVC names
-    => figure out the renaming required (keypathes, plain pathes)
-    - evaluateWith(object:) => evaluate(with:)
-    - value(forKey:), setValue(_, forKey:) - same
-    - => value(forKeyPath:)
-    - => setValue(_, forKeyPath:)
-    - takeValue => setValue
-
-- auxiliaryQualifier => auxiliaryPredicate
-
-- allowsNull => optional
 
 - validation is builtin, can drop the own
 

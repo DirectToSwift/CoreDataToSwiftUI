@@ -35,7 +35,7 @@ public extension BasicLook.Row {
     public var body: some View {
       D2SNavigationLink(destination:
         D2SPageView()
-          .environment(\.auxiliaryQualifier, relationshipQualifier)
+          .environment(\.auxiliaryPredicate, relationshipQualifier)
           .environment(\.entity, relationship.destinationEntity!)
           .task(.list)
           .ruleObject(D2SKeys.object.defaultValue))

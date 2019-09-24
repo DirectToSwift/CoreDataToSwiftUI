@@ -19,7 +19,7 @@ public extension BasicLook.Page {
     
     @Environment(\.database)           private var moc
     @Environment(\.entity)             private var entity
-    @Environment(\.auxiliaryQualifier) private var auxiliaryQualifier
+    @Environment(\.auxiliaryPredicate) private var auxiliaryPredicate
     
     public init() {}
 
@@ -29,8 +29,8 @@ public extension BasicLook.Page {
     
     public var body: some View {
       Bound(dataSource: makeDataSource(),
-            auxiliaryQualifier: auxiliaryQualifier)
-        .environment(\.auxiliaryQualifier, nil) // reset!
+            auxiliaryPredicate: auxiliaryPredicate)
+        .environment(\.auxiliaryPredicate, nil) // reset!
     }
 
     struct Bound<Object: NSManagedObject>: View {
@@ -39,11 +39,11 @@ public extension BasicLook.Page {
       @ObservedObject private var displayGroup : D2SDisplayGroup<Object>
       
       init(dataSource         : ManagedObjectDataSource<Object>,
-           auxiliaryQualifier : NSPredicate?)
+           auxiliaryPredicate : NSPredicate?)
       {
         self.displayGroup = D2SDisplayGroup(
           dataSource         : dataSource,
-          auxiliaryQualifier : auxiliaryQualifier
+          auxiliaryPredicate : auxiliaryPredicate
         )
       }
 

@@ -202,7 +202,7 @@ public extension D2SKeys {
   
   // MARK: - Display Group
   
-  struct auxiliaryQualifier : DynamicEnvironmentKey {
+  struct auxiliaryPredicate : DynamicEnvironmentKey {
     public static let defaultValue: NSPredicate? = nil
   }
 }
