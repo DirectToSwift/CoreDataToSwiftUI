@@ -78,5 +78,20 @@ public extension KeyValueCodingType {
     }
     return kvcChild.value(forKeyPath: String(path[r.upperBound...]))
   }
+}
 
+@dynamicMemberLookup
+public struct KVCTrampoline {
+  // TBD: This could also wrap the result in another KVCTrampoline. It
+  //      currently doesn't allow this: object.address.street,
+  //      because we just return Any?.
+  //      On the other hand, we would probably have to add noop KeyValueCoding
+  //      to the base types.
+
+  public let object : KeyValueCodingType
+  
+  public subscript(dynamicMember member: String) -> Any? {
+    set { object.setValue(newValue, forKey: member) }
+    get { object.value(forKey: member) }
+  }
 }

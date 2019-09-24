@@ -171,7 +171,7 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
       // as something affected the count.
       globalD2SLogger.error("count mismatch, expected:", range.count,
                             "returned:", results.count)
-      assert(results.count == range.count,
+      assert(results.count <= range.count,
              "count mismatch, concurrent edit (valid but not implemented :-))")
     }
     

@@ -22,6 +22,12 @@ extension NSManagedObject: Identifiable {
 }
 
 public extension NSManagedObject {
+  
+  var p : KVCTrampoline { KVCTrampoline(object: self) }
+  
+}
+
+public extension NSManagedObject {
   // Bindings why try to do type coercion
   // TODO: maybe even do this for any bindings!
   

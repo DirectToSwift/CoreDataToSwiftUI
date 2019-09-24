@@ -7,135 +7,31 @@
 
 import CoreData
 
-extension NSManagedObject {
-    
-  func dataSourceQualifiedByKey(_ key: String)
-       -> ManagedObjectDataSource<NSManagedObject>?
-  {
-    // We could try to extract the proper static type using
-    //   CodeRelationshipBase<Target: SwiftObject>
-    
-    // Hm, this is a little tricky. It is already implemented in ZeeQL itself
-    // for relationship _prefetches_. But there doesn't seem to be a way
-    // to construct it manually?
-    // Specifically it is hard to apply the the joinSemantics properly w/o
-    // access to SQL. W/o a reciprocal relationship that is.
-    
-    guard let relship = entity[relationship: key] else {
-      globalD2SLogger.log("attempt to qualify by unknown key:", key, "\n",
-                          "  datasource:", self)
-      return nil
-    }
-    guard let entity = relship.destinationEntity else {
-      globalD2SLogger.log("can't qualify relship w/o entity:", key, "\n",
-                          "  relationship:", relship, "\n",
-                          "  datasource:  ", self)
-      return nil
-    }
-    guard let ds = managedObjectContext?.dataSource(for: entity) else {
-      globalD2SLogger.error("missing MOC:", self)
-      return nil
-    }
-    let fs = NSFetchRequest<NSManagedObject>(entityName: entity.name ?? "")
-    fs.predicate = relship.qualifierInDestinationForSource(self)
-    ds.fetchRequest = fs
-    return ds
-  }
-  
-}
-
 extension NSRelationshipDescription {
   
   func qualifierInDestinationForSource(_ source: NSManagedObject)
        -> NSPredicate?
   {
-    #if true // FIXME: implement me
-      globalD2SLogger.error("TODO: implement:", #function)
+    guard let inverse = inverseRelationship else {
+      globalD2SLogger.error("relationship misses inverse:", self)
       return nil
-    #else
-    // FIXME: Still has issues for some setups (FilmActors N:M)
-    guard !joins.isEmpty else { return nil }
-    
-    var qualifiers = [ NSPredicate ]()
-    qualifiers.reserveCapacity(joins.count)
-    
-    for join in joins {
-      guard let destAttrName = join.destinationName
-                            ?? join.destination?.name else {
-        globalD2SLogger.error("join has no destination:", join, self)
-        return nil
-      }
-      
-      guard let srcAttrName = join.sourceName ?? join.source?.name else {
-        globalD2SLogger.error("join has no source:", join, self)
-        return nil
-      }
-      
-      let selfValue = source.value(forKey: srcAttrName)
-      let destKey   = StringKey(destAttrName)
-      
-      let q = KeyValueQualifier(destKey, .EqualTo, selfValue)
-      qualifiers.append(q)
     }
     
-    guard !qualifiers.isEmpty else { return nil }
-    if qualifiers.count == 1 { return qualifiers[0] }
-    return NSCompoundPredicate(andPredicateWithSubpredicates: qualifiers)
-    #endif
+    return NSComparisonPredicate(
+      leftExpression  : NSExpression(forKeyPath: inverse.name),
+      rightExpression : NSExpression(forConstantValue: source),
+      modifier: .direct, type: .equalTo, options: []
+    )
   }
 }
 
 
 extension NSManagedObject {
   
-  /**
-   * Like `addObject(_:toPropertyWithKey:)`, but also push the foreign keys.
-   *
-   * This is to support AR which stores those in the record itself.
-   */
   func wire(destination: NSManagedObject?,
             to relationship: NSRelationshipDescription)
   {
-    #if true
-    // TBD: I don't think this is even necessary
-    globalD2SLogger.error("TODO: implement:", #function)
-    #else
-    do {
-      guard let destination = destination else {
-        setValue(nil, forKey: relationship.name)
-        for join in relationship.joins {
-          guard let sourceName = join.source?.name ?? join.sourceName else {
-            globalD2SLogger.error("unexpected join:", join, relationship)
-            assertionFailure("unexpected join: \(join)")
-            continue
-          }
-          setValue(nil, forKey: sourceName)
-        }
-        return
-      }
-    
-      addObject(destination, toPropertyWithKey: relationship.name)
-    
-      for join in relationship.joins {
-        guard let sourceName = join.source?.name ?? join.sourceName else {
-          globalD2SLogger.error("unexpected join:", join, relationship)
-          assertionFailure("unexpected join: \(join)")
-          continue
-        }
-        
-        if let destName = join.destination?.name ?? join.destinationName {
-          setValue(destination.value(forKey: destName), forKey: sourceName)
-        }
-        else {
-          setValue(nil, forKey: sourceName)
-        }
-      }
-    }
-    catch {
-      globalD2SLogger.error("could not apply value for:", relationship,
-                            "\n  in:", self)
-    }
-    #endif
+    self.setValue(destination, forKey: relationship.name)
   }
 }
 
