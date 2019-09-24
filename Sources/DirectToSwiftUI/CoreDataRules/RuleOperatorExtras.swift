@@ -21,7 +21,7 @@ public func ==<VT>(lhs: Swift.KeyPath<RuleContext, AttributeValue.Type?>,
 
 
 // MARK: - Any Predicates to support NSManagedObject dynamic properties
-// Note: We have a variant below which takes KeyValueCodingType
+// Note: We have a variant below which takes KVCTrampoline
 
 // e.g. \.object.name == "Hello"
 public func ==<V>(lhs: Swift.KeyPath<RuleContext, Any?>, rhs: V)
@@ -151,15 +151,15 @@ public func !==<Value>(lhs: Swift.KeyPath<RuleContext, Any?>, rhs: Value?)
 // MARK: - Any Predicates to support NSManagedObject dynamic properties
 
 // e.g. \.object.name == "Hello"
-public func ==<V>(lhs: Swift.KeyPath<RuleContext, KeyValueCodingType?>, rhs: V)
+public func ==<V>(lhs: Swift.KeyPath<RuleContext, KVCTrampoline?>, rhs: V)
             -> some RulePredicate
 {
-  RuleKeyPathPredicate<KeyValueCodingType?>(keyPath: lhs, value: rhs)
+  RuleKeyPathPredicate<KVCTrampoline?>(keyPath: lhs, value: rhs)
 }
 
-/* FIXME
 // e.g. \.person.name != "Donald"
-public func !=<Value>(lhs: Swift.KeyPath<RuleContext, KeyValueCodingType?>, rhs: Value)
+public func !=<Value>(lhs: Swift.KeyPath<RuleContext, KVCTrampoline?>,
+                      rhs: Value)
               -> some RulePredicate
 {
   RuleNotPredicate(predicate:
@@ -167,12 +167,14 @@ public func !=<Value>(lhs: Swift.KeyPath<RuleContext, KeyValueCodingType?>, rhs:
 }
 
 // e.g. \.person.age < 45
-public func < <Value>(lhs: Swift.KeyPath<RuleContext, KeyValueCodingType?>, rhs: Value)
+public func < <Value>(lhs: Swift.KeyPath<RuleContext, KVCTrampoline?>,
+                      rhs: Value)
               -> some RulePredicate
 {
   RuleKeyPathPredicate<Value>(keyPath: lhs, operation: .lessThan, value: rhs)
 }
-public func <= <Value>(lhs: Swift.KeyPath<RuleContext, KeyValueCodingType?>, rhs: Value)
+public func <= <Value>(lhs: Swift.KeyPath<RuleContext, KVCTrampoline?>,
+                       rhs: Value)
               -> some RulePredicate
 {
   RuleKeyPathPredicate<Value>(keyPath: lhs, operation: .lessThanOrEqual,
@@ -180,12 +182,14 @@ public func <= <Value>(lhs: Swift.KeyPath<RuleContext, KeyValueCodingType?>, rhs
 }
 
 // e.g. \.person.age > 45
-public func > <Value>(lhs: Swift.KeyPath<RuleContext, KeyValueCodingType?>, rhs: Value)
+public func > <Value>(lhs: Swift.KeyPath<RuleContext, KVCTrampoline?>,
+                      rhs: Value)
               -> some RulePredicate
 {
   RuleKeyPathPredicate<Value>(keyPath: lhs, operation: .greaterThan, value: rhs)
 }
-public func >= <Value>(lhs: Swift.KeyPath<RuleContext, KeyValueCodingType?>, rhs: Value)
+public func >= <Value>(lhs: Swift.KeyPath<RuleContext, KVCTrampoline?>,
+                       rhs: Value)
               -> some RulePredicate
 {
   RuleKeyPathPredicate<Value>(keyPath: lhs, operation: .greaterThanOrEqual,
@@ -193,7 +197,8 @@ public func >= <Value>(lhs: Swift.KeyPath<RuleContext, KeyValueCodingType?>, rhs
 }
 
 // e.g. \.person === manager
-public func ===<Value>(lhs: Swift.KeyPath<RuleContext, KeyValueCodingType?>, rhs: Value)
+public func ===<Value>(lhs: Swift.KeyPath<RuleContext, KVCTrampoline?>,
+                       rhs: Value)
               -> some RulePredicate where Value : AnyObject
 {
   RuleKeyPathPredicate<Value>() { ruleContext in
@@ -202,7 +207,8 @@ public func ===<Value>(lhs: Swift.KeyPath<RuleContext, KeyValueCodingType?>, rhs
   }
 }
 // e.g. \.person !== manager
-public func !==<Value>(lhs: Swift.KeyPath<RuleContext, KeyValueCodingType?>, rhs: Value)
+public func !==<Value>(lhs: Swift.KeyPath<RuleContext, KVCTrampoline?>,
+                       rhs: Value)
               -> some RulePredicate where Value : AnyObject
 {
   RuleKeyPathPredicate<Value>() { ruleContext in
@@ -214,14 +220,15 @@ public func !==<Value>(lhs: Swift.KeyPath<RuleContext, KeyValueCodingType?>, rhs
 // variants w/ optional Value
 
 // e.g. \.object.name == "Hello"
-public func ==<V>(lhs: Swift.KeyPath<RuleContext, KeyValueCodingType?>, rhs: V?)
+public func ==<V>(lhs: Swift.KeyPath<RuleContext, KVCTrampoline?>, rhs: V?)
             -> some RulePredicate
 {
-  RuleKeyPathPredicate<Any?>(keyPath: lhs, value: rhs)
+  RuleKeyPathPredicate<KVCTrampoline?>(keyPath: lhs, value: rhs)
 }
 
 // e.g. \.person.name != "Donald"
-public func !=<Value>(lhs: Swift.KeyPath<RuleContext, KeyValueCodingType?>, rhs: Value?)
+public func !=<Value>(lhs: Swift.KeyPath<RuleContext, KVCTrampoline?>,
+                      rhs: Value?)
               -> some RulePredicate
 {
   RuleNotPredicate(predicate:
@@ -229,12 +236,14 @@ public func !=<Value>(lhs: Swift.KeyPath<RuleContext, KeyValueCodingType?>, rhs:
 }
 
 // e.g. \.person.age < 45
-public func < <Value>(lhs: Swift.KeyPath<RuleContext, KeyValueCodingType?>, rhs: Value?)
+public func < <Value>(lhs: Swift.KeyPath<RuleContext, KVCTrampoline?>,
+                      rhs: Value?)
               -> some RulePredicate
 {
   RuleKeyPathPredicate<Value>(keyPath: lhs, operation: .lessThan, value: rhs)
 }
-public func <= <Value>(lhs: Swift.KeyPath<RuleContext, KeyValueCodingType?>, rhs: Value?)
+public func <= <Value>(lhs: Swift.KeyPath<RuleContext, KVCTrampoline?>,
+                       rhs: Value?)
               -> some RulePredicate
 {
   RuleKeyPathPredicate<Value>(keyPath: lhs, operation: .lessThanOrEqual,
@@ -242,12 +251,14 @@ public func <= <Value>(lhs: Swift.KeyPath<RuleContext, KeyValueCodingType?>, rhs
 }
 
 // e.g. \.person.age > 45
-public func > <Value>(lhs: Swift.KeyPath<RuleContext, KeyValueCodingType?>, rhs: Value?)
+public func > <Value>(lhs: Swift.KeyPath<RuleContext, KVCTrampoline?>,
+                      rhs: Value?)
               -> some RulePredicate
 {
   RuleKeyPathPredicate<Value>(keyPath: lhs, operation: .greaterThan, value: rhs)
 }
-public func >= <Value>(lhs: Swift.KeyPath<RuleContext, KeyValueCodingType?>, rhs: Value?)
+public func >= <Value>(lhs: Swift.KeyPath<RuleContext, KVCTrampoline?>,
+                       rhs: Value?)
               -> some RulePredicate
 {
   RuleKeyPathPredicate<Value>(keyPath: lhs, operation: .greaterThanOrEqual,
@@ -255,26 +266,27 @@ public func >= <Value>(lhs: Swift.KeyPath<RuleContext, KeyValueCodingType?>, rhs
 }
 
 // e.g. \.person === manager
-public func ===<Value>(lhs: Swift.KeyPath<RuleContext, KeyValueCodingType?>, rhs: Value?)
+public func ===<Value>(lhs: Swift.KeyPath<RuleContext, KVCTrampoline?>,
+                       rhs: Value?)
               -> some RulePredicate where Value : AnyObject
 {
   RuleKeyPathPredicate<Value>() { ruleContext in
-    guard let lhs = ruleContext[keyPath: lhs] else { return rhs == nil }
+    guard let lhs = ruleContext[keyPath: lhs]?.object else { return rhs == nil }
     guard let rhs = rhs else { return false }
     return ObjectIdentifier(lhs as AnyObject) == ObjectIdentifier(rhs)
   }
 }
 // e.g. \.person !== manager
-public func !==<Value>(lhs: Swift.KeyPath<RuleContext, KeyValueCodingType?>, rhs: Value?)
+public func !==<Value>(lhs: Swift.KeyPath<RuleContext, KVCTrampoline?>,
+                       rhs: Value?)
               -> some RulePredicate where Value : AnyObject
 {
   RuleKeyPathPredicate<Value>() { ruleContext in
-    guard let lhs = ruleContext[keyPath: lhs] else { return rhs != nil }
+    guard let lhs = ruleContext[keyPath: lhs]?.object else { return rhs != nil }
     guard let rhs = rhs else { return true }
     return ObjectIdentifier(lhs as AnyObject) != ObjectIdentifier(rhs)
   }
 }
- */
 
 
 // MARK: - NSManagedObject pathes

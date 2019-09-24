@@ -81,7 +81,8 @@ public extension KeyValueCodingType {
 }
 
 @dynamicMemberLookup
-public struct KVCTrampoline {
+public struct KVCTrampoline : EquatableType, Equatable {
+  
   // TBD: This could also wrap the result in another KVCTrampoline. It
   //      currently doesn't allow this: object.address.street,
   //      because we just return Any?.
@@ -90,17 +91,28 @@ public struct KVCTrampoline {
 
   public let object : KeyValueCodingType
   
-  public subscript(dynamicMember member: String) -> KeyValueCodingType? {
+  public subscript(dynamicMember member: String) -> KVCTrampoline? {
     set { object.setValue(newValue, forKey: member) }
     get {
       guard let v = object.value(forKey: member) else { return nil }
       guard let kvc = v as? KeyValueCodingType else {
         globalD2SLogger.warn("using non-kvc type w/ dyn keypathes:", v,
                              type(of: v))
-        return KVCBox(value: v)
+        return KVCTrampoline(object: KVCBox(value: v))
       }
-      return kvc
+      return KVCTrampoline(object: kvc)
     }
+  }
+  
+  public func isEqual(to object: Any?) -> Bool {
+    if let other = object as? KVCTrampoline {
+      return eq(self.object, other.object)
+    }
+    return eq(self.object, object)
+  }
+  
+  public static func ==(lhs: KVCTrampoline, rhs: KVCTrampoline) -> Bool {
+    return eq(lhs.object, rhs.object)
   }
 }
 
