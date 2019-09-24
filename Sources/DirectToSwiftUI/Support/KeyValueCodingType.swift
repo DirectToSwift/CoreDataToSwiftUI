@@ -90,8 +90,31 @@ public struct KVCTrampoline {
 
   public let object : KeyValueCodingType
   
-  public subscript(dynamicMember member: String) -> Any? {
+  public subscript(dynamicMember member: String) -> KeyValueCodingType? {
     set { object.setValue(newValue, forKey: member) }
-    get { object.value(forKey: member) }
+    get {
+      guard let v = object.value(forKey: member) else { return nil }
+      guard let kvc = v as? KeyValueCodingType else {
+        globalD2SLogger.warn("using non-kvc type w/ dyn keypathes:", v,
+                             type(of: v))
+        return KVCBox(value: v)
+      }
+      return kvc
+    }
+  }
+}
+
+public struct KVCBox: KeyValueCodingType {
+  public let value : Any
+  
+  public func setValue(_ value: Any?, forKey key: String) {
+    globalD2SLogger.warn("KVCBox cannot set value for key:", key,
+                         "on:", self.value)
+  }
+  public func value(forKey key: String) -> Any? {
+    if key == "self" { return value }
+    globalD2SLogger.warn("KVCBox cannot get value for key:", key,
+                         "from:", value)
+    return nil
   }
 }
