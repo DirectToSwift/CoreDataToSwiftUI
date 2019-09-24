@@ -52,7 +52,8 @@ public extension BasicLook.Page.UIKit {
       @Environment(\.debugComponent)        private var debugComponent
       @Environment(\.entity)                private var entity
       @Environment(\.initialPropertyValues) private var initialPropertyValues
-      
+      @Environment(\.creationTimestampPropertyKey) private var createTS
+
       private var sortButtons : [ ActionSheet.Button ] {
         // FIXME: limit in size
         // FIXME: use "displayPropertyKeys" or something
@@ -126,6 +127,9 @@ public extension BasicLook.Page.UIKit {
         let object = displayGroup.dataSource.createObject()
         for ( k, v ) in initialPropertyValues {
           object.setValue(v, forKeyPath: k)
+        }
+        if let pkey = createTS {
+          object.setValue(Date(), forKey: pkey)
         }
         return object
       }

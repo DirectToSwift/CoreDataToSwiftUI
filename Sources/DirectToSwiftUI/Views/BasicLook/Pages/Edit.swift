@@ -50,7 +50,8 @@ public extension BasicLook.Page {
 
         @Environment(\.presentationMode) private var presentationMode
         @Environment(\.database)         private var moc
-        
+        @Environment(\.updateTimestampPropertyKey) private var updateTS
+
         @State private var lastError      : Swift.Error?
         @State private var isShowingError = false
         
@@ -74,6 +75,9 @@ public extension BasicLook.Page {
           guard hasChanges else { return goBack() }
           
           do {
+            if let pkey = updateTS {
+              object.setValue(Date(), forKey: pkey)
+            }
             try moc.save()
             goBack()
           }
