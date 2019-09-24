@@ -15,6 +15,8 @@ public protocol D2SFaultResolver: AnyObject {
 public enum D2SFault<Object /*: AnyObject*/, Resolver>
               where Resolver: D2SFaultResolver
 {
+  // In the CoreData context we still need faults. They represent objects
+  // for which we don't even know the object id.
   // Note: Using AnyObject in the generic here breaks everything!
   
   /// Keep an object reference as unowned, to break cycles
@@ -94,29 +96,12 @@ extension D2SFault: Identifiable {
   //       w/ real GIDs. But as soon as we can fault a real GID, it _might_
   //       fail again.
   
-  #if false // HACK HACK: Loading looks weird because items are anim-replaced
-    // There seems to be an item sizing issue when the objects keep the ID
-    // (the fault size sticks even when the contained item is replaced)
-    // Lets encode the fault state.
-    public struct ID: Hashable {
-      let isFault  : Bool
-      let objectID : NSManagedObjectID
+  // I think this might not work because SwiftUI doesn't notice changes to the
+  // fault state? Even though the enum _does_ change.
+  public var id: NSManagedObjectID {
+    switch self {
+      case .object(let id, _): return id
+      case .fault (let id, _): return id
     }
-    
-    public var id: ID {
-      switch self {
-        case .object(let id, _): return ID(isFault: false, objectID: id)
-        case .fault (let id, _): return ID(isFault: true,  objectID: id)
-      }
-    }
-  #else
-    // I think this might not work because SwiftUI doesn't notice changes to the
-    // fault state? Even though the enum _does_ change.
-    public var id: NSManagedObjectID {
-      switch self {
-        case .object(let id, _): return id
-        case .fault (let id, _): return id
-      }
-    }
-  #endif
+  }
 }

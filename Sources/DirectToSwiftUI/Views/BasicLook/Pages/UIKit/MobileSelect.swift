@@ -42,6 +42,10 @@ public extension BasicLook.Page.UIKit {
       )
     }
     
+    private var selectedID: NSManagedObjectID? {
+      sourceObject.objectIDs(forRelationshipNamed: relationship.name).first
+    }
+    
     public var body: some View {
       // Right now we only do single-select aka toOne
       Group {
@@ -51,8 +55,7 @@ public extension BasicLook.Page.UIKit {
         else {
           SingleSelect(displayGroup: makeDisplayGroup(),
                        sourceObject: sourceObject,
-                       initialID: JoinTargetID(source: sourceObject,
-                                               relationship: relationship))
+                       initialID: selectedID)
             .environment(\.auxiliaryPredicate, nil) // reset!
         }
       }
@@ -72,30 +75,21 @@ public extension BasicLook.Page.UIKit {
       @Environment(\.rowComponent)     private var rowComponent
       @Environment(\.presentationMode) private var presentationMode
 
-      @State var selectedID     : FaultJoinIDWrap.ID?
+      @State var selectedID     : NSManagedObjectID?
       @State var isShowingError = false
       
       init(displayGroup : D2SDisplayGroup<Object>,
            sourceObject : NSManagedObject,
-           initialID    : JoinTargetID?)
+           initialID    : NSManagedObjectID?)
       {
         self.displayGroup = displayGroup
         self.sourceObject = sourceObject
-        self._selectedID  =
-          State(initialValue: initialID.flatMap({.object($0)}))
-      }
-      
-      private func id(for object: Object) -> FaultJoinIDWrap.ID {
-        // The selection aka relationship target is not necessarily a
-        // primary key! One can join other attributes as well!
-        .object(JoinTargetID(destination: object, relationship: relationship))
+        self._selectedID  = State(initialValue: initialID)
       }
       
       private var selectedObject: Object? {
         guard let id = selectedID else { return nil }
-        return displayGroup.results.firstAvailableObject { object in
-          id == self.id(for: object)
-        }
+        return displayGroup.results[id]
       }
       
       private func goBack() {
@@ -131,39 +125,14 @@ public extension BasicLook.Page.UIKit {
               dismissButton: .default(Text("🤷‍♀️")))
       }
       
-      struct FaultJoinIDWrap: Identifiable {
-        enum ID: Hashable {
-          case fault(NSManagedObjectID)
-          case object(JoinTargetID)
-        }
-        let fault : Fault
-        let id    : ID
-        init(fault: Fault, relationship: NSRelationshipDescription) {
-          self.fault = fault
-          switch fault {
-            case .fault (let gid, _):    self.id = .fault(gid)
-            case .object(_, let object):
-              self.id = .object(JoinTargetID(destination: object,
-                                             relationship: relationship))
-          }
-        }
-      }
-      private var mappedResults: [ FaultJoinIDWrap ] {
-        // FIXME: this is kinda expensive because it isn't sparse, i.e. it maps
-        //        over as many faults as the destination has rows :-/
-        return displayGroup.results.map {
-          FaultJoinIDWrap(fault: $0, relationship: relationship)
-        }
-      }
-
       var body: some View {
         VStack(spacing: 0) {
           SearchField(search: $displayGroup.queryString)
           
-          List(mappedResults, selection: $selectedID) { wrap in
-            D2SFaultContainer(fault: wrap.fault) { object in
+          List(displayGroup.results, selection: $selectedID) { fault in
+            D2SFaultContainer(fault: fault) { object in
               self.rowComponent
-                .tag(self.id(for: object))
+                .tag(object.objectID)
             }
           }
           .environment(\.editMode, .constant(EditMode.active)) // required
