@@ -27,12 +27,13 @@ public extension DynamicEnvironmentPathes {
   }
   
   /**
-   * A ZeeQL object representing the database we are connected to. This
-   * wraps the lower level `Adaptor` object.
+   * The CoreData ManagedObjectContext. This is here because we also expose
+   * it to the rule system. (it is also available using the regular, non-dynamic
+   * \.managedObjectContext environment key)
    */
-  var database : NSManagedObjectContext {
-    set { self[dynamic: D2SKeys.database.self] = newValue }
-    get { self[dynamic: D2SKeys.database.self] }
+  var ruleObjectContext : NSManagedObjectContext {
+    set { self[dynamic: D2SKeys.ruleObjectContext.self] = newValue }
+    get { self[dynamic: D2SKeys.ruleObjectContext.self] }
   }
 
   /**
@@ -466,7 +467,8 @@ public extension DynamicEnvironmentPathes {
 extension D2SContextKVC {
   
   static var kvcToEnvKey : [ String: AnyKVCMapEntry ] = [
-    "database"               : KVCMapEntry(D2SKeys.database              .self),
+    "ruleObjectContext"      : KVCMapEntry(D2SKeys.ruleObjectContext     .self),
+    "managedObjectContext"   : KVCMapEntry(D2SKeys.ruleObjectContext     .self),
     "debug"                  : KVCMapEntry(D2SKeys.debug                 .self),
     "task"                   : KVCMapEntry(D2SKeys.task                  .self),
     "firstTask"              : KVCMapEntry(D2SKeys.firstTask             .self),

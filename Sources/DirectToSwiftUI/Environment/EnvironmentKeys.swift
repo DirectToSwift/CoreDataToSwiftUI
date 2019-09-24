@@ -33,7 +33,7 @@ public extension D2SKeys {
   }
 
   // TODO: rename for CoreData
-  struct database: DynamicEnvironmentKey {
+  struct ruleObjectContext: DynamicEnvironmentKey {
     public static let defaultValue : NSManagedObjectContext
                                    = D2SDummyObjectContext.shared
   }

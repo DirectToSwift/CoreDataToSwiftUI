@@ -24,7 +24,7 @@ public extension BasicLook.Page.AppKit {
    */
   struct WindowQueryList: View {
     
-    @Environment(\.database)           private var moc
+    @Environment(\.ruleObjectContext)  private var moc
     @Environment(\.entity)             private var entity
     @Environment(\.auxiliaryPredicate) private var auxiliaryPredicate
     

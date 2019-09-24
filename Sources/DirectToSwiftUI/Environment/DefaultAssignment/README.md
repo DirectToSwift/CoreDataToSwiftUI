@@ -20,9 +20,9 @@ For example:
 - `\.object.d2s.defaultTitle`
 - `\.entity.d2s.isDefault`
 - `\.entity.d2s.defaultTitle`
-- `\.database.d2s.isDefault`
-- `\.database.d2s.defaultTitle`
-- `\.database.d2s.hasDefaultTitle`
+- `\.ruleObjectContext.d2s.isDefault`
+- `\.ruleObjectContext.d2s.defaultTitle`
+- `\.ruleObjectContext.d2s.hasDefaultTitle`
 - `\.attribute.d2s.isDefault`
 - `\.relationship.d2s.isDefault`
 - `\.relationship.d2s.type`: `.none`, `.toOne`, `.toMany`

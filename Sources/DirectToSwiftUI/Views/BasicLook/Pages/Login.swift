@@ -34,10 +34,10 @@ public extension BasicLook.Page {
   struct Login: View {
     // TODO: Add keychain etc etc
     
-    @Environment(\.database)  private var moc
-    @Environment(\.entity)    private var entity
-    @Environment(\.attribute) private var attribute
-    @Environment(\.nextTask)  private var nextTask
+    @Environment(\.ruleObjectContext) private var moc
+    @Environment(\.entity)            private var entity
+    @Environment(\.attribute)         private var attribute
+    @Environment(\.nextTask)          private var nextTask
 
     @State var username  : String           = ""
     @State var password  : String           = ""

@@ -17,7 +17,7 @@ public extension BasicLook.Page {
    */
   struct SmallQueryList: View {
     
-    @Environment(\.database)           private var moc
+    @Environment(\.ruleObjectContext)  private var moc
     @Environment(\.entity)             private var entity
     @Environment(\.auxiliaryPredicate) private var auxiliaryPredicate
     

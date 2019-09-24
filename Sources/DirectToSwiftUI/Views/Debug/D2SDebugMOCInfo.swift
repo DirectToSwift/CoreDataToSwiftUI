@@ -9,7 +9,7 @@ import SwiftUI
 
 public struct D2SDebugMOCInfo: View {
   
-  @Environment(\.database) var moc
+  @Environment(\.ruleObjectContext) private var moc
 
   public var body: some View {
     D2SDebugBox {

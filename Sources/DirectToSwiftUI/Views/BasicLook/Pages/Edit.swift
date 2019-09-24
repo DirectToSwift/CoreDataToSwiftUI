@@ -48,8 +48,8 @@ public extension BasicLook.Page {
         
         @EnvironmentObject private var object : NSManagedObject
 
-        @Environment(\.presentationMode) private var presentationMode
-        @Environment(\.database)         private var moc
+        @Environment(\.presentationMode)           private var presentationMode
+        @Environment(\.ruleObjectContext)          private var moc
         @Environment(\.updateTimestampPropertyKey) private var updateTS
 
         @State private var lastError      : Swift.Error?

@@ -14,7 +14,7 @@ public extension NSManagedObjectContext {
   struct D2S {
     let moc: NSManagedObjectContext
 
-    public var isDefault : Bool { moc === D2SKeys.database.defaultValue }
+    public var isDefault : Bool { moc === D2SKeys.ruleObjectContext.defaultValue }
     
     public var hasDefaultTitle: Bool {
       guard let psc = moc.persistentStoreCoordinator else { return false }

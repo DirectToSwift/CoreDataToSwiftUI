@@ -23,7 +23,7 @@ public extension BasicLook.Page.UIKit {
    */
   struct QueryList: View {
     
-    @Environment(\.database)            private var moc
+    @Environment(\.ruleObjectContext)   private var moc
     @Environment(\.entity)              private var entity
     @Environment(\.auxiliaryPredicate)  private var auxiliaryPredicate
     @Environment(\.displayPropertyKeys) private var displayPropertyKeys

@@ -35,7 +35,7 @@ public final class D2SRuleEnvironment: ObservableObject {
     self.ruleModel            = ruleModel
     
     ruleContext = RuleContext(ruleModel: ruleModel)
-    ruleContext[D2SKeys.database] = managedObjectContext
+    ruleContext[D2SKeys.ruleObjectContext] = managedObjectContext
     
     if let model = self.databaseModel {
       ruleContext[D2SKeys.model] = model

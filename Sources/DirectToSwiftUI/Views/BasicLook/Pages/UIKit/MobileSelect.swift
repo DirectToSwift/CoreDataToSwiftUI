@@ -25,7 +25,7 @@ public extension BasicLook.Page.UIKit {
   struct Select: View {
     // Note: This is _almost_ a dupe of the QueryList page. But not quite.
 
-    @Environment(\.database)            private var moc
+    @Environment(\.ruleObjectContext)   private var moc
     @Environment(\.entity)              private var entity
     @Environment(\.auxiliaryPredicate)  private var auxiliaryPredicate
     @Environment(\.displayPropertyKeys) private var displayPropertyKeys

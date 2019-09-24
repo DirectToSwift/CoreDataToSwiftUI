@@ -29,6 +29,7 @@ public struct D2SMainView: View {
       if viewModel.isReady {
         PageWrapperSelect()
           .ruleContext(viewModel.ruleContext)
+          .environment(\.managedObjectContext, viewModel.managedObjectContext)
           .environmentObject(viewModel)
       }
       else if viewModel.hasError {

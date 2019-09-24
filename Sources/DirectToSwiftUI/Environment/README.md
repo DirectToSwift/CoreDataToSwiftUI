@@ -10,7 +10,7 @@ A lot of the functionality of D2S is built around "Environment Keys".
 ```swift
 public struct D2SInspectPage: View {
 
-  @Environment(\.database) private var database : Database // retrieve a key
+  @Environment(\.ruleObjectContext) private var database : Database // retrieve a key
 
   var body: some View {
     BlaBlub()
@@ -128,11 +128,11 @@ active when no explicit key was set.
 
 ### Step B: Property on `D2SDynamicEnvironmentValues`
 
-SwiftUI accesses environment keys using keypathes, e.g. the `\.database` in 
+SwiftUI accesses environment keys using keypathes, e.g. the `\.ruleObjectContext` in 
 here:
 
 ```swift
-@Environment(\.database) var database : Database
+@Environment(\.ruleObjectContext) var database : Database
 ```
 
 Those need to be declared as an extension to `D2SDynamicEnvironmentValues`:
@@ -140,8 +140,8 @@ Those need to be declared as an extension to `D2SDynamicEnvironmentValues`:
 ```swift
 public extension D2SDynamicEnvironmentValues {
   var database : Database {
-    set { self[dynamic: D2SKeys.database.self] = newValue }
-    get { self[dynamic: D2SKeys.database.self] }
+    set { self[dynamic: D2SKeys.ruleObjectContext.self] = newValue }
+    get { self[dynamic: D2SKeys.ruleObjectContext.self] }
   }
 ```
 
@@ -161,7 +161,7 @@ This needs the stringly mapping ... The internal ones are declared in a map in
 `D2SEnvironmentKeys.swift`.
 ```swift
 private static var kvcToEnvKey : [ String: KVCMapEntry ] = [
-  "database" : .init(D2SKeys.database.self),
+  "database" : .init(D2SKeys.ruleObjectContext.self),
   ...
 ]
 ```

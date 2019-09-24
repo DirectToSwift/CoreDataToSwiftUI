@@ -23,8 +23,8 @@ public extension D2SDefaultAssignments {
   static var model: A<D2SKeys.model> {
     .init { ruleContext in
       // Hm, this recursion won't fly:
-      // \.model.d2s.isDefault == true => \.model <= \.database.model // '!'
-      guard let model = ruleContext[D2SKeys.database]
+      // \.model.d2s.isDefault == true => \.model <= \.ruleObjectContext.model // '!'
+      guard let model = ruleContext[D2SKeys.ruleObjectContext]
                         .persistentStoreCoordinator?.managedObjectModel else {
         return D2SKeys.model.defaultValue
       }

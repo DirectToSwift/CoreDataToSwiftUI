@@ -150,8 +150,8 @@ public let D2SDefaultRules : RuleModel = [
                                                .priority(3),
   (\.entity.d2s.isDefault == false => \.title <= \.displayNameForEntity)
                                                .priority(2),
-  (\.database.d2s.hasDefaultTitle == true // TBD: nil?
-                                   => \.title <= \.database.d2s.defaultTitle)
+  (\.ruleObjectContext.d2s.hasDefaultTitle == true // TBD: nil?
+                                   => \.title <= \.ruleObjectContext.d2s.defaultTitle)
                                                .priority(1),
                                      (\.title <= "Direct to SwiftUI")
                                                .priority(.fallback),
