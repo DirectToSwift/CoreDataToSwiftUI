@@ -24,18 +24,18 @@ public extension BasicLook.Row {
       relationship.destinationEntity?.name ?? ""
     }
     
-    private var relationshipQualifier : NSPredicate? {
+    private var relationshipPredicate : NSPredicate? {
       // Note: We could also attempt to lookup the inverse relationship and use
       //       that, but we don't really know whether the `Model` has that
       //       defined.
       // TBD: why is it ambiguous w/o the `as DatabaseObject`? (Xcode 11GM2)
-      relationship.qualifierInDestinationForSource(object as NSManagedObject)
+      relationship.predicateInDestinationForSource(object as NSManagedObject)
     }
     
     public var body: some View {
       D2SNavigationLink(destination:
         D2SPageView()
-          .environment(\.auxiliaryPredicate, relationshipQualifier)
+          .environment(\.auxiliaryPredicate, relationshipPredicate)
           .environment(\.entity, relationship.destinationEntity!)
           .task(.list)
           .ruleObject(D2SKeys.object.defaultValue))

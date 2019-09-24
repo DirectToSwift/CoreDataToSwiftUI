@@ -9,7 +9,7 @@ import CoreData
 
 extension NSRelationshipDescription {
   
-  func qualifierInDestinationForSource(_ source: NSManagedObject)
+  func predicateInDestinationForSource(_ source: NSManagedObject)
        -> NSPredicate?
   {
     guard let inverse = inverseRelationship else {

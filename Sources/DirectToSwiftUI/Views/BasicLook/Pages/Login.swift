@@ -77,16 +77,16 @@ public extension BasicLook.Page {
       
       // TBD: This TextField on iOS always produces capitalized strings, which
       //      is often wrong, so lets also compare to the lowercase variant.
-      let userNameQualifier = la.eq(username).or(la.eq(username.lowercased()))
+      let userNamePredicate = la.eq(username).or(la.eq(username.lowercased()))
       
       // For password we just go brute force. Managed to resist the urge to
       // also check for plain. More options might make sense.
-      let pwdQualifier = pa.eq(password.md5()).or(pa.eq(password.sha1()))
+      let pwdPredicate = pa.eq(password.md5()).or(pa.eq(password.sha1()))
 
       let ds = ManagedObjectDataSource<NSManagedObject>(
                  managedObjectContext: moc, entity: entity)
       ds.fetchRequest = NSFetchRequest(entity: entity)
-        .where(userNameQualifier.and(pwdQualifier))
+        .where(userNamePredicate.and(pwdPredicate))
       
       if let user = try? ds.find() {
         loginUser = user

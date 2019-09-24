@@ -46,20 +46,20 @@ extension Rule {
     let lhsRhsSplitter = string.range(of: "=>", skippingQuotes: quotes,
                                       escapeUsing: escape)
     
-    let qualifier: NSPredicate? = {
+    let predicate: NSPredicate? = {
       guard let idx = lhsRhsSplitter?.lowerBound else { return nil }
-      return qualifierWith(format: String(string[..<idx]))
+      return predicateWith(format: String(string[..<idx]))
     }()
-    let qualifierEvaluation : RulePredicate
-    if let q = qualifier {
+    let predicateEvaluation : RulePredicate
+    if let q = predicate {
       guard let qe = q as? RulePredicate else {
         globalD2SLogger.error(
-          "Cannot use non-RulePredicate qualifier in rule:", q)
+          "Cannot use non-RulePredicate predicate in rule:", q)
         return nil
       }
-      qualifierEvaluation = qe
+      predicateEvaluation = qe
     }
-    else { qualifierEvaluation = NSPredicate.predicateWithValue(true) }
+    else { predicateEvaluation = NSPredicate.predicateWithValue(true) }
 
     let remainder : String = {
       guard let split = lhsRhsSplitter else { return string }
@@ -145,7 +145,7 @@ extension Rule {
       return nil
     }
     
-    self.init(when: qualifierEvaluation, do: action, at: priority)
+    self.init(when: predicateEvaluation, do: action, at: priority)
   }
 }
 

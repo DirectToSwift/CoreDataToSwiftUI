@@ -22,7 +22,7 @@ public protocol D2SObjectContainer {
  * Properties:
  * - error
  * - results (a collection of D2SFault values)
- * - queryString (search for a string, via `qualifierForQueryString`)
+ * - queryString (search for a string, via `predicateForQueryString`)
  * - sortAttribute
  */
 public final class D2SDisplayGroup<Object: NSManagedObject>
@@ -35,7 +35,7 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
   @Published var queryString = "" {
     didSet {
       guard oldValue != queryString else { return }
-      let qs = dataSource.entity.qualifierForQueryString(queryString)
+      let qs = dataSource.entity.predicateForQueryString(queryString)
       let q  = and(qs, auxiliaryPredicate)
       guard !q.isEqual(to: fetchRequest.predicate) else { return }
       fetchRequest.predicate = q
@@ -243,7 +243,7 @@ public final class D2SDisplayGroup<Object: NSManagedObject>
       }
       
       let objectFS = self.fetchRequest.typedCopy()
-      objectFS.predicate = entity.qualifierForGlobalIDs(missingGIDs)
+      objectFS.predicate = entity.predicateForGlobalIDs(missingGIDs)
       let fetchedObjects = try dataSource.fetchObjects(objectFS)
       
       for object in fetchedObjects {

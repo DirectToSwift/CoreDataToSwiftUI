@@ -35,8 +35,6 @@ extension NSComparisonPredicate.Operator: Equatable {
 
 public extension NSComparisonPredicate.Operator {
   // TODO: Evaluation is a "little" harder in Swift, also coercion
-  // Note: Had this as KeyValueQualifier<T>, but this makes class-checks harder.
-  //       Not sure what the best Swift approach would be to avoid the Any
 
   func compare(_ a: Any?, _ b: Any?) -> Bool {
     // Everytime you compare an Any, a 🐄 dies.

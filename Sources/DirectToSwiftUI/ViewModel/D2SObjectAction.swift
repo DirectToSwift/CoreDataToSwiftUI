@@ -7,7 +7,7 @@
 
 public enum D2STask : Hashable {
   // Note: We don't want to use this enum instead of the string in the
-  //       ruleContext, because it wouldn't fly well w/ KVC based qualifiers.
+  //       ruleContext, because it wouldn't fly well w/ KVC based predicates.
   
   case query
   case list

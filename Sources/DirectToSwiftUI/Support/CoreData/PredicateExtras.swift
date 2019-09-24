@@ -121,7 +121,7 @@ public extension Collection where Element == NSComparisonPredicate {
 }
 
 
-public func qualifierToMatchAnyValue(_ values: [ String : Any? ]?,
+public func predicateToMatchAnyValue(_ values: [ String : Any? ]?,
                                      _ op: NSComparisonPredicate.Operator
                                               = .equalTo,
                                      caseInsensitive: Bool = false)

@@ -9,13 +9,13 @@ import CoreData
 
 public extension NSEntityDescription {
   
-  func qualifierForGlobalIDs<S: Sequence>(_ gids: S) -> NSPredicate
+  func predicateForGlobalIDs<S: Sequence>(_ gids: S) -> NSPredicate
          where S.Element == NSManagedObjectID
   {
     NSPredicate(format: "(SELF IN %@)", argumentArray: [ Array(gids) ])
   }
   
-  func qualifierForGlobalID(_ gid: NSManagedObjectID) -> NSPredicate {
+  func predicateForGlobalID(_ gid: NSManagedObjectID) -> NSPredicate {
     #if true
       // this is a `NSComparisonPredicate` with an NSSelfExpression on
       // the left, no idea how to create that programatically.
@@ -80,7 +80,7 @@ extension NSEntityDescription {
     return attributes.compactMap { $0.isIntegerAttribute ? $0.name : nil }
   }
   
-  func qualifierForQueryString(_ qs: String) -> NSPredicate? {
+  func predicateForQueryString(_ qs: String) -> NSPredicate? {
     // Also (kinda replaced by): QueryStringParser
     //
     // TODO: detect numbers? booleans? what else makes sense? :-)
@@ -102,7 +102,7 @@ extension NSEntityDescription {
         map[name] = pat
       }
       
-      q = or(q, qualifierToMatchAnyValue(
+      q = or(q, predicateToMatchAnyValue(
                   map, .like, caseInsensitive: !pat.isMixedCase)
       )
     }
@@ -112,7 +112,7 @@ extension NSEntityDescription {
       for name in numberAttributeNames {
         map[name] = numberValue
       }
-      q = or(q, qualifierToMatchAnyValue(map, .equalTo))
+      q = or(q, predicateToMatchAnyValue(map, .equalTo))
     }
     
     return q
