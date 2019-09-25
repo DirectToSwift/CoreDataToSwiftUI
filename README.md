@@ -53,6 +53,30 @@ The package URL is:
 - [Views](Sources/DirectToSwiftUI/Views/README.md)
 - [Database Setup](Sources/DirectToSwiftUI/DatabaseSetup.md)
 
+## What it looks like
+
+A demo application using the Sakila database is provided:
+[DVDRentalCoreData](https://github.com/DirectToSwift/DVDRentalCoreData).
+
+### Watch
+
+<p float="left" valign="top">
+<img width="200" src="http://www.alwaysrightinstitute.com/images/d2s/watchos-screenshots/01-homepage.png?v=2">
+<img width="200" src="http://www.alwaysrightinstitute.com/images/d2s/watchos-screenshots/02-customers.png?v=2">
+<img width="200" src="http://www.alwaysrightinstitute.com/images/d2s/watchos-screenshots/03-customer.png?v=2">
+<img width="200" src="http://www.alwaysrightinstitute.com/images/d2s/watchos-screenshots/04-movies.png?v=2">
+</p>
+
+### Phone
+
+<p float="left" valign="top">
+<img width="320" src="http://www.alwaysrightinstitute.com/images/d2s/limited-entities.png">
+<img width="320" src="http://www.alwaysrightinstitute.com/images/d2s/list-customer-default.png">
+</p>
+
+### macOS
+
+Still too ugly to show, but works in a very restricted way ;-) 
 
 ## Who
 
